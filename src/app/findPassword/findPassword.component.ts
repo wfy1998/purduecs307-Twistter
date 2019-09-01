@@ -23,7 +23,7 @@ export class FindPasswordComponent implements OnInit {
   }
   submitEmail() {
     console.log(this.registerUserData);
-    console.log('hahahha');
+    console.log('tset2.0');
     this.authService.findPassword(this.registerUserData)
       .subscribe(data => {
         console.log(data);
