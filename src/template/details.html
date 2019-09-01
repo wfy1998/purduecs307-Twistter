@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Automan - Advanced Car Dealer HTML Template</title>
+
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<!-- Ionicons -->
+		<link href="fonts/ionicons/css/ionicons.min.css" rel="stylesheet">
+		<!-- Cars -->
+		<link href="fonts/cars/style.css" rel="stylesheet">
+		<!-- FlexSlider -->
+		<link href="scripts/FlexSlider/flexslider.css" rel="stylesheet">
+		<!-- Owl Carousel -->
+		<link href="css/owl.carousel.css" rel="stylesheet">
+		<link href="css/owl.theme.default.css" rel="stylesheet">
+		<!-- noUiSlider -->
+		<link href="css/jquery.nouislider.min.css" rel="stylesheet">
+		<!-- Style.css -->
+		<link href="css/style.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+	<body>
+		<header class="header">
+			<div class="container">
+				<div class="navigation clearfix">
+					<div class="logo"><a href="index.html"><img src="images/logo.png" alt="Automan" class="img-responsive"></a></div> <!-- end .logo -->
+					<div class="login"><a href=""><i class="ion-ios-person"></i></a></div> <!-- end .login -->
+					<div class="contact">
+						<div class="line"></div>
+						<a href="contact-us.html"><i class="fa fa-phone"></i></a>
+					</div> <!-- end .contact -->
+					<nav class="main-nav">
+						<ul class="list-unstyled">
+							<li class="active">
+								<a href="index.html">Home</a>
+								<ul>
+									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="homepage2.html">Homepage 2</a></li>
+									<li><a href="homepage3.html">Homepage 3</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="add-car-details.html">Add Car</a>
+								<ul>
+									<li><a href="add-car-details.html">Add Car Details</a></li>
+									<li><a href="choose-specification.html">Choose Specification</a></li>
+									<li><a href="contact-details.html">Contact Details</a></li>
+									<li><a href="photos-videos.html">Photos Videos</a></li>
+									<li><a href="pay-publish.html">Pay Publish</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="listing-grid-view.html">Cars</a>
+								<ul>
+									<li><a href="listing-grid-view.html">Listing Grid View</a></li>
+									<li><a href="listing-list-view.html">Listing List View</a></li>
+									<li><a href="details.html">Details 1</a></li>
+									<li><a href="details-1.html">Details 2</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="compare.html">Compare</a>
+								<ul>
+									<li><a href="compare.html">Compare</a></li>
+									<li><a href="compare-details.html">Compare Details</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="blog.html">Blog</a>
+								<ul>
+									<li><a href="blog.html">Blog</a></li>
+									<li><a href="blog-post.html">Blog Post</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="">Pages</a>
+								<ul>
+									<li><a href="about-us.html">About Us</a></li>
+									<li><a href="shortcodes.html">Shortcodes</a></li>
+								</ul>
+							</li>
+							<li><a href="contact-us.html">Contact Us</a></li>
+						</ul>
+					</nav> <!-- end .main-nav -->
+					<a href="" class="responsive-menu-open"><i class="fa fa-bars"></i></a>
+				</div> <!-- end .navigation -->
+			</div> <!-- end .container -->
+		</header> <!-- end .header -->
+		<div class="responsive-menu">
+			<a href="" class="responsive-menu-close"><i class="ion-android-close"></i></a>
+			<nav class="responsive-nav"></nav> <!-- end .responsive-nav -->
+		</div> <!-- end .responsive-menu -->
+		<div class="page-title" style="background-image: url('images/background01.jpg');">
+			<div class="inner">
+				<div class="container">
+					<div class="title">Car Details</div> <!-- end .title -->
+				</div> <!-- end .container -->
+			</div> <!-- end .inner -->
+		</div> <!-- end .page-title -->
+
+		<section class="section white">
+			<div class="inner">
+				<div class="container">
+					<div class="car-details">
+						<div class="row">
+							<div class="col-sm-8">
+								<div class="clearfix">
+									<div class="title">Ferrari <span>[ Grand ]</span></div>
+									<div class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></div>
+								</div>
+								<div id="car-details-slider" class="image">
+									<div class="item"><img src="images/details.jpg" alt="alt" class="img-responsive"></div>
+									<div class="item"><img src="images/details.jpg" alt="alt" class="img-responsive"></div>
+									<div class="item"><img src="images/details.jpg" alt="alt" class="img-responsive"></div>
+								</div>
+								<div class="tabpanel border" role="tabpanel">
+									<ul class="nav nav-tabs" role="tablist">
+										<li role="presentation" class="active"><a href="#heading-tab4" aria-controls="heading-tab4" role="tab" data-toggle="tab">Vehicle Overview</a></li>
+										<li role="presentation"><a href="#heading-tab5" aria-controls="heading-tab5" role="tab" data-toggle="tab">Features & Options</a></li>
+										<li role="presentation"><a href="#heading-tab6" aria-controls="heading-tab6" role="tab" data-toggle="tab">Technical Specifications</a></li>
+									</ul> <!-- end .nav-tabs -->
+									<div class="tab-content">
+										<div role="tabpanel" class="tab-pane fade in active" id="heading-tab4">
+											<p>Vivamus sit amet leo at arcu placerat hendrerit. Suspendisse scelerisque, metus quis iaculis placerat, elit neque lacinia tellus, in mollis nunc sem quis ante. Mauris tincidunt libero sit amet egestas lobortis. Etiam id vulputate elit. Pellentesque commodo, nulla ac mollis interdum, eros nibh porttitor ex, fringilla suscipit urna velit sed elit. Vivamus tincidunt accumsan odio, porttitor congue felis.</p>
+											<p>Cras lacinia diam neque, non iaculis ex elementum ac. Phasellus a varius libero. Nulla ut vestibulum quam. Curabitur posuere, felis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis. Fusce leo diamfelis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis.</p>
+											<p>Vivamus sit amet leo at arcu placerat hendrerit. Suspendisse scelerisque, metus quis iaculis placerat, elit neque lacinia tellus, in mollis nunc sem quis ante. Mauris tincidunt libero sit amet egestas lobortis. Etiam id vulputate elit. Pellentesque commodo, nulla ac mollis interdum, eros nibh porttitor ex, fringilla suscipit urna velit sed elit. Vivamus tincidunt accumsan odio, porttitor congue felis.</p>
+											<p>Vivamus sit amet leo at arcu placerat hendrerit. Suspendisse scelerisque, metus quis iaculis placerat, elit neque lacinia tellus, in mollis nunc sem quis ante. Mauris tincidunt libero sit amet egestas lobortis. Etiam id vulputate elit. Pellentesque commodo, nulla ac mollis interdum, eros nibh porttitor ex, fringilla suscipit urna velit sed elit. Vivamus tincidunt accumsan odio, porttitor congue felis.</p>
+										</div> <!-- end .tab-panel -->
+										<div role="tabpanel" class="tab-pane fade" id="heading-tab5">
+											<p>Vivamus sit amet leo at arcu placerat hendrerit. Suspendisse scelerisque, metus quis iaculis placerat, elit neque lacinia tellus, in mollis nunc sem quis ante. Mauris tincidunt libero sit amet egestas lobortis. Etiam id vulputate elit. Pellentesque commodo, nulla ac mollis interdum, eros nibh porttitor ex, fringilla suscipit urna velit sed elit. Vivamus tincidunt accumsan odio, porttitor congue felis.</p>
+											<p>Cras lacinia diam neque, non iaculis ex elementum ac. Phasellus a varius libero. Nulla ut vestibulum quam. Curabitur posuere, felis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis. Fusce leo diamfelis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis.</p>
+										</div> <!-- end .tab-panel -->
+										<div role="tabpanel" class="tab-pane fade" id="heading-tab6">
+											<p>Vivamus sit amet leo at arcu placerat hendrerit. Suspendisse scelerisque, metus quis iaculis placerat, elit neque lacinia tellus, in mollis nunc sem quis ante. Mauris tincidunt libero sit amet egestas lobortis. Etiam id vulputate elit. Pellentesque commodo, nulla ac mollis interdum, eros nibh porttitor ex, fringilla suscipit urna velit sed elit. Vivamus tincidunt accumsan odio, porttitor congue felis.</p>
+											<p>Cras lacinia diam neque, non iaculis ex elementum ac. Phasellus a varius libero. Nulla ut vestibulum quam. Curabitur posuere, felis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis. Fusce leo diamfelis sed pulvinar elementum, metus eros eleifend urna, eu volutpat lectus sem in felis. In mattis urna justo, nec cursus mauris consectetur at. Vestibulum nec fringilla erat. Pellentesque cursus fermentum nunc vitae mattis.</p>
+										</div> <!-- end .tab-panel -->
+									</div> <!-- end .tab-content -->
+								</div> <!-- end .tabpanel -->
+							</div> <!-- end .col-sm-8 -->
+							<div class="col-sm-4">
+								<div class="buttons">
+									<a href="" class="button border dark">Download Manual</a>
+									<a href="" class="button border blue">Schedule A Test Drive</a>
+								</div>
+								<div class="price">$80000 <span>/ for sale</span></div>
+								<div class="main-car-details">
+									<div class="item clearfix">
+										<div class="option">Year</div>
+										<div class="option-content">2013</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Make</div>
+										<div class="option-content">Ferrari</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Model</div>
+										<div class="option-content">3-Series</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Body Style</div>
+										<div class="option-content">Sports Utility Vehicle</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Mileage</div>
+										<div class="option-content">3</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Transmission</div>
+										<div class="option-content">6-Speed Manual</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Fuel Economy</div>
+										<div class="option-content">32 city / 41 hwy</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Condition</div>
+										<div class="option-content">Brand New</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Location</div>
+										<div class="option-content">Toronto</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Price</div>
+										<div class="option-content">$55,000</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">DriveTrain</div>
+										<div class="option-content">AWD</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Engine</div>
+										<div class="option-content">2.8L Straight Six</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Exterior Color</div>
+										<div class="option-content">Rhodium Silver Metallic</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Interior Color</div>
+										<div class="option-content">Alcantara Black</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">MPG</div>
+										<div class="option-content">24 City MPG / 36 Hmy MPG</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Stock Number</div>
+										<div class="option-content">590178</div>
+									</div> <!-- end .item -->
+									<div class="item clearfix">
+										<div class="option">Vin Number</div>
+										<div class="option-content">WP0AB2A74AL092462</div>
+									</div> <!-- end .item -->
+								</div> <!-- end .main-car-details -->
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item" width="434" height="244" src="https://www.youtube.com/embed/iNJdPyoqt8U?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+								</div> <!-- end .embed-responsive -->
+							</div> <!-- end .col-sm-4 -->
+						</div> <!-- end .row -->
+					</div> <!-- end .car-details -->
+					<div class="listings related-vehicles">
+						<div class="heading clearfix"><h5>Related Vehicles</h5></div>
+						<div class="listings-grid clearfix">
+							<div class="listing">
+								<div class="image"><a href=""><img src="images/listing01.jpg" alt="listing" class="img-responsive"></a></div>
+								<div class="content">
+									<div class="title"><a href="">Ferrari <span>[ Grand ]</span></a></div>
+									<p>Lorem Ipsum is simply dummy text of the printing and typeset Ipsum has been the Off-road.</p>
+									<div class="price">$80000 <span>/ for sale</span></div>
+								</div>
+							</div> <!-- end .listing -->
+							<div class="listing">
+								<div class="image"><a href=""><img src="images/listing01.jpg" alt="listing" class="img-responsive"></a></div>
+								<div class="content">
+									<div class="title"><a href="">Ferrari <span>[ Grand ]</span></a></div>
+									<p>Lorem Ipsum is simply dummy text of the printing and typeset Ipsum has been the Off-road.</p>
+									<div class="price green">$80000 <span>/ for rent</span></div>
+								</div>
+							</div> <!-- end .listing -->
+							<div class="listing">
+								<div class="image"><a href=""><img src="images/listing01.jpg" alt="listing" class="img-responsive"></a></div>
+								<div class="content">
+									<div class="title"><a href="">Ferrari <span>[ Grand ]</span></a></div>
+									<p>Lorem Ipsum is simply dummy text of the printing and typeset Ipsum has been the Off-road.</p>
+									<div class="price">$80000 <span>/ for sale</span></div>
+								</div>
+							</div> <!-- end .listing -->
+							<div class="listing">
+								<div class="image"><a href=""><img src="images/listing01.jpg" alt="listing" class="img-responsive"></a></div>
+								<div class="content">
+									<div class="title"><a href="">Ferrari <span>[ Grand ]</span></a></div>
+									<p>Lorem Ipsum is simply dummy text of the printing and typeset Ipsum has been the Off-road.</p>
+									<div class="price">$80000 <span>/ for sale</span></div>
+								</div>
+							</div> <!-- end .listing -->
+						</div> <!-- end .listing-grid -->
+					</div> <!-- end .listings -->
+				</div> <!-- end .container -->
+			</div> <!-- end .inner -->
+		</section> <!-- end .section -->
+		<footer class="footer">
+			<div class="top">
+				<div class="container">
+					<div class="twitter">
+						<div class="icon"><i class="fa fa-twitter"></i><span></span></div>
+						<div id="tweets" class="flexslider"></div>
+					</div> <!-- end .twitter -->
+					<div class="row">
+						<div class="col-sm-4">
+							<h5>About Us</h5>
+							<p>Lorem ipsum dolor sit amet, consectetur  some dymm adipiscing elit. Nam turpis quam, sodales in text she ante sagittis, varius efficitur mauris.</p>
+							<hr />
+							<div class="iconbox-left">
+								<div class="icon"><i class="fa fa-map-marker"></i></div> <!-- end .icon -->
+								<div class="content"><p>3015 Grand Ave, Coconut Grove, Merrick Way, FL 12345</p></div> <!-- end .content -->
+							</div> <!-- end .iconbox-left -->
+							<div class="iconbox-left">
+								<div class="icon"><i class="fa fa-envelope"></i></div> <!-- end .icon -->
+								<div class="content"><p>info@wheels-control.com</p></div> <!-- end .content -->
+							</div> <!-- end .iconbox-left -->
+							<div class="iconbox-left">
+								<div class="icon"><i class="fa fa-phone"></i></div> <!-- end .icon -->
+								<div class="content"><p>123-456-7890</p></div> <!-- end .content -->
+							</div> <!-- end .iconbox-left -->
+						</div> <!-- end .col-sm-4 -->
+						<div class="col-sm-4">
+							<h5>Featured Deals</h5>
+							<div class="featured-deals">
+								<a href="details.html" class="clearfix">
+									<h5>Porsche</h5>
+									<span class="price">$80,000</span>
+								</a>
+								<p>Nam liber tempor cum soluta nobis eleife wheelers as option congue nihil…</p>
+							</div> <!-- end .featured-deals -->
+							<div class="featured-deals">
+								<a href="details.html" class="clearfix">
+									<h5>Benz</h5>
+									<span class="price">$94,000</span>
+								</a>
+								<p>Nam liber tempor cum soluta nobis eleife wheelers as option congue nihil…</p>
+							</div> <!-- end .featured-deals -->
+						</div> <!-- end .col-sm-4 -->
+						<div class="col-sm-4">
+							<h5>Get in Touch</h5>
+							<form action="scripts/contact.php" method="post" id="footer-contact-form" target="_blank">
+								<div class="form-group">
+									<input type="text" class="contact-name" name="contact-name" placeholder="Name" />
+								</div> <!-- end .form-group -->
+								<div class="form-group">
+									<input type="email" class="contact-email" name="contact-email" placeholder="Email" />
+								</div> <!-- end .form-group -->
+								<div class="form-group">
+									<textarea name="contact-message" class="contact-message" rows="3" placeholder="Message"></textarea>
+								</div> <!-- end .form-group -->
+								<div class="form-group">
+									<button type="submit" class="button solid block light-blue">Send Message</button>
+								</div> <!-- end .form-group -->
+								<div class="contact-loading alert alert-info form-alert alert-small" role="alert">
+									<span class="icon"><i class="fa fa-refresh fa-spin"></i></span>
+									<span class="message">Loading...</span>
+								</div>
+								<div class="contact-success alert alert-success form-alert alert-small" role="alert">
+									<span class="icon"><i class="fa fa-check"></i></span>
+									<span class="message">Success!</span>
+								</div>
+								<div class="contact-error alert alert-danger form-alert alert-small" role="alert">
+									<span class="icon"><i class="fa fa-exclamation-circle"></i></span>
+									<span class="message">Error!</span>
+								</div>
+							</form> <!-- end contact-form -->
+						</div> <!-- end .col-sm-4 -->
+					</div> <!-- end .row -->
+				</div> <!-- end .container -->
+			</div> <!-- end .top -->
+			<div class="bottom">
+				<span class="copyright">Copyright 2015. All Rights Reserved by Automan. Designed by Theme Designer.</span>
+			</div> <!-- end .bottom -->
+		</footer> <!-- end .footer -->
+
+		<!-- jQuery -->
+		<script src="js/jquery-1.11.2.min.js"></script>
+		<!-- Bootstrap -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Inview -->
+		<script src="js/jquery.inview.min.js"></script>
+		<!-- google maps -->
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+		<!-- Tweetie -->
+		<script src="scripts/Tweetie/tweetie.min.js"></script>
+		<!-- FlexSlider -->
+		<script src="scripts/FlexSlider/jquery.flexslider-min.js"></script>
+		<!-- Owl Carousel -->
+		<script src="js/owl.carousel.min.js"></script>
+		<!-- Isotope -->
+		<script src="js/isotope.pkgd.min.js"></script>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<!-- noUiSlider -->
+		<script src="js/jquery.nouislider.all.min.js"></script>
+		<!-- Scripts.js -->
+		<script src="js/scripts.js"></script>
+
+	</body>
+</html>

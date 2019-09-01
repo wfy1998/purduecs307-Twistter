@@ -1,0 +1,140 @@
+<div class="container-login100">
+  <div class="wrap-login100">
+    <form class="login100-form validate-form">
+					<span class="login100-form-title p-b-43">
+						Sign up
+					</span>
+
+      <label> First Name</label>
+      <div class=" validate-input100" data-validate = "Valid email is required: ex@abc.xyz">
+        <input class="input100" [(ngModel)]="registerUserData.firstName" type="text" name="firstName" >
+        <span class="focus-input100"></span>
+        <span class="label-input100">First Name</span>
+      </div>
+
+      <label> Last Name</label>
+      <div class=" validate-input100" data-validate = "Valid email is required: ex@abc.xyz">
+        <input class="input100" [(ngModel)]="registerUserData.lastName" type="text" name="lastName" >
+        <span class="focus-input100"></span>
+        <span class="label-input100">Last Name</span>
+      </div>
+
+
+      <label> Email</label>
+      <div class=" validate-input100" data-validate = "Valid email is required: ex@abc.xyz">
+        <input class="input100" [(ngModel)]="registerUserData.email" type="text" name="email" >
+        <span class="focus-input100"></span>
+        <span class="label-input100">email</span>
+      </div>
+
+
+
+  <label> User Name</label>
+  <div class=" validate-input100" data-validate = "Valid email is required: ex@abc.xyz">
+    <input class="input100" [(ngModel)]="registerUserData.username" type="text" name="username" >
+    <span class="focus-input100"></span>
+    <span class="label-input100">Username</span>
+  </div>
+
+  <label> Password</label>
+  <div class="validate-input100" data-validate="Password is required">
+    <input class="input100" [(ngModel)]="registerUserData.password" type="password" name="password">
+    <span class="focus-input100"></span>
+    <span class="label-input100">Password</span>
+    </div>
+
+
+
+
+      <div class="text-center p-t-46 p-b-20">
+        <button (click)="onSubmit()" type="button" class="login100-form-btn">
+          Register
+        </button>
+      </div>
+    </form>
+    <div class="login100-more" style="background-image: url('assets/images/background01.jpg');">
+    </div>
+  </div>
+</div>
+
+<!--<div class="register-page" [@routerTransition]>-->
+  <!--<div class="row justify-content-md-center">-->
+    <!--<div class="col-md-4">-->
+      <!--<img src="../../assets/images/background02.jpg" width="150px" />-->
+      <!--<h1>Sign Up</h1>-->
+      <!--<form role="form">-->
+        <!--<div class="form-content">-->
+          <!--<div class="form-group">-->
+            <!--<input  type="text" class="form-control input-underline input-lg" [(ngModel)]="registerUserData.username" name="username" placeholder="{{ 'Username' | translate }}">-->
+          <!--</div>-->
+
+          <!--<div class="form-group">-->
+            <!--<input type="password" class="form-control input-underline input-lg" [(ngModel)]="registerUserData.password" name = "password" placeholder="{{ 'Password' | translate }}">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onSubmit()">{{ 'Register' | translate }}</a>-->
+        <!--&nbsp;-->
+        <!--<a class="btn rounded-btn" [routerLink]="['/login']">{{ 'Log in' | translate }}</a>-->
+      <!--</form>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>-->
+
+    <!--<div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">-->
+      <!--<div *ngIf="f.firstName.errors.required">First Name is required</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+    <!--<label>Last Name</label>-->
+
+    <!--<input type="text" formControlName="lastName" class="form-control"[ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />-->
+
+    <!--<div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">-->
+      <!--<div *ngIf="f.lastName.errors.required">Last Name is required</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+    <!--<label>Username</label>-->
+
+    <!--<input type="text" formControlName="userName" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />-->
+
+    <!--<div *ngIf="submitted && f.userName.errors" class="invalid-feedback">-->
+      <!--<div *ngIf="f.userName.errors.required">Username is required</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="form-group">-->
+    <!--<label>Password</label>-->
+
+    <!--<input type="password" formControlName="password" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>-->
+    <!--<div *ngIf="submitted && f.password.errors" class="invalid-feedback">-->
+      <!--<div *ngIf="f.password.errors.required">Password is required</div>-->
+      <!--<div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="container-100-form-btn">-->
+  <!--</div>-->
+
+  <!--<div class="form-group">-->
+    <!--<button [disabled]="loading" class="btn btn-primary">Register</button>-->
+    <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+    <!--<a [routerLink]="['/login']" class="btn btn-link">Cancel</a>-->
+  <!--</div>-->
+<!--</form>-->
+
+
+
