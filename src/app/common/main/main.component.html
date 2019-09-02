@@ -1,380 +1,109 @@
-<app-header></app-header>
-<div class="responsive-menu">
-  <a href="" class="responsive-menu-close"><i class="ion-android-close"></i></a>
-  <nav class="responsive-nav"></nav> <!-- end .responsive-nav -->
-</div> <!-- end .responsive-menu -->
 
-<div class="flexslider welcome">
-  <div class="slides">
-    <div class="slide" style="background-image: url('/src/assets/images/background01.jpg');">
-      <div class="inner">
-        <div class="container">
-          <div class="banner-wrapper">
-            <div class="banner">
-              <div class="before">$480000</div>
-              Top Cars: Mercedes S Class
-            </div> <!-- end .banner -->
-          </div> <!-- end .banner-wrapper -->
-          <a href="details.html" class="button border white xsmall">Know More</a>
-        </div> <!-- end .container -->
-      </div> <!-- end .inner -->
-    </div> <!-- end .slide -->
-    <div class="slide" style="background-image: url('/src/assets/images/background02.jpg');">
-      <div class="inner">
-        <div class="container">
-          <div class="banner-wrapper">
-            <div class="banner big light">
-              Top Cars: Mercedes S Class
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem eriam, eaque ipsa quae ab illo inventore veritatis..</p>
-            </div> <!-- end .banner -->
-          </div> <!-- end .banner-wrapper -->
-          <a href="details.html" class="button solid blue xsmall">Know More</a>
-        </div> <!-- end .container -->
-      </div> <!-- end .inner -->
-    </div> <!-- end .slide -->
-    <div class="slide" style="background-image: url('/src/assets/images/background01.jpg');">
-      <div class="inner">
-        <div class="container">
-          <div class="banner-wrapper">
-            <div class="banner big">
-              <div class="before">$480000</div>
-              Top Cars: Mercedes S Class
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem eriam, eaque ipsa quae ab illo inventore veritatis..</p>
-            </div> <!-- end .banner -->
-          </div> <!-- end .banner-wrapper -->
-          <a href="details.html" class="button solid white xsmall">Know More</a>
-        </div> <!-- end .container -->
-      </div> <!-- end .inner -->
-    </div> <!-- end .slide -->
-  </div> <!-- end .slides -->
-</div> <!-- end .welcome -->
+<div class="container-login100">
+  <div class="wrap-login100">
+    <form class="login100-form validate-form">
+					<span class="login100-form-title p-b-43">
+						Login to continue
+					</span>
 
-<section class="section dark tiny">
-  <div class="inner">
-    <div class="container">
-      <div class="tabpanel border section-tab" role="tabpanel">
-        <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#search-cars" aria-controls="search-cars" role="tab" data-toggle="tab">Search Cars</a></li>
-          <li role="presentation"><a href="#sell-car" aria-controls="sell-car" role="tab" data-toggle="tab">Sell Car</a></li>
-        </ul> <!-- end .nav-tabs -->
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane fade in active" id="search-cars">
-            <form action="" method="post" class="banner-form">
-              <div class="item">
-                <div class="select-wrapper">
-                  <select class="selectpicker">
-                    <option>Select Brand</option>
-                    <option>Brand 1</option>
-                    <option>Brand 2</option>
-                  </select>
 
-                </div> <!-- end .select-wrapper -->
-              </div> <!-- end .item -->
-              <div class="item">
-                <div class="select-wrapper">
-                  <select class="selectpicker">
-                    <option>Select Model</option>
-                    <option>Model 1</option>
-                    <option>Model 2</option>
-                  </select>
+      <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+        <input class="input100" [(ngModel)]="loginUserData.username" type="text" name="username">
+        <span class="focus-input100"></span>
+        <span class="label-input100">Username</span>
+      </div>
 
-                </div> <!-- end .select-wrapper -->
-              </div> <!-- end .item -->
-              <div class="item">
-                <div class="select-wrapper">
-                  <select class="selectpicker">
-                    <option>Year of Model</option>
-                    <option>Year 1</option>
-                    <option>Year 2</option>
-                  </select>
 
-                </div> <!-- end .select-wrapper -->
-              </div> <!-- end .item -->
-              <div class="item">
-                <span class="price-slider-value">Price (Lt) <span id="price-min"></span> - <span id="price-max"></span></span>
-                <div id="price-slider"></div>
-              </div> <!-- end .item -->
-              <div class="item">
-                <button type="submit" class="button solid light-blue">Search</button>
-              </div> <!-- end .item -->
-            </form> <!-- end .banner-form -->
-          </div> <!-- end .tab-panel -->
-          <div role="tabpanel" class="tab-pane fade" id="sell-car">
-            <form action="" method="post" class="banner-form">
-              <div class="item">
-                <input type="text" placeholder="Brand">
-              </div> <!-- end .item -->
-              <div class="item">
-                <input type="text" placeholder="Model">
-              </div> <!-- end .item -->
-              <div class="item">
-                <input type="text" placeholder="Year">
-              </div> <!-- end .item -->
-              <div class="item">
-                <input type="text" placeholder="Price">
-              </div> <!-- end .item -->
-              <div class="item">
-                <button type="submit" class="button solid light-blue">Submit</button>
-              </div> <!-- end .item -->
-            </form> <!-- end .banner-form -->
-          </div> <!-- end .tab-panel -->
-        </div> <!-- end .tab-content -->
-      </div> <!-- end .tabpanel -->
-    </div> <!-- end .container -->
-  </div> <!-- end .inner -->
-</section> <!-- end .section -->
+      <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <input class="input100" [(ngModel)]="loginUserData.password" type="password" name="password">
+        <span class="focus-input100"></span>
+        <span class="label-input100">Password</span>
+      </div>
 
-<section class="section white no-padding-bottom text-center">
-  <div class="inner">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-          <h1 class="main-heading">Welcome to Car Dealership WP Theme</h1>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem eriam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-          <img src="assets/images/car1.png" alt="car" class="img-responsive center-block featured-image">
-        </div> <!-- end .col-sm-8 -->
-      </div> <!-- end .row -->
-    </div> <!-- end .container -->
-  </div> <!-- end .inner -->
-</section> <!-- end .section -->
-
-<section class="section light">
-  <div class="inner">
-    <div class="container">
-      <h1 class="main-heading">What are you looking for?<small>Best Car Deals</small></h1>
-      <div class="services clearfix">
-        <div class="service yellow">
-          <div class="icon">
-            <i class="icon-minicar"></i>
-            <div class="sub-icon">$</div> <!-- end .sub-icon -->
-          </div> <!-- end .icon -->
-          <div class="line"></div> <!-- end .line -->
-          <h5>Car Sale</h5>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-        </div> <!-- end .service -->
-        <div class="service orange">
-          <div class="icon">
-            <i class="icon-sports-car"></i>
-            <div class="sub-icon"><i class="ion-key"></i></div> <!-- end .sub-icon -->
-          </div> <!-- end .icon -->
-          <div class="line"></div> <!-- end .line -->
-          <h5>Car Buy</h5>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-        </div> <!-- end .service -->
-        <div class="service green">
-          <div class="icon">
-            <i class="icon-monster-truck"></i>
-            <div class="sub-icon">R</div> <!-- end .sub-icon -->
-          </div> <!-- end .icon -->
-          <div class="line"></div> <!-- end .line -->
-          <h5>Car On Rent</h5>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-        </div> <!-- end .service -->
-      </div> <!-- end .services -->
-    </div> <!-- end .container -->
-  </div> <!-- end .inner -->
-</section> <!-- end .section -->
-
-<section class="section white">
-  <div class="inner">
-    <h1 class="main-heading">Featured Car Deals<small>Best Car Deals</small></h1>
-    <div id="featured-cars" class="owl-carousel featured-cars">
-      <div class="item">
-        <div class="featured-car">
-          <div class="image">
-            <a href=""><img src="assets/images/featured-car01.jpg" alt="car" class="img-responsive"></a>
-            <span class="sale-tag">For Sale</span>
-          </div> <!-- end .image -->
-          <div class="content">
-            <div class="clearfix">
-              <h5><a href="">Range Rover</a></h5>
-              <span class="price">$80,000</span>
-            </div> <!-- end .clearfix -->
-            <div class="line"></div>
-            <p>Nam liber tempor cum soluta nobis eleife option congue nihil...</p>
-          </div> <!-- end .content -->
-          <div class="details clearfix">
-            <div class="seats"><i class="icon-car-seat"></i>4</div>
-            <div class="fuel"><i class="icon-car-fuel"></i>Petrol</div>
-            <div class="type"><i class="icon-car-door"></i>Sport</div>
-          </div> <!-- end .details -->
-        </div> <!-- end .featured-car -->
-      </div> <!-- end .item -->
-      <div class="item">
-        <div class="featured-car">
-          <div class="image">
-            <a href=""><img src="assets/images/featured-car02.jpg" alt="car" class="img-responsive"></a>
-            <span class="sale-tag">For Sale</span>
-          </div> <!-- end .image -->
-          <div class="content">
-            <div class="clearfix">
-              <h5><a href="">Porsche</a></h5>
-              <span class="price">$80,000</span>
-            </div> <!-- end .clearfix -->
-            <div class="line"></div>
-            <p>Nam liber tempor cum soluta nobis eleife option congue nihil...</p>
-          </div> <!-- end .content -->
-          <div class="details clearfix">
-            <div class="seats"><i class="icon-car-seat"></i>4</div>
-            <div class="fuel"><i class="icon-car-fuel"></i>Petrol</div>
-            <div class="type"><i class="icon-car-door"></i>Sport</div>
-          </div> <!-- end .details -->
-        </div> <!-- end .featured-car -->
-      </div> <!-- end .item -->
-      <div class="item">
-        <div class="featured-car">
-          <div class="image">
-            <a href=""><img src="assets/images/featured-car03.jpg" alt="car" class="img-responsive"></a>
-            <span class="sale-tag green">For Rent</span>
-          </div> <!-- end .image -->
-          <div class="content">
-            <div class="clearfix">
-              <h5><a href="">Mercediz Benz</a></h5>
-              <span class="price">$10 / km</span>
-            </div> <!-- end .clearfix -->
-            <div class="line"></div>
-            <p>Nam liber tempor cum soluta nobis eleife option congue nihil...</p>
-          </div> <!-- end .content -->
-          <div class="details clearfix">
-            <div class="seats"><i class="icon-car-seat"></i>4</div>
-            <div class="fuel"><i class="icon-car-fuel"></i>Petrol</div>
-            <div class="type"><i class="icon-car-door"></i>Sport</div>
-          </div> <!-- end .details -->
-        </div> <!-- end .featured-car -->
-      </div> <!-- end .item -->
-      <div class="item">
-        <div class="featured-car">
-          <div class="image">
-            <a href=""><img src="assets/images/featured-car01.jpg" alt="car" class="img-responsive"></a>
-            <span class="sale-tag">For Sale</span>
-          </div> <!-- end .image -->
-          <div class="content">
-            <div class="clearfix">
-              <h5><a href="">Range Rover</a></h5>
-              <span class="price">$80,000</span>
-            </div> <!-- end .clearfix -->
-            <div class="line"></div>
-            <p>Nam liber tempor cum soluta nobis eleife option congue nihil...</p>
-          </div> <!-- end .content -->
-          <div class="details clearfix">
-            <div class="seats"><i class="icon-car-seat"></i>4</div>
-            <div class="fuel"><i class="icon-car-fuel"></i>Petrol</div>
-            <div class="type"><i class="icon-car-door"></i>Sport</div>
-          </div> <!-- end .details -->
-        </div> <!-- end .featured-car -->
-      </div> <!-- end .item -->
-      <div class="item">
-        <div class="featured-car">
-          <div class="image">
-            <a href=""><img src="assets/images/featured-car02.jpg" alt="car" class="img-responsive"></a>
-            <span class="sale-tag">For Sale</span>
-          </div> <!-- end .image -->
-          <div class="content">
-            <div class="clearfix">
-              <h5><a href="">Porsche</a></h5>
-              <span class="price">$80,000</span>
-            </div> <!-- end .clearfix -->
-            <div class="line"></div>
-            <p>Nam liber tempor cum soluta nobis eleife option congue nihil...</p>
-          </div> <!-- end .content -->
-          <div class="details clearfix">
-            <div class="seats"><i class="icon-car-seat"></i>4</div>
-            <div class="fuel"><i class="icon-car-fuel"></i>Petrol</div>
-            <div class="type"><i class="icon-car-door"></i>Sport</div>
-          </div> <!-- end .details -->
-        </div> <!-- end .featured-car -->
-      </div> <!-- end .item -->
-    </div> <!-- end .featured-cars -->
-    <div class="container">
-      <div class="call-to-action clearfix">
-        <div class="image" style="background-image: url('/src/assets/images/cta.jpg');"></div>
-        <div class="content">
-          <h2>Sell your Car</h2>
-          <p>Submit detail and sell it Nam liber tempor cum soluta nobis eleife  option congue nihil...</p>
+      <div class="flex-sb-m w-full p-t-3 p-b-32">
+        <div class="contact100-form-checkbox">
+          <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+          <label class="label-checkbox100" for="ckb1">
+            Remember me
+          </label>
         </div>
-        <div class="cta-button">
-          <a href="add-car-details.html" class="button border white">Submit Car</a>
+
+        <div>
+          <button id="findPassword" type="submit" class="login100-form-btn"
+                  routerLink="/findPassword" routerLinkActive="active">
+            <!--<a href="Admin/index.html" class="txt1">-->
+            findPassword
+            <!--</a>-->
+          </button>
         </div>
       </div>
-    </div> <!-- end .container -->
-  </div> <!-- end .inner -->
-</section> <!-- end .section -->
 
-<section class="section lighter">
-  <div class="inner">
-    <div class="container">
-      <h1 class="main-heading">Latest From The Blog<small>Best Car Deals</small></h1>
-      <div id="blog-masonry" class="blog-masonry">
-        <div class="blog-masonry-sizer"></div>
-        <div class="blog-post wide">
-          <a href="blog-post.html"><div class="blog-post-image" style="background-image: url('/src/assets/images/blog-post-image01.jpg');"></div></a>
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar01.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <h4><a href="blog-post.html">Porche Release New Model</a></h4>
-            <p class="excerpt">Praesent vel metus ac enim vulputate semper. Quisque consequat tempor nibh a mollis. Sed quis neque non ipsum scelerisque ornare at sit amet lacus... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post">
-          <a href="blog-post.html"><div class="blog-post-image" style="background-image: url('/src/assets/images/blog-post-image02.jpg');"></div></a>
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar02.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <h4><a href="blog-post.html">The Grand Car Road Show 2014</a></h4>
-            <p class="excerpt">Nam liber tempor cum soluta nobis eleife option congue nihil... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post short">
-          <a href="blog-post.html"><div class="blog-post-image" style="background-image: url('/src/assets/images/blog-post-image03.jpg');"></div></a>
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar03.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <h4><a href="blog-post.html">Bentley At WorldExpo</a></h4>
-            <p class="excerpt">Nam liber tempor cum soluta nobis eleife option congue nihil... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post audio">
-          <div class="audio-player">
-            <audio controls>
-              <source src="assets/images/redwing.mp3" type="audio/mpeg">
-            </audio>
-          </div> <!-- end .audio-player -->
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar04.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <h4><a href="blog-post.html">Audio Post</a></h4>
-            <p class="excerpt">Nam liber tempor cum soluta nobis eleife option congue nihil... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post video">
-          <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" width="434" height="244" src="https://www.youtube.com/embed/iNJdPyoqt8U?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-          </div> <!-- end .embed-responsive -->
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar05.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <h4><a href="blog-post.html">BMW Unveils New Car</a></h4>
-            <p class="excerpt">Praesent vel metus ac enim vulputate semper. Quisque consequat tempor nibh a mollis. Sed quis neque non ipsum scelerisque ornare at sit amet lacus... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post quote">
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar06.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <span class="quotes"><i class="fa fa-quote-left"></i></span>
-            <p class="excerpt">Nam liber tempor cum soluta nobis eleife option congue nihil... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-        <div class="blog-post quote">
-          <div class="content">
-            <div class="avatar"><img src="assets/images/avatar06.jpg" alt="author name"></div>
-            <div class="meta"><span class="author">by John Doe</span><span class="date">Tue, Aug 14, 12</span></div>
-            <span class="quotes"><i class="fa fa-quote-left"></i></span>
-            <p class="excerpt">Nam liber tempor cum soluta nobis eleife option congue nihil... <a href="blog-post.html">Read more</a></p>
-          </div> <!-- end .content -->
-        </div> <!-- end .blog-post -->
-      </div> <!-- end .blog-masonry -->
-    </div> <!-- end .container -->
-  </div> <!-- end .inner -->
-</section> <!-- end .section -->
-<app-footer></app-footer>
+
+      <div class="container-login100-form-btn">
+        <button (click)="loginUser()" type="button" class="login100-form-btn">
+          <!--<a href="Admin/index.html" class="txt1">-->
+          Login
+          <!--</a>-->
+        </button>
+      </div>
+
+
+
+      <div class="text-center p-t-46 p-b-20">
+        <button id="button" type="submit" class="login100-form-btn"
+                routerLink="/register" routerLinkActive="active">
+          <!--<a href="Admin/index.html" class="txt1">-->
+          Sign up
+          <!--</a>-->
+        </button>
+      </div>
+
+      <div class="text-center p-t-46 p-b-20">
+          <span class="txt2">
+							or sign in using
+						</span>
+      </div>
+
+
+      <div class="login100-form-social flex-c-m">
+        <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+          <i class="fa fa-facebook-f" aria-hidden="true"></i>
+        </a>
+
+        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+      </div>
+    </form>
+
+    <div class="login100-more" style="background-image: url('assets/images/background02.jpg');">
+    </div>
+  </div>
+</div>
+<div id="signupform" class="popup-effect">
+  <div class="popup">
+    <div class="letter-w3ls">
+      <form action="#" method="post">
+        <div class="form-left-to-w3l">
+          <input type="text" name="username" placeholder="Username" required="">
+        </div>
+        <div class="form-left-to-w3l">
+          <input type="text" name="phone" placeholder="Phone" required="">
+        </div>
+        <div class="form-left-to-w3l">
+          <input type="email" name="email" placeholder="Email" required="">
+        </div>
+        <div class="form-left-to-w3l">
+          <input type="password" name="password" placeholder="Password" required="">
+        </div>
+        <div class="form-left-to-w3l margin-zero">
+          <input type="password" name="password" placeholder="Confirm Password" required="">
+        </div>
+      </form>
+      <div class="clear"></div>
+    </div>
+
+    <a class="close" href="#">&times;</a>
+  </div>
+</div>
+
