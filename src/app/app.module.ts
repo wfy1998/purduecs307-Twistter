@@ -13,9 +13,9 @@ import {RegisterComponent} from './register/register.component';
 
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth.service';
-import {  ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule } from '@angular/forms';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
-import {DataComponent} from '../../../CACW2.1-mars/src/app/data/data.component';
+
 
 
 
@@ -29,7 +29,7 @@ import {DataComponent} from '../../../CACW2.1-mars/src/app/data/data.component';
     LoginComponent,
     RegisterComponent,
     FindPasswordComponent,
-    DataComponent
+    // DataComponent
   ],
   imports: [
     BrowserModule,

@@ -66,10 +66,10 @@ router.post('/login', (req, res) => {
     }
   })
 });
-
+// empty email now
 const server = email.server.connect({
-  user: "feiyangwang980616@gmail.com",
-  password: "199837365011",
+  user: "",
+  password: "",
   host: "smtp.gmail.com",
   ssl: true
 });
