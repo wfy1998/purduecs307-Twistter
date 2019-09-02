@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
-const db = "mongodb+srv://dbUser:Purdue1234@cac-qkutp.gcp.mongodb.net/test?retryWrites=true";
+const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
 const email = require("emailjs");
 
 
