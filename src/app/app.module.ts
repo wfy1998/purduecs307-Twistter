@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { MainComponent } from './common/main/main.component';
-import { AddCarDetailsComponent } from './common/add-car-details/add-car-details.component';
 import { LoginComponent } from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 
@@ -25,7 +24,6 @@ import {FindPasswordComponent} from './findPassword/findPassword.component';
     HeaderComponent,
     FooterComponent,
     MainComponent,
-    AddCarDetailsComponent,
     LoginComponent,
     RegisterComponent,
     FindPasswordComponent,
