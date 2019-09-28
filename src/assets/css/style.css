@@ -623,12 +623,12 @@ label .required {
 	display: block;
 	width: 40px;
 	height: 39px;
-	background: url('../images/checkbox.png');
+	/*background: url('../images/checkbox.png');*/
 	position: absolute;
 	margin-left: -46px;
 }
 .checkbox input:checked + div, .radio input:checked + div {
-	background: url('../images/checkbox-checked.png');
+	/*background: url('../images/checkbox-checked.png');*/
 }
 .radio.rounded {
 	margin-bottom: 18px;
@@ -657,12 +657,12 @@ label .required {
 	display: block;
 	width: 23px;
 	height: 23px;
-	background: url('../images/radio.png');
+	/*background: url('../images/radio.png');*/
 	position: absolute;
 	margin-left: -36px;
 }
 .radio.rounded input:checked + div {
-	background: url('../images/radio-checked.png');
+	/*background: url('../images/radio-checked.png');*/
 }
 .file-input {
 	position: relative;

@@ -16,9 +16,10 @@ mongoose.connect(db, function(err){
   }
 });
 
-router.get('/events', (req,res) => {
-  res.send('From API route')
-});
+
+// router.get('/events', (req,res) => {
+//   res.send('From API route')
+// });
 
 router.post('/register', (req, res) => {
   const user = new User();
