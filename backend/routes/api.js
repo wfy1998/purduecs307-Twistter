@@ -8,12 +8,13 @@ const email = require("emailjs");
 
 
 
-mongoose.connect(db, function(err){
-  if(err){
-    console.error('Error! ' + err)
-  } else {
-    console.log('Connected to mongodb')
-  }
+mongoose.set('useCreateIndex', true);
+mongoose.connect(db,{ useNewUrlParser: true,  useUnifiedTopology: true  });
+mongoose.connection.on("error", function (error) {
+  console.log("Fail to connect to mongoDB.", error);
+});
+mongoose.connection.on("open", function () {
+  console.log("Connected to mongoDB!");
 });
 
 
