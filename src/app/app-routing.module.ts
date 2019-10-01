@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {RegisterComponent} from './register/register.component';
 import {MainComponent} from './common/main/main.component';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
+import {ProfileComponent} from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,9 @@ const routes: Routes = [
   {
     path: 'findPassword', component: FindPasswordComponent
   },
+  {
+    path: 'profile', component: ProfileComponent
+  }
 
 ];
 

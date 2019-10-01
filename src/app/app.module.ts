@@ -14,6 +14,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {ReactiveFormsModule } from '@angular/forms';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -27,6 +28,7 @@ import {FindPasswordComponent} from './findPassword/findPassword.component';
     LoginComponent,
     RegisterComponent,
     FindPasswordComponent,
+    ProfileComponent,
     // DataComponent
   ],
   imports: [
