@@ -6,6 +6,7 @@ import {RegisterComponent} from './register/register.component';
 import {MainComponent} from './common/main/main.component';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
 import {ProfileComponent} from './profile/profile.component';
+import {TimelineComponent} from './timeline/timeline.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,9 @@ const routes: Routes = [
   },
   {
     path: 'profile', component: ProfileComponent
+  },
+  {
+    path: 'timeline', component: TimelineComponent
   }
 
 ];

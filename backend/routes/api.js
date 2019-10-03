@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/user');
+const Post = require('../models/post')
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
@@ -22,6 +23,28 @@ mongoose.connection.on("open", function () {
 //   res.send('From API route')
 // });
 
+
+router.post('/creatNewPost', (req, res) => {
+  const post = new Post();
+  post.message = req.body.message;
+  post.username = req.body.username;
+  post.images = req.body.images;
+  post.save((err) => {
+    if (err) {
+      console.log(err)
+      console,log("fail to creat")
+    } else {
+      console.log('user created')
+      res.status(201).json({
+        message: "user created",
+
+      });
+
+    }
+  })
+});
+
+
 router.post('/register', (req, res) => {
   const user = new User();
   user.firstName = req.body.firstName;
@@ -37,7 +60,6 @@ router.post('/register', (req, res) => {
       console.log('user created')
       res.status(201).json({
         message: "user created",
-
       });
 
     }

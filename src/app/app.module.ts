@@ -15,6 +15,7 @@ import {AuthService} from './auth.service';
 import {ReactiveFormsModule } from '@angular/forms';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
 import { ProfileComponent } from './profile/profile.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 
 
@@ -29,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
     RegisterComponent,
     FindPasswordComponent,
     ProfileComponent,
+    TimelineComponent,
     // DataComponent
   ],
   imports: [
