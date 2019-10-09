@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/user');
-const Post = require('../models/post')
+const Post = require('../models/post');
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
@@ -27,7 +27,6 @@ mongoose.connection.on("open", function () {
 router.post('/creatNewPost', (req, res) => {
   const post = new Post();
   post.message = req.body.message;
-  post.username = req.body.username;
   post.images = req.body.images;
   post.save((err) => {
     if (err) {

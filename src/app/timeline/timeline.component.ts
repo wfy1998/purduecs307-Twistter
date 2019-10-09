@@ -8,13 +8,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
-  postData = {};
+  postData = {
+    username: '',
+
+  };
   constructor(private _auth: AuthService, private _router: Router) { }
 
   ngOnInit() {
   }
 
   newPost() {
+
     this._auth.creatNewPost(this.postData)
       .subscribe(
         res => {
