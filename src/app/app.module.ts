@@ -10,12 +10,14 @@ import { MainComponent } from './common/main/main.component';
 import { LoginComponent } from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {ReactiveFormsModule } from '@angular/forms';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import {CookieService} from 'angular2-cookie/core';
+import {AuthInterceptor} from './auth-interceptor';
 
 
 
@@ -40,7 +42,7 @@ import { TimelineComponent } from './timeline/timeline.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
