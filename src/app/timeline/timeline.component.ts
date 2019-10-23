@@ -14,7 +14,7 @@ export class TimelineComponent implements OnInit {
     username: '',
 
   };
-  constructor(private _auth: AuthService, private _other, private _router: Router) { }
+  constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
 
   ngOnInit() {
   }
