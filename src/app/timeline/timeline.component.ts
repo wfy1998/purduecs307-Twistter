@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  styleUrls: ['../../assets/css/vendor/all.css']
 })
 export class TimelineComponent implements OnInit {
   postData = {

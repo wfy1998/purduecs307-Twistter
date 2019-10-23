@@ -947,6 +947,7 @@ label .required {
 }
 .panel-heading {
 	padding: 0;
+  font-size: 14px;
 }
 .panel-default>.panel-heading {
 	color: #2e566e;
