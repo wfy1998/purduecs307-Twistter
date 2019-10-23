@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use('/api', api);
 
 app.get('/', function (req, res) {
-  res.send('Hello from server')
+  res.redirect('/login')
 });
 
 app.listen(port, function () {

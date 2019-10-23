@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
+import {OtherService} from '../other.service';
 import {Router} from '@angular/router';
 
 
@@ -13,14 +14,14 @@ export class TimelineComponent implements OnInit {
     username: '',
 
   };
-  constructor(private _auth: AuthService, private _router: Router) { }
+  constructor(private _auth: AuthService, private _other, private _router: Router) { }
 
   ngOnInit() {
   }
 
   newPost() {
 
-    this._auth.creatNewPost(this.postData)
+    this._other.creatNewPost(this.postData)
       .subscribe(
         res => {
           console.log('post success');
