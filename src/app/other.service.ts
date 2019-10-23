@@ -5,7 +5,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class OtherService {
 
   // private _checkUrl = 'http://localhost:3000/api/checkUserNameAndEmail';
   private _createUrl = 'http://localhost:3000/api/register';
@@ -15,16 +15,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  loginUser(user) {
-    return this.http.post<any>(this._loginUrl, user);
+  creatNewPost(post) {
+    return this.http.post<any>(this._creatNewPost, post);
   }
 
-  createUser(user) {
-    return this.http.post<any>(this._createUrl, user);
-  }
-  findPassword(email) {
-    return this.http.post<any>(this._findPasswordUrl, email);
-  }
+
 
 
   // checkUserNameAndEmail(userName: string, email: string) {
