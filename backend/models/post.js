@@ -12,6 +12,7 @@ const postSchema = mongoose.Schema({
   time: {type: String},
   likeByUser: {type: String},
   numberOfLike: {tyoe: String},
+
 });
 
 module.exports = mongoose.model("Post", postSchema, 'Post');

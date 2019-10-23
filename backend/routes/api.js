@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
 const email = require("emailjs");
+const checkAuth = require("../middleware/check-auth")
 
 
 
@@ -24,23 +25,24 @@ mongoose.connection.on("open", function () {
 // });
 
 
-router.post('/creatNewPost', (req, res) => {
-  const post = new Post();
-  post.message = req.body.message;
-  post.images = req.body.images;
-  post.save((err) => {
-    if (err) {
-      console.log(err)
-      console,log("fail to creat")
-    } else {
-      console.log('user created')
-      res.status(201).json({
-        message: "user created",
-
-      });
-
-    }
-  })
+router.post('/creatNewPost',checkAuth, (req, res) => {
+  console.log('the headers', req.headers);
+  // const post = new Post();
+  // post.message = req.body.message;
+  // post.images = req.body.images;
+  // post.save((err) => {
+  //   if (err) {
+  //     console.log(err)
+  //     console,log("fail to creat")
+  //   } else {
+  //     console.log('user created')
+  //     res.status(201).json({
+  //       message: "user created",
+  //
+  //     });
+  //
+  //   }
+  // })
 });
 
 
