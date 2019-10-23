@@ -28,10 +28,12 @@ router.post('/', (req, res, next) => {
       return
     }
 
-    if (utils.md5(user.password, 'base64') !== userData.password) {
+    if (utils.md5(userData.password, 'base64') !== user.password) {
+      console.log(userData.password);
       console.log('Unmatched password');
       res.status(401).send('Invalid password entered!')
-    } else {
+    }
+    else {
       let payload = {subject: user._id};
       let token = jwt.sign(payload, 'secretKey');
       res.status(200).send({token})

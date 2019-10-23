@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
         res => {
           localStorage.setItem('token', res.token);
           this._cookieService.put('login cookie', res.token)
-          this._router.navigate(['/profile']);
+          this._router.navigate(['/timeline']);
         },
         err => console.log(err)
       );
