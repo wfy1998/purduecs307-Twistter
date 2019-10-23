@@ -14,7 +14,8 @@ const userSchema = mongoose.Schema({
   age: {type: String},
   school: {type: String},
   gender: {type: String},
-  phone: {type: String}
+  phone: {type: String},
+  profile_private: {type: Boolean},
 
 })
 

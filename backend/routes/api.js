@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
 const email = require("emailjs");
+const checkAuth = require("../middleware/check-auth")
 
 
 mongoose.set('useCreateIndex', true);
