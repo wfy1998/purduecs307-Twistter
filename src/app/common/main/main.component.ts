@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
           localStorage.setItem('address', res.user.address);
           this._cookieService.put('loginKey', res.token);
           console.log('the cookie', this._cookieService.get('loginKey'));
-          this._router.navigate(['/profile']);
+          this._router.navigate(['/timeline']);
         },
         err => console.log(err)
       );
