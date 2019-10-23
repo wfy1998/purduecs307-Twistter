@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
   school: {type: String},
   gender: {type: String},
   phone: {type: String},
+  address:{type: String},
   profile_private: {type: Boolean},
 
 })
