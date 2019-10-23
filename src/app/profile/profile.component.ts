@@ -13,12 +13,41 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  getUserName = '';
+  getFirstName = '';
+  getLastName = '';
+  getEmail = '';
+  getAge = '';
+  getSchool = '';
+  getGender = '';
+  getPhone = '';
+  getAddress = '';
+
   ngOnInit() {
+    // set all profile value from local storage
+    this.getUserName = localStorage.getItem('userName');
+    this.getFirstName = localStorage.getItem('firstName');
+    this.getLastName = localStorage.getItem('lastName');
+    this.getEmail = localStorage.getItem('email');
+    this.getAge = localStorage.getItem('age');
+    this.getSchool = localStorage.getItem('school');
+    this.getGender = localStorage.getItem('gender');
+    this.getPhone = localStorage.getItem('phone');
+    this.getAddress = localStorage.getItem('address');
+
+    // console.log(localStorage);
+    // this.UpdateUserInfo.username = this.getUserName;
+    // this.UpdateUserInfo.firstName = this.getFirstName;
+    // this.UpdateUserInfo.lastName = this.getLastName;
+    // this.UpdateUserInfo.email = this.getEmail;
+    // this.UpdateUserInfo.newUserName = this.getUserName;
+    // this.UpdatePassword.username = this.getUserName;
   }
 
-  sentPost() {
+    submit() {
+    console.log('click');
+    }
 
-  }
 
 }
 

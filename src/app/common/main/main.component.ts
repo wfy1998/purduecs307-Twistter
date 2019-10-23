@@ -23,8 +23,16 @@ export class MainComponent implements OnInit {
     this._auth.loginUser(this.loginUserData)
       .subscribe(
         res => {
+          console.log(res.body);
           this.token = res.token;
           localStorage.setItem('token', res.token);
+          localStorage.setItem('userName', res.username);
+          localStorage.setItem('email', res.email);
+          localStorage.setItem('firstName', res.firstName);
+          localStorage.setItem('lastName', res.lastName);
+          localStorage.setItem('role', res.role);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('address', res.address);
           this._cookieService.put('loginKey', res.token);
           console.log('the cookie', this._cookieService.get('loginKey'));
           this._router.navigate(['/profile']);

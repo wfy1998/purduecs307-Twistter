@@ -659,37 +659,90 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--                  </div>-->
 <!--                </div>-->
 <!--              </div>-->
+
+
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="submit()">
+                Open modal
+              </button>
+
+              <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Modal Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="submit()">Submit</button>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="panel panel-default">
                     <div class="panel-heading panel-heading-gray">
-                      <a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+                      <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
                       <i class="fa fa-fw fa-info-circle"></i> About
+
+
+
                     </div>
                     <div class="panel-body">
                       <ul class="list-unstyled profile-about margin-none">
                         <li class="padding-v-5">
                           <div class="row">
-                            <div class="col-sm-4"><span class="text-muted">Date of Birth</span></div>
-                            <div class="col-sm-8">12 January 1990</div>
+                            <div class="col-sm-4"><span class="text-muted">First name</span></div>
+                            <div class="col-sm-8">{{getFirstName}}</div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
-                            <div class="col-sm-4"><span class="text-muted">Job</span></div>
-                            <div class="col-sm-8">Specialist</div>
+                            <div class="col-sm-4"><span class="text-muted">Last</span></div>
+                            <div class="col-sm-8">{{getLastName}}</div>
+                          </div>
+                        </li>
+                        <li class="padding-v-5">
+                          <div class="row">
+                            <div class="col-sm-4"><span class="text-muted">age</span></div>
+                            <div class="col-sm-8">{{getAge}}</div>
+                          </div>
+                        </li>
+                        <li class="padding-v-5">
+                          <div class="row">
+                            <div class="col-sm-4"><span class="text-muted">School</span></div>
+                            <div class="col-sm-8">{{getSchool}}</div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Gender</span></div>
-                            <div class="col-sm-8">Male</div>
+                            <div class="col-sm-8">{{getGender}}</div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Lives in</span></div>
-                            <div class="col-sm-8">Miami, FL, USA</div>
+                            <div class="col-sm-8">{{getAddress}}</div>
                           </div>
                         </li>
                         <li class="padding-v-5">
