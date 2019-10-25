@@ -9,6 +9,7 @@ export class OtherService {
 
   // private _checkUrl = 'http://localhost:3000/api/checkUserNameAndEmail';
   private _creatNewPost = 'http://localhost:3000/api/creatNewPost';
+  
 
   constructor(private http: HttpClient) { }
 
