@@ -11,7 +11,6 @@ export class AuthService {
   private _createUrl = 'http://localhost:3000/api/register';
   private _loginUrl = 'http://localhost:3000/api/login';
   private _findPasswordUrl = 'http://localhost:3000/api/findPassword';
-  private _creatNewPost = 'http://localhost:3000/api/creatNewPost';
 
   constructor(private http: HttpClient) { }
 
