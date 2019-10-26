@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Followed = require("./Followed");
 const Tag = require("./Tag");
+const Post = require("./Post");
 
 const userSchema = mongoose.Schema({
   firstName: {type: String, required: true},
@@ -10,7 +11,7 @@ const userSchema = mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: { type: String, required: true},
 
-  // blogInformation: {type: Array}
+  userPosts: {type: [Post.schema]},
 
   userTags: {type: [Tag.schema]}, //this user's own tag
   userFollowed: {type: [Followed.schema]},
