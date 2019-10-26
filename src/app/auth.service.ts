@@ -10,7 +10,6 @@ export class AuthService {
   // private _checkUrl = 'http://localhost:3000/api/checkUserNameAndEmail';
   private _loginUserURL = 'http://localhost:3000/api/login';
   private _createUserURL = 'http://localhost:3000/api/register';
-  private _logoutUserURL = 'http://lcoalhost:3000/api/logout';
   private _deleteAccountURL = 'http://localhost:3000/api/delete';
   private _findPasswordUrl = 'http://localhost:3000/api/findPassword';
 
@@ -21,9 +20,6 @@ export class AuthService {
   }
   createUser(user) {
     return this.http.post<any>(this._createUserURL, user);
-  }
-  logoutUser(username) {
-    return this.http.post<any>(this._logoutUserURL, username);
   }
   deleteAccount(username) {
     return this.http.post<any>(this._deleteAccountURL, username);
