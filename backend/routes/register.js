@@ -5,11 +5,6 @@ const router = express.Router();
 
 const userModel = require('../models/User');
 
-// GET /register register page
-// router.get('/signup', (req, res, next) => {
-//   res.status(200).send('OK')
-// });
-
 // POST /register register page
 router.post('/', (req, res, next) => {
   console.log('register request');
