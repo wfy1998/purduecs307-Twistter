@@ -5,15 +5,15 @@ const checkAuth = require("../middleware/check-auth")
 
 
 
-router.get('/getMorePosts', checkAuth(), (req, res, )  => {
+router.get('/getMorePosts', checkAuth, (req, res, )  => {
 
 });
 
-router.get('/likePost', checkAuth(), (req, res, )  => {
+router.get('/likePost', checkAuth, (req, res, )  => {
 
 });
 
-router.get('/quote', checkAuth(), (req, res, )  => {
+router.get('/quote', checkAuth, (req, res, )  => {
 
 });
 
