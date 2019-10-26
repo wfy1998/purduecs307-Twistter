@@ -24,7 +24,7 @@ mongoose.connection.on("open", function () {
 /* -------------------- authentication part ----------------- */
 
 /* ---- /api/login ---- */
-router.use('/login', require('./authentication '));
+router.use('/login', require('./login'));
 /* ---- /api/register ---- */
 router.use('/register', require('./register'));
 /* ---- /api/logout ---- */
