@@ -21,12 +21,10 @@ mongoose.connection.on("open", function () {
 /* -------------------- authentication part ----------------- */
 
 /* ---- /api/login ---- */
-router.use('/login', require('./login'));
+router.use('/login', require('./authentication '));
 /* ---- /api/register ---- */
 router.use('/register', require('./register'));
 /* ---- /api/logout ---- */
-router.use('/logout', require('./logout'));
-
 /* -------------------- profile part ------------------------ */
 
 /* ---- /api/ ---- */
@@ -48,40 +46,40 @@ router.use('/posts', require('./posts'));
 
 
 // empty email now
-const server = email.server.connect({
-  user: "",
-  password: "",
-  host: "smtp.gmail.com",
-  ssl: true
-});
-
-router.post('/findPassword', (req, res)=>{
-  console.log('in the post');
-  let userEmail = req.body;
-  console.log('the userEmail in the req is', req.body.email);
-
-  User.findOne({email: userEmail.email},(err, user) =>{
-    if(err){
-      console.log(err)
-    }
-    else if (!user) {
-      res.status(401).send('Cannot find user');
-    }
-    else {
-
-      server.send({
-        text:    "your password is...",
-        from:    "you <feiyangwang980616@gmail.com>",
-        to:      "me <13922712696@163.com>",
-        cc:      "",
-        subject: "testing emailjs"
-      }, function(err, message) { console.log(err || message); });
-      res.status(201).json({
-        message: "user found",
-      });
-    }
-  })
-
-});
+// const server = email.server.connect({
+//   user: "",
+//   password: "",
+//   host: "smtp.gmail.com",
+//   ssl: true
+// });
+//
+// router.post('/findPassword', (req, res)=>{
+//   console.log('in the post');
+//   let userEmail = req.body;
+//   console.log('the userEmail in the req is', req.body.email);
+//
+//   User.findOne({email: userEmail.email},(err, user) =>{
+//     if(err){
+//       console.log(err)
+//     }
+//     else if (!user) {
+//       res.status(401).send('Cannot find user');
+//     }
+//     else {
+//
+//       server.send({
+//         text:    "your password is...",
+//         from:    "you <feiyangwang980616@gmail.com>",
+//         to:      "me <13922712696@163.com>",
+//         cc:      "",
+//         subject: "testing emailjs"
+//       }, function(err, message) { console.log(err || message); });
+//       res.status(201).json({
+//         message: "user found",
+//       });
+//     }
+//   })
+//
+// });
 
 module.exports = router;
