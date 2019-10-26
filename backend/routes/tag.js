@@ -5,7 +5,7 @@ const userModel = require("../models/User");
 
 router.get('/getTags', checkAuth, (req, res)  => {
   console.log("getting tags");
-  const data = req.body;
+  let data = req.body;
   userModel.findOne({username: data.username}, (err, user) => {
     if (err) {
       console.log(err);
