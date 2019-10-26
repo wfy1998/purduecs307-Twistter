@@ -21,7 +21,7 @@ export class TimelineComponent implements OnInit {
 
   newPost() {
 
-    this._other.creatNewPost(this.postData)
+    this._other.createNewPost(this.postData)
       .subscribe(
         res => {
           console.log('post success');
