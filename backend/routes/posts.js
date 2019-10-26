@@ -16,7 +16,7 @@ router.get('/createNewPost', checkAuth, (req, res, )  => {
     if (err) {
       console.log('Add post failed.', err)
     } else {
-      console.log('Add trans detail success!', tran);
+      console.log('Add trans detail success!', newPost);
       res.status(201).send('post created success');
     }
   })
