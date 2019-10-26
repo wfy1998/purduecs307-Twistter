@@ -18,7 +18,7 @@ import {FindPasswordComponent} from './findPassword/findPassword.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import {CookieService} from 'angular2-cookie/core';
-// import {AuthInterceptor} from './auth-interceptor';
+import {AuthInterceptor} from './auth-interceptor';
 
 
 
@@ -42,7 +42,7 @@ import {CookieService} from 'angular2-cookie/core';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, OtherService, CookieService],
+  providers: [AuthService, OtherService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {AuthService} from '../../auth.service';
 import {Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',

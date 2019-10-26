@@ -9,7 +9,4 @@ module.exports = (req, res, next) =>{
   } catch (error) {
     res.status(401).send('Invalid auth');
   }
-
-
-
 };

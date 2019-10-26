@@ -294,7 +294,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
                                 <textarea name="tag" class="form-control " rows="1" placeholder="Tag(s)...Separate with ," [(ngModel)]="postData.tag"></textarea>
 
-                              <button type="submit" class="btn btn-primary btn-xs pull-right" href="#">Post</button>
+                              <button type="submit" class="btn btn-primary btn-xs pull-right" (click)="newPost()">Post</button>
                             </div>
                           </div>
                         </div>

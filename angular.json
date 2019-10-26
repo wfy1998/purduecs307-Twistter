@@ -61,7 +61,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "carDealerAngular:build"
+            "browserTarget": "carDealerAngular:build",
+            "port": 1205
           },
           "configurations": {
             "production": {
