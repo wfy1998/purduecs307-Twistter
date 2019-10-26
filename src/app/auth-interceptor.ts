@@ -9,9 +9,9 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = this.mainComponent.getToken();
     const authRequest = req.clone({
-      headers: new HttpHeaders({'Content-Type':  'application/json',
-        'Authorization': authToken})
-      // headers: req.headers.set('Authorization', 'Bearer ' + authToken)
+      // headers: new HttpHeaders({'Content-Type':  'application/json',
+      //   'Authorization': authToken})
+      headers: req.headers.set('Authorization', 'Bearer ' + authToken)
     });
     return next.handle(authRequest);
   }
