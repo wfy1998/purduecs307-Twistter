@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/user');
-const Post = require('../models/post');
+const User = require('../models/User');
+const Post = require('../models/Post');
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
@@ -18,15 +18,33 @@ mongoose.connection.on("open", function () {
   console.log("Connected to mongoDB!");
 });
 
+/* -------------------- authentication part ----------------- */
 
-/* -------------------- login part -------------------------- */
+/* ---- /api/login ---- */
 router.use('/login', require('./login'));
-/* ------------------ register part ------------------------- */
+/* ---- /api/register ---- */
 router.use('/register', require('./register'));
-/* -------------------- posts part -------------------------- */
-router.use('/posts', require('./posts'));
-/* ------------------- logout part -------------------------- */
+/* ---- /api/logout ---- */
 router.use('/logout', require('./logout'));
+
+/* -------------------- profile part ------------------------ */
+
+/* ---- /api/ ---- */
+//todo
+
+/* -------------------- timeline part ----------------------- */
+
+
+
+/* -------------------- posts part -------------------------- */
+
+router.use('/posts', require('./posts'));
+
+/* ---------------------- tag part -------------------------- */
+
+
+
+
 
 
 // empty email now
@@ -65,6 +83,5 @@ router.post('/findPassword', (req, res)=>{
   })
 
 });
-
 
 module.exports = router;

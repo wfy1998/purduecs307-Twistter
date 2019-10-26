@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const PostModel = require('../models/post');
+const PostModel = require('../models/Post');
 
 //   eg: GET /posts?author=xxx
 router.get('/', function (req, res, next) {

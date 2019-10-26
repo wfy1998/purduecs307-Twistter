@@ -8,8 +8,14 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 export class OtherService {
 
   // private _checkUrl = 'http://localhost:3000/api/checkUserNameAndEmail';
+
+  private _getOthersProfile = 'http://localhost:3000/api/profile/getOthers';
+  private _getProfile = 'http://localhost:3000/api/profile';
+  private _changeProfile = 'http://localhost:3000/api/profile/change';
+
+  private _
+
   private _creatNewPost = 'http://localhost:3000/api/creatNewPost';
-  
 
   constructor(private http: HttpClient) { }
 

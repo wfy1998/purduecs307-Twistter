@@ -3,7 +3,7 @@ const router = express.Router();
 const utils = require('utility');
 const jwt = require('jsonwebtoken');
 
-const userModel = require('../models/user');
+const userModel = require('../models/User');
 
 // GET /login login page
 // router.get('/', (req, res, next) => {

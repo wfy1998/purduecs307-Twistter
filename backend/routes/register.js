@@ -3,7 +3,7 @@ const utility = require('utility');
 const express = require('express');
 const router = express.Router();
 
-const userModel = require('../models/user');
+const userModel = require('../models/User');
 
 // GET /register register page
 // router.get('/signup', (req, res, next) => {
