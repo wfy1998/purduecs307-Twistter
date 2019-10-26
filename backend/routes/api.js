@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/User');
-const Post = require('../models/Post');
+
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
+
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
 const email = require("emailjs");
-const checkAuth = require("../middleware/check-auth")
 
+const User = require('../models/User');
+const Post = require('../models/Post');
+
+const checkAuth = require("../middleware/check-auth");
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(db,{ useNewUrlParser: true,  useUnifiedTopology: true  });
@@ -28,21 +31,19 @@ router.use('/register', require('./register'));
 router.use('/logout', require('./logout'));
 
 /* -------------------- profile part ------------------------ */
-
-/* ---- /api/ ---- */
-//todo
+router.use('/profile', require('./profile'));
 
 /* -------------------- timeline part ----------------------- */
-
-
+router.use('/timeline', require('./timeline'));
 
 /* -------------------- posts part -------------------------- */
-
-router.use('/posts', require('./posts'));
+router.use('/post', require('./posts'));
 
 /* ---------------------- tag part -------------------------- */
+router.use('tag', require('./tag'));
 
-
+/* ---------------------- tag part -------------------------- */
+router.use('find', require('./find'));
 
 
 

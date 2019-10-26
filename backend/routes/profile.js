@@ -31,3 +31,5 @@ router.post('/changeProfile', auth, (req, res) => {
 router.post('/addTag', auth, (req, res) => {
 
 });
+
+module.exports = router;
