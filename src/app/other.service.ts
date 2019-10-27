@@ -21,6 +21,7 @@ export class OtherService {
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
   private _likePostURL = 'http://localhost:3000/api/timeline/likePost';
   private _quoteURL = 'http://localhost:3000/api/timeline/quote';
+  private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
   /* ---------- post ----------- */
   private _createNewPostURL = 'http://localhost:3000/api/post/createNewPost';
   /* ---------- tag ----------- */
@@ -61,6 +62,9 @@ export class OtherService {
   }
   quote(postID, username, comment) {
     return this.http.post<any>(this._quoteURL, {postID, username, comment});
+  }
+  getUserLine(username) {
+    return this.http.get(this._getUserLine, username);
   }
   /* ---------- post ----------- */
   createNewPost(post) {

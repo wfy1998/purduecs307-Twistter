@@ -7,6 +7,18 @@ const postModel = require('../models/Post');
 const userModel = require('../models/User');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
+  console.log('getting more post');
+  userModel.findOne({username: req.body.username})
+    .populate('Followed')
+    .exec((err, doc) => {
+      if (err) {
+        console.log('no such user');
+        res.status(500).send('no such user /or query failed');
+        return;
+      }
+      
+    });
+
   postModel.find({}).populate()
 });
 
@@ -55,6 +67,10 @@ router.get('/quote', checkAuth, (req, res)  => {
     }
     console.log('new quote created');
   });
+});
+
+router.get('/getUserLine', checkAuth, (req, res) => {
+
 });
 
 module.exports = router;

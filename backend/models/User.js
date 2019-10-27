@@ -9,9 +9,9 @@ const userSchema = mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: { type: String, required: true},
 
-  userPosts: {type: [Schema.ObjectId], ref: 'Post'},
+  userPosts: [{type: Schema.ObjectId, ref: 'Post'}],
   userTags: {type: [String],},
-  userFollowed: {type: [Schema.ObjectId], ref: 'Followed'},
+  userFollowed: [{type: Schema.ObjectId, ref: 'Followed'}],
 
   age: {type: String},
   school: {type: String},
