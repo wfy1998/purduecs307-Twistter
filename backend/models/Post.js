@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Tag = require("./Tag");
 
 const postSchema = mongoose.Schema({
-  timeCreated: {type: String, required: true},
+  createdAt: { type: Date, default: Date.now },
   username: {type: String, required: true},
   content: {type: String, required: true},
 

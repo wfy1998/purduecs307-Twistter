@@ -50,7 +50,7 @@ export class OtherService {
     return this.http.post<any>(this._changeProfileURL, User);
   }
   addNewTag(username, tagName) {
-    return this.http.post<any>(this._addNewTagURL, username, tagName);
+    return this.http.post<any>(this._addNewTagURL, {username, tagName});
   }
   /* ---------- timeline ----------- */
   getMorePosts(username) {
@@ -59,8 +59,8 @@ export class OtherService {
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
   }
-  quote(postID) {
-    return this.http.post<any>(this._quoteURL, postID);
+  quote(postID, username, comment) {
+    return this.http.post<any>(this._quoteURL, {postID, username, comment});
   }
   /* ---------- post ----------- */
   createNewPost(post) {
