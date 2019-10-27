@@ -9,7 +9,7 @@ const user = require('../models/User');
 
 
 router.post('/createNewPost', checkAuth, (req, res)  => {
-  console.log( 'res.locals.username:', res.locals.user);
+  console.log( 'res.locals.username:', res.locals.username);
   let data = req.body;
   const newPost = new post();
   newPost.username = data.username;
