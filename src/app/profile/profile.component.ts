@@ -1,6 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../auth.service';
+import {OtherService} from '../other.service';
+
+
+
 
 @Component({
   selector: 'app-profile',
@@ -9,19 +14,27 @@ import {AuthService} from '../auth.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private _auth: AuthService, private _router: Router) {
-
+  constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) {
   }
 
   getUserName = '';
   getFirstName = '';
   getLastName = '';
   getEmail = '';
-  getAge = '';
-  getSchool = '';
+  getAge: number;
   getGender = '';
-  getPhone = '';
+  getPhone: number;
   getAddress = '';
+  getTag = '';
+  getTagNum = '';
+  getTagList = [];
+  getFollowStatus: boolean;
+  enteredFirstName: string;
+  enteredLastName: string;
+  enteredAge: number;
+  enteredGender: string;
+  enteredAddress: string;
+  enteredPhone: number;
 
   ngOnInit() {
     // set all profile value from local storage
@@ -29,10 +42,9 @@ export class ProfileComponent implements OnInit {
     this.getFirstName = localStorage.getItem('firstName');
     this.getLastName = localStorage.getItem('lastName');
     this.getEmail = localStorage.getItem('email');
-    this.getAge = localStorage.getItem('age');
-    this.getSchool = localStorage.getItem('school');
+    this.getAge = Number(localStorage.getItem('age'));
     this.getGender = localStorage.getItem('gender');
-    this.getPhone = localStorage.getItem('phone');
+    this.getPhone = Number(localStorage.getItem('phone'));
     this.getAddress = localStorage.getItem('address');
 
     // console.log(localStorage);
@@ -44,10 +56,46 @@ export class ProfileComponent implements OnInit {
     // this.UpdatePassword.username = this.getUserName;
   }
 
-    submit() {
+  submit() {
     console.log('click');
+  }
+
+
+  onAddTag() {
+    for (const tag of this.getTagList) {
+      if (tag === this.getTag) {
+        alert('Existing Tag!');
+        return;
+      }
     }
+    this.getTagList.push(this.getTag);
+    this.getTagNum += 1;
+    this._other.addNewTag(this.getUserName, this.getTag);
+  }
 
+  onSaveProfiel() {
+    this.getFirstName = this.enteredFirstName;
+    this.getLastName = this.enteredLastName;
+    if (this.enteredAge >= 0 && this.enteredAge <= 120) {
+      this.getAge = this.enteredAge;
+    } else {
+      alert('Invalid Input! Entered age must between 0 and 120.');
+    }
+    this.getGender = this.enteredGender;
+    if (this.enteredPhone.toString().length === 10) {
+      this.getPhone = this.enteredPhone;
+    } else {
+      alert('Invalid Phone Number! Phone number must be 10 digits.');
+    }
+  }
 
+  onFollow() {
+    this.getFollowStatus = true;
+    console.log('User Followed');
+  }
+
+  onunFollow() {
+    this.getFollowStatus = false;
+    console.log('User Unfollowed');
+  }
 }
-
