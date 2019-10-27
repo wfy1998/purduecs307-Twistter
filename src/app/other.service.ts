@@ -51,11 +51,9 @@ export class OtherService {
   changeProfile(User) {
     return this.http.post<any>(this._changeProfileURL, User);
   }
-  addNewTag(tagName) {
-    return this.http.post<any>(this._addNewTagURL, tagName);
-  }
-  checkFollowStatus(username) {
-    return this.http.post<any>(this._checkFollowStatusURL, username);
+  addNewTag(tag) {
+    console.log('the tag in the service is: ', tag);
+    return this.http.post<any>(this._addNewTagURL, tag);
   }
   /* ---------- timeline ----------- */
   getMorePosts() {

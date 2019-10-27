@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
     }
     this.getTagList.push(this.getTag);
     this.getTagNum += 1;
-    this._other.addNewTag(this.getUserName, this.getTag);
+    this._other.addNewTag(this.getTag);
   }
 
   onSaveProfiel() {

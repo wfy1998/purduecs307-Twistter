@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OtherService} from '../other.service';
 
 @Component({
   selector: 'app-finduser',
@@ -7,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FinduserComponent implements OnInit {
 
-  constructor() { }
+  getEnterName = '';
+  constructor(private _other: OtherService) { }
 
   ngOnInit() {
+    this.getEnterName = localStorage.getItem('userName');
+
   }
 
-
+  onClickSearch(postInput: HTMLTextAreaElement) {
+    if (postInput.value !== '') {
+      window.location.href = 'this._other.findUser(postInput.value)';
+    } else {
+      alert('Please enter a username');
+    }
+  }
 }
