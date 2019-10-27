@@ -17,6 +17,7 @@ export class OtherService {
   private _getOwnProfileURL = 'http://localhost:3000/api/profile/';
   private _changeProfileURL = 'http://localhost:3000/api/profile/changeProfile';
   private _addNewTagURL = 'http://localhost:3000/api/profile/addTag';
+  private _checkFollowStatusURL = 'http://localhost:3000/api/profile/checkFollowStatus';
   /* ---------- timeline ----------- */
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
   private _likePostURL = 'http://localhost:3000/api/timeline/likePost';
@@ -44,8 +45,8 @@ export class OtherService {
   changeFrollowedTag(taglist) {
     return this.http.post<any>(this._changeFollowedTagURL, taglist);
   }
-  getOwnProfile(username) {
-    return this.http.get(this._getOwnProfileURL, username);
+  getOwnProfile() {
+    return this.http.get(this._getOwnProfileURL);
   }
   changeProfile(User) {
     return this.http.post<any>(this._changeProfileURL, User);
@@ -55,8 +56,8 @@ export class OtherService {
     return this.http.post<any>(this._addNewTagURL, tag);
   }
   /* ---------- timeline ----------- */
-  getMorePosts(username) {
-    return this.http.get(this._getMorePostsURL, username);
+  getMorePosts() {
+    return this.http.get(this._getMorePostsURL);
   }
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
@@ -73,8 +74,8 @@ export class OtherService {
     return this.http.post<any>(this._createNewPostURL, post);
   }
   /* ---------- tag ----------- */
-  getTags(username) {
-    return this.http.get(this._getTagsURL, username);
+  getTags() {
+    return this.http.get(this._getTagsURL);
   }
   /* ---------- find user ----------- */
   findUser(username) {

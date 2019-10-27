@@ -20,6 +20,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import {CookieService} from 'angular2-cookie/core';
 import {AuthInterceptor} from './auth-interceptor';
 import { TestComponent } from './test/test.component';
+import {FinduserComponent} from './finduser/finduser.component';
 
 
 
@@ -35,6 +36,7 @@ import { TestComponent } from './test/test.component';
     ProfileComponent,
     TimelineComponent,
     TestComponent,
+    FinduserComponent,
     // DataComponent
   ],
   imports: [
