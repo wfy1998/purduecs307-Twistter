@@ -8,6 +8,8 @@ const userModel = require('../models/User');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
+  var followedUsers;
+  // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: req.body.username})
     .populate('Followed')
     .exec((err, doc) => {
@@ -16,10 +18,23 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         res.status(500).send('no such user /or query failed');
         return;
       }
-      
+      followedUsers = doc;
     });
+  // followedUsers: list of Followed model document
+  var allPosts = [];
+  for (let tempUser in followedUsers) {
+    //for each user & tag pair, search all posts
+    postModel.find({username: tempUser.followedUserName}, (err, posts) => {
+      if (err) {
+        console.log('post search error');
+        return
+      }
+      for (let post in posts) {
+        allPosts.push(post);
+      }
 
-  postModel.find({}).populate()
+    })
+  }
 });
 
 router.get('/likePost', checkAuth, (req, res)  => {
@@ -70,7 +85,7 @@ router.get('/quote', checkAuth, (req, res)  => {
 });
 
 router.get('/getUserLine', checkAuth, (req, res) => {
-
+  
 });
 
 module.exports = router;
