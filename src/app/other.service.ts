@@ -68,6 +68,7 @@ export class OtherService {
   }
   /* ---------- post ----------- */
   createNewPost(post) {
+    console.log('int the service, the post is: ', post);
     return this.http.post<any>(this._createNewPostURL, post);
   }
   /* ---------- tag ----------- */

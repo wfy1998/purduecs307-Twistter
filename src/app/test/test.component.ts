@@ -12,20 +12,27 @@ export class TestComponent implements OnInit {
 
   newPost = {
     content: '',
-    userName: '',
-    tag: [],
+    username: '',
+    tags: [],
   };
 
   newTag = {
-    tag: ''
+    tags: ''
   };
+
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
+
+    this.newPost.content = 'this is a new post';
+    this.newPost.username = 'wang';
+    this.newPost.tags = ['fuck', 'cao'];
+
   }
 
   submitPost() {
+    console.log('int the service, the post is: ', this.newPost);
     this._other.createNewPost(this.newPost).subscribe(res => {
       console.log('create post');
     },
