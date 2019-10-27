@@ -7,7 +7,7 @@ import {MainComponent} from './common/main/main.component';
 import {FindPasswordComponent} from './findPassword/findPassword.component';
 import {ProfileComponent} from './profile/profile.component';
 import {TimelineComponent} from './timeline/timeline.component';
-import {TestComponent} from './test/test.component';
+import {FinduserComponent} from './finduser/finduser.component';
 
 
 const routes: Routes = [
@@ -31,9 +31,8 @@ const routes: Routes = [
     path: 'timeline', component: TimelineComponent
   },
   {
-    path: 'test', component: TestComponent
+    path: 'finduser', component: FinduserComponent
   }
-
 ];
 
 
