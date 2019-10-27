@@ -16,8 +16,8 @@ export class TestComponent implements OnInit {
     tags: [],
   };
 
-  newTag = {
-    tags: ''
+  tag = {
+    tag: ''
   };
 
 
@@ -28,7 +28,7 @@ export class TestComponent implements OnInit {
     this.newPost.content = 'this is a new post';
     this.newPost.username = 'wang';
     this.newPost.tags = ['fuck', 'cao'];
-
+    this.tag.tag = 'a new tag';
   }
 
   submitPost() {
@@ -41,8 +41,8 @@ export class TestComponent implements OnInit {
   }
 
   submitNewTag() {
-    this._other.addNewTag(localStorage.getItem('username'), this.newTag).subscribe(res => {
-      console.log('add tag');
+    this._other.addNewTag(this.tag).subscribe(res => {
+      console.log('add tag:', this.tag);
     },
       err => console.log(err)
       );

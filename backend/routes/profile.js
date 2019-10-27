@@ -26,10 +26,33 @@ router.get('/', checkAuth, (req, res) => {
 
 router.post('/changeProfile', checkAuth, (req, res) => {
 
+  userModel.updateOne(
+    {
+      username: req.body.username,
+    }, {
+      username: req.body.newUserName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      // password: req.body.email,
+
+    },
+    function(err, data){
+      if(err) {
+        console.log('update info failed.', err);
+        return res.status(400).send(err);
+      } else {
+        console.log('update info success!');
+        return res.status(200).send(data);
+      }
+    })
+
 });
 
 router.post('/addTag', checkAuth, (req, res) => {
-  userModel.findOne({username: req.body.username}, (err, user) =>{
+  console.log('the user name', res.locals.username);
+  console.log('the new tag is: ', req.body);
+  userModel.findOne({username: res.locals.username}, (err, user) =>{
     if(err){
       res.status(500).send(err);
     }
@@ -37,10 +60,11 @@ router.post('/addTag', checkAuth, (req, res) => {
       res.status(500).send('user not found');
     }
     else {
-      user.tags.push(req.body.tag);
-      res.status(200).send('add new tag');
+      user.userTags.update(req.body.tag);
+      res.status(200)
     }
   })
+
 });
 
 module.exports = router;
