@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true},
 
   userPosts: {type: [Schema.ObjectId], ref: 'Post'},
-  userTags: {type: [Schema.ObjectId], ref: 'Tag'}, //this user's own tag
+  userTags: {type: [String],},
   userFollowed: {type: [Schema.ObjectId], ref: 'Followed'},
 
   age: {type: String},

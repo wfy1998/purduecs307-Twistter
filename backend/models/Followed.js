@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Followed = mongoose.Schema({
   followedUserName: {type: String},
-  followedUserTag: {type: [Schema.ObjectId], ref: 'Tag'},
-  initialTagsWhenFollowed: {type: [Schema.ObjectId], ref: 'Tag'}
+  followedUserTag: {type: [String]},
+  initialTagsWhenFollowed: {type: [String]}
 });
 module.exports = mongoose.model('followed', Followed, 'followed');

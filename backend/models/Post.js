@@ -6,7 +6,7 @@ const postSchema = mongoose.Schema({
   username: {type: String, required: true},
   content: {type: String, required: true},
 
-  tags:{type: [Schema.ObjectId], ref: 'Tag'},
+  tags:{type: [String]},
 
   likedByUser: {type: [String]},
   numberOfLikes: {type: String},
