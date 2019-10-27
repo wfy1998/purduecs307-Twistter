@@ -29,7 +29,18 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 });
 
 router.post('/addTag', checkAuth, (req, res) => {
-
+  userModel.findOne({username: req.body.username}, (err, user) =>{
+    if(err){
+      res.status(500).send(err);
+    }
+    if(!user){
+      res.status(500).send('user not found');
+    }
+    else {
+      user.tags.push(req.body.tag);
+      res.status(200).send('add new tag');
+    }
+  })
 });
 
 module.exports = router;
