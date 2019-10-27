@@ -13,6 +13,8 @@ const userSchema = mongoose.Schema({
   userTags: {type: [String],},
   userFollowed: [{type: Schema.ObjectId, ref: 'Followed'}],
 
+  token: {type: String, unique:true},
+
   age: {type: String},
   school: {type: String},
   gender: {type: String},

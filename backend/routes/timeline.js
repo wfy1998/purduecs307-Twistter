@@ -85,7 +85,7 @@ router.get('/quote', checkAuth, (req, res)  => {
 });
 
 router.get('/getUserLine', checkAuth, (req, res) => {
-  
+
 });
 
 module.exports = router;

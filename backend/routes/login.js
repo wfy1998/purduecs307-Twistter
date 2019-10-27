@@ -36,6 +36,9 @@ router.post('/', (req, res, next) => {
     else {
       let payload = {subject: user._id};
       let token = jwt.sign(payload, 'secretKey');
+      userModel.updateOne({username: user.username}, {token: token}, {upsert: true}, (err) => {
+        if (err) console.log(err);
+      });
       res.status(200).send({token, user})
     }
 
