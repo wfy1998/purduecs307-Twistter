@@ -10,7 +10,7 @@ module.exports = (req, res, next) =>{
       if (err) {
         throw new Error('invalid token user combination')
       }
-      res.locals.username = user.username;
+      res.locals.user = user.username;
     });
     next();
   } catch (error) {

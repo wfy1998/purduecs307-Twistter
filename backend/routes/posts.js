@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const checkAuth = require("../middleware/check-auth");
+const checkAuth = require("../middleware/check-auth");
 
 const post = require('../models/Post');
 const tag = require('../models/Tag');
@@ -8,7 +8,8 @@ const user = require('../models/User');
 
 
 
-router.post('/createNewPost', (req, res)  => {
+router.post('/createNewPost', checkAuth, (req, res)  => {
+  console.log( 'res.locals.username:', res.locals.user);
   let data = req.body;
   const newPost = new post();
   newPost.username = data.username;
@@ -17,7 +18,7 @@ router.post('/createNewPost', (req, res)  => {
   for( var tag in data.tags){
   newPost.tags.push(data.tags[tag]);
   }
-  console.log(newPost.tags);
+  // console.log(newPost.tags);
 
   post.insertMany(newPost, function (err, newPost){
     if (err){
@@ -29,6 +30,8 @@ router.post('/createNewPost', (req, res)  => {
       return res.status(200).send(newPost);
     }
   })
+
+  console.log('final');
 
 });
 

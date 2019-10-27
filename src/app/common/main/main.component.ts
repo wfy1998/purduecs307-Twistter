@@ -45,6 +45,6 @@ export class MainComponent implements OnInit {
 
   }
   getToken() {
-    return this.token;
+    return localStorage.getItem('token');
   }
 }
