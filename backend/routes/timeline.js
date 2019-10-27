@@ -7,7 +7,9 @@ const postModel = require('../models/Post');
 const userModel = require('../models/User');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
+  //postModel.find({}, null, {sort: {createdAt: 1}}, (err, docs) => {
 
+  //});
 });
 
 router.get('/likePost', checkAuth, (req, res)  => {

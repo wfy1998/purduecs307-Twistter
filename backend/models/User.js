@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const Followed = require("./Followed");
-const Tag = require("./Tag");
-const Post = require("./Post");
+const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema({
   firstName: {type: String, required: true},
@@ -11,10 +9,9 @@ const userSchema = mongoose.Schema({
   username: {type: String, required: true, unique: true},
   password: { type: String, required: true},
 
-  userPosts: {type: [Post.schema]},
-
-  userTags: {type: [Tag.schema]}, //this user's own tag
-  userFollowed: {type: [Followed.schema]},
+  userPosts: {type: [Schema.ObjectId], ref: 'Post'},
+  userTags: {type: [Schema.ObjectId], ref: 'Tag'}, //this user's own tag
+  userFollowed: {type: [Schema.ObjectId], ref: 'Followed'},
 
   age: {type: String},
   school: {type: String},

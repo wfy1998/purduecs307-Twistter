@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const Tag = require("./Tag");
+const Schema = mongoose.Schema;
 
 const Followed = mongoose.Schema({
   followedUserName: {type: String},
-  followedUserTag: {type: [Tag.schema]},
-  initialTagsWhenFollowed: {type: [Tag.schema]}
+  followedUserTag: {type: [Schema.ObjectId], ref: 'Tag'},
+  initialTagsWhenFollowed: {type: [Schema.ObjectId], ref: 'Tag'}
 });
 module.exports = mongoose.model('followed', Followed, 'followed');

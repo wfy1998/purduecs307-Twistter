@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const Tag = require("./Tag");
+const Schema = mongoose.Schema;
 
 const postSchema = mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   username: {type: String, required: true},
   content: {type: String, required: true},
 
-  tags:{type: [Tag.schema]},
+  tags:{type: [Schema.ObjectId], ref: 'Tag'},
 
   likedByUser: {type: [String]},
   numberOfLikes: {type: String},
