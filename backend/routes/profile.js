@@ -6,7 +6,7 @@ const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
 router.get('/getOthers', checkAuth, (req, res) => {
-
+    
 });
 
 router.post('/follow', checkAuth, (req, res) => {
