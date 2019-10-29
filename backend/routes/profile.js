@@ -66,10 +66,13 @@ router.post('/changeProfile', checkAuth, (req, res) => {
     {
       username: res.locals.username,
     }, {
-      username: req.body.newUserName,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
+
+      firstName: req.body.enteredFirstName,
+      lastName: req.body.enteredLastName,
+      age: req.body.enteredAge,
+      address: req.body.enteredAddress,
+      phone: req.body.enteredPhone
+
     },
     function(err, data){
       if(err) {
