@@ -6,21 +6,27 @@ const checkAuth = require("../middleware/check-auth");
 const postModel = require('../models/Post');
 const userModel = require('../models/User');
 
-router.get('/getMorePosts', checkAuth, (req, res)  => {
-  // console.log('getting more post');
-  // var followedUsers;
-  // // getting all the user that are followed by current user (specified by username)
-  // userModel.findOne({username: req.body.username})
-  //   .populate('Followed')
-  //   .exec((err, doc) => {
-  //     if (err) {
-  //       console.log('no such user');
-  //       res.status(500).send('no such user /or query failed');
-  //       return;
-  //     }
-  //     followedUsers = doc;
-  //   });
-  // // followedUsers: list of Followed model document
+router.post('/getMorePosts', checkAuth, (req, res)  => {
+  console.log('getting more post');
+
+  // getting all the user that are followed by current user (specified by username)
+  userModel.findOne({username: res.locals.username})
+    .populate('Followed')
+    .exec((err, doc) => {
+      if (err) {
+        res.status(500).send('no such user /or query failed');
+        return;
+      }
+      if (!doc) {
+        console.log('query returned null');
+        return;
+      }
+      console.log(doc);
+      let followedUsers = doc;
+
+      res.status(200);
+    });
+  // followedUsers: list of Followed model document
   // var allPosts = [];
   // for (let tempUser in followedUsers) {
   //   //for each user & tag pair, search all posts
@@ -84,7 +90,7 @@ router.get('/quote', checkAuth, (req, res)  => {
   });
 });
 
-router.get('/getUserLine', checkAuth, (req, res) => {
+router.post('/getUserLine', checkAuth, (req, res) => {
 
 });
 

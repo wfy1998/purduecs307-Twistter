@@ -3,7 +3,7 @@ const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 const userModel = require("../models/User");
 
-router.get('/getTags', checkAuth, (req, res)  => {
+router.post('/getTags', checkAuth, (req, res)  => {
   console.log("getting tags");
   userModel.findOne({username: res.locals.username}, (err, user) => {
     if (err) {
