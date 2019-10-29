@@ -26,10 +26,13 @@ export class ProfileComponent implements OnInit {
   jsonUserName = {
       username: ''
   };
+  jsontag = {
+    tag: ''
+  };
   getUserName = '';
   getFirstName = '';
   getLastName = '';
-  getEmail = '';
+  // getEmail = '';
   getAge = '';
   getGender = '';
   getPhone = '';
@@ -85,7 +88,8 @@ export class ProfileComponent implements OnInit {
       }
     }
     this.getTagList.push(this.getTag);
-    this._other.addNewTag(this.getTag)
+    this.jsontag.tag = this.getTag;
+    this._other.addNewTag(this.jsontag)
       .subscribe();
   }
 
