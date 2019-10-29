@@ -34,7 +34,7 @@ export class OtherService {
 
   /* ---------- profile ----------- */
   getOthersProfile(username) {
-    return this.http.get(this._getOthersProfileURL, username);
+    return this.http.post(this._getOthersProfileURL, username);
   }
   followUser(username) {
     return this.http.post<any>(this._followUserURL, username);
@@ -46,7 +46,7 @@ export class OtherService {
     return this.http.post<any>(this._changeFollowedTagURL, taglist);
   }
   getOwnProfile() {
-    return this.http.get(this._getOwnProfileURL);
+    return this.http.post(this._getOwnProfileURL, {});
   }
   changeProfile(User) {
     return this.http.post<any>(this._changeProfileURL, User);
@@ -57,7 +57,7 @@ export class OtherService {
   }
   /* ---------- timeline ----------- */
   getMorePosts() {
-    return this.http.get(this._getMorePostsURL);
+    return this.http.post(this._getMorePostsURL, {});
   }
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
@@ -66,7 +66,7 @@ export class OtherService {
     return this.http.post<any>(this._quoteURL, {postID, comment});
   }
   getUserLine(username) {
-    return this.http.get(this._getUserLine, username);
+    return this.http.post(this._getUserLine, username);
   }
   /* ---------- post ----------- */
   createNewPost(post) {
@@ -75,7 +75,7 @@ export class OtherService {
   }
   /* ---------- tag ----------- */
   getTags() {
-    return this.http.get(this._getTagsURL);
+    return this.http.post(this._getTagsURL, {});
   }
   /* ---------- find user ----------- */
   findUser(username) {

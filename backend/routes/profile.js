@@ -5,7 +5,7 @@ const userModel = require('../models/User');
 const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/getOthers', checkAuth, (req, res) => {
+router.post('/getOthers', checkAuth, (req, res) => {
     userModel.findOne({username: username}, (err, user) =>{
       if (err){
         console.log('the error is: ', err);
@@ -120,7 +120,7 @@ router.post('/changeFollowedTag', checkAuth, (req, res) => {
 
 });
 
-router.get('/', checkAuth, (req, res) => {
+router.post('/', checkAuth, (req, res) => {
 
 });
 
