@@ -106,7 +106,6 @@ router.post('/addTag', checkAuth, (req, res) => {
             console.log('the err is', err)
           }
           else {
-            console.log('the data is', data);
             console.log('the tag after add is: ', tags)
           }
         }
