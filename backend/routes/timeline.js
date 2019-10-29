@@ -67,7 +67,7 @@ router.get('/quote', checkAuth, (req, res)  => {
       console.log(err);
       return
     }
-    newPost.username = data.username;
+    newPost.username = res.locals.username;
     newPost.content = post.content;
     newPost.tags = post.tags;
     newPost.quoted = true;

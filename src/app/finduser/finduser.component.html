@@ -109,10 +109,6 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
         <ul class="nav navbar-nav hidden-xs">
           <!-- messages -->
           <li class="dropdown notifications hidden-xs hidden-sm">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-group"></i>
-
-            </a>
             <ul class="dropdown-menu">
               <li class="media">
                 <div class="media-left">
@@ -168,7 +164,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
           <!-- User -->
           <li class="dropdown">
             <a  class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../assets/images/people/default_user.jpg" width="35" alt="Bill" class="img-circle"> Bill <span class="caret"></span>
+              <img src="../../assets/images/people/default_user.jpg" width="35" alt="Bill" class="img-circle"> {{getEnterName}}<span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="profile.html">Profile</a></li>
@@ -223,8 +219,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--            <a href="#timeline" data-toggle="collapse" aria-expanded="true"><i class="icon-ship-wheel"></i> <span>Timeline</span></a>-->
         <!--          </li>-->
         <li class=""><a href="http://localhost:4200/timeline"><i class=" icon-ship-wheel "></i> <span>Timeline</span></a></li>
-        <!--          userline 的 href 暂时是timeline-->
-        <li class=""><a href="http://localhost:4200/timeline"><i class="icon-telescope"></i> <span>Userline</span></a></li>
+
         <li class=""><a href=" http://localhost:4200/profile "><i class="icon-user-1"></i> <span>Profile</span></a></li>
         <!--          users 界面还没有做-->
         <li class=""><a href="http://localhost:4200/finduser"><i class="fa fa-group"></i> <span>Find User</span></a></li>
@@ -268,9 +263,9 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
               <div class="panel panel-default share">
                 <div class="input-group">
                   <div class="input-group-btn">
-                    <a class="btn btn-primary" a href="#" ><i class="fa fa-search"></i> Search Another User</a>
+                    <a class="btn btn-primary" (click)="onClickSearch(inputName)"><i class="fa fa-search"></i> Search Another User</a>
                   </div>
-                  <input type="text" class="form-control share-text" placeholder="User's Name" />
+                  <input type="textarea" class="form-control share-text" placeholder="User's Name" #inputName/>
                 </div>
               </div>
 

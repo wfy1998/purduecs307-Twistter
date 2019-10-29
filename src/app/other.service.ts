@@ -62,8 +62,8 @@ export class OtherService {
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
   }
-  quote(postID, username, comment) {
-    return this.http.post<any>(this._quoteURL, {postID, username, comment});
+  quote(postID, comment) {
+    return this.http.post<any>(this._quoteURL, {postID, comment});
   }
   getUserLine(username) {
     return this.http.get(this._getUserLine, username);
