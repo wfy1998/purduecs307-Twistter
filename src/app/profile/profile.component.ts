@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../auth.service';
 import {OtherService} from '../other.service';
+import {error} from 'util';
 
 @Component({
   selector: 'app-profile',
@@ -22,30 +23,45 @@ export class ProfileComponent implements OnInit {
       enteredAddress: '',
       enteredPhone: ''
     };
+  jsonUserName = {
+      username: ''
+  };
   getUserName = '';
   getFirstName = '';
   getLastName = '';
   getEmail = '';
-  getAge: string;
+  getAge = '';
   getGender = '';
-  getPhone: string;
+  getPhone = '';
   getAddress = '';
   getTag = '';
-  getTagNum = '';
   getTagList = [];
   getFollowStatus: boolean;
 
 
   ngOnInit() {
     // set all profile value from local storage
-    this.getUserName = localStorage.getItem('userName');
-    this.getFirstName = localStorage.getItem('firstName');
-    this.getLastName = localStorage.getItem('lastName');
-    this.getEmail = localStorage.getItem('email');
-    this.getAge = localStorage.getItem('age');
-    this.getGender = localStorage.getItem('gender');
-    this.getPhone = localStorage.getItem('phone');
-    this.getAddress = localStorage.getItem('address');
+    this.jsonUserName.username = localStorage.getItem('userName');
+    this._other.getOthersProfile(this.jsonUserName)
+    .subscribe( (res: any) => {
+      this.getUserName = res.username;
+      this.getAddress = res.address;
+      this.getGender = res.gender;
+      this.getAge = res.age;
+      this.getPhone = res.phone;
+      this.getFirstName = res.firstName;
+      this.getLastName = res.lastName;
+      this.getTagList = res.userTags;
+      console.log('tags:' + this.getTagList);
+    });
+    // this.getUserName = localStorage.getItem('userName');
+    // this.getFirstName = localStorage.getItem('firstName');
+    // this.getLastName = localStorage.getItem('lastName');
+    // this.getEmail = localStorage.getItem('email');
+    // this.getAge = localStorage.getItem('age');
+    // this.getGender = localStorage.getItem('gender');
+    // this.getPhone = localStorage.getItem('phone');
+    // this.getAddress = localStorage.getItem('address');
 
     // console.log(localStorage);
     // this.UpdateUserInfo.username = this.getUserName;
@@ -69,30 +85,22 @@ export class ProfileComponent implements OnInit {
       }
     }
     this.getTagList.push(this.getTag);
-    this.getTagNum += 1;
-    this._other.addNewTag(this.getTag);
+    this._other.addNewTag(this.getTag)
+      .subscribe();
   }
 
   onSaveProfiel() {
     this.getFirstName = this.changeProfile.enteredFirstName;
     this.getLastName = this.changeProfile.enteredLastName;
-    // use string instead of number
-    // if (this.changeProfile.enteredAge >= 0 && this.changeProfile.enteredAge <= 120) {
-    //   this.getAge = this.changeProfile.enteredAge;
-    // } else {
-    //   alert('Invalid Input! Entered age must between 0 and 120.');
-    // }
+      this.getAge = this.changeProfile.enteredAge;
     this.getGender = this.changeProfile.enteredGender;
-    // use string
-    // if (this.changeProfile.enteredPhone.toString().length === 10) {
-    //   this.getPhone = this.changeProfile.enteredPhone;
-    // } else {
-    //   alert('Invalid Phone Number! Phone number must be 10 digits.');
-    // }
+      this.getPhone = this.changeProfile.enteredPhone;
+      this.getAddress = this.changeProfile.enteredAddress;
     this._other.changeProfile(this.changeProfile)
       .subscribe(res => {
         console.log('change profile success');
       });
+    window.location.reload();
   }
 
   onFollow() {
@@ -104,4 +112,15 @@ export class ProfileComponent implements OnInit {
     this.getFollowStatus = false;
     console.log('User Unfollowed');
   }
+
+  logOut() {
+    localStorage.removeItem('email');
+    localStorage.removeItem('address');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+  }
 }
+

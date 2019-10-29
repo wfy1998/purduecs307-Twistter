@@ -6,16 +6,16 @@ const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
 router.post('/getOthers', checkAuth, (req, res) => {
-    userModel.findOne({username: username}, (err, user) =>{
+    userModel.findOne({username: req.body.username}, (err, user) =>{
       if (err){
         console.log('the error is: ', err);
         res.status(500).send(err);
       }
       if(!user){
-        res.status(500).send('cannot find the user')
+        res.status(500).send('cannot find the user');
       }
       else {
-        res.json(user)
+        res.json(user);
       }
     })
 });
@@ -134,6 +134,7 @@ router.post('/changeProfile', checkAuth, (req, res) => {
       firstName: req.body.enteredFirstName,
       lastName: req.body.enteredLastName,
       age: req.body.enteredAge,
+      gender: req.body.enteredGender,
       address: req.body.enteredAddress,
       phone: req.body.enteredPhone
 
