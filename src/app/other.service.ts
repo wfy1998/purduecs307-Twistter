@@ -82,6 +82,11 @@ export class OtherService {
     return this.http.post<any>(this._findUser, username);
   }
 
+  /* -------------for test purpose only ----------*/
+  resetAccount() {
+    return this.http.post<any>('http://localhost:3000/api/profile/reset', {});
+  }
+
   // checkUserNameAndEmail(userName: string, email: string) {
   //   const params = new HttpParams()
   //     .set('userName', userName)

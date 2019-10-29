@@ -226,4 +226,17 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
 
 });
 
+router.post('/reset', checkAuth, (req, res) => {
+  console.log('resetting');
+  userModel.findOneAndUpdate({username: res.locals.username}, { $set: {
+      'userPosts': [],
+      'userTags': [],
+      'userFollowed': []
+    }
+  } , (err, user) => {
+    if (err) {console.log(err)}
+    console.log(user);
+  })
+});
+
 module.exports = router;

@@ -88,4 +88,8 @@ export class TestComponent implements OnInit {
       }, err => console.log(err));
   }
 
+  resetProfile() {
+    this._other.resetAccount().subscribe(err => console.log(err));
+  }
+
 }
