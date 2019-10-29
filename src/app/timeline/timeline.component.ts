@@ -18,6 +18,16 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
   }
+  logOut() {
+    localStorage.removeItem('email')
+    localStorage.removeItem('address');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+  }
+
 
   newPost() {
 

@@ -5,7 +5,7 @@ const userModel = require('../models/User');
 const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/getOthers', checkAuth, (req, res) => {
+router.post('/getOthers', checkAuth, (req, res) => {
     userModel.findOne({username: username}, (err, user) =>{
       if (err){
         console.log('the error is: ', err);
@@ -31,6 +31,9 @@ router.post('/follow', checkAuth, (req, res) => {
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log('err query user', username);
+      return;
+    }
+    if (!user) {
       return;
     }
 
@@ -61,6 +64,7 @@ router.post('/follow', checkAuth, (req, res) => {
             return
           }
           console.log('success');
+          return res.status(200);
         }); //end update current user follow list
 
       }); //end saving new follow model
@@ -102,6 +106,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
           userModel.updateOne({username: username}, {$pull: {userFollowed: followList[tempID]}}, (err) => {
             if (err) {console.log(err); return}
             console.log('removed');
+            return res.status(200);
           });
         }
       }); //end find follow model by id
@@ -115,7 +120,7 @@ router.post('/changeFollowedTag', checkAuth, (req, res) => {
 
 });
 
-router.get('/', checkAuth, (req, res) => {
+router.post('/', checkAuth, (req, res) => {
 
 });
 
