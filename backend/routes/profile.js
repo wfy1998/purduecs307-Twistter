@@ -64,14 +64,12 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 
   userModel.updateOne(
     {
-      username: req.body.username,
+      username: res.locals.username,
     }, {
       username: req.body.newUserName,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      // password: req.body.email,
-
     },
     function(err, data){
       if(err) {
@@ -86,13 +84,38 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 });
 
 router.post('/addTag', checkAuth, (req, res) => {
-  console.log('the user name', res.locals.username);
-  console.log('the new tag is: ', req.body.tag);
-  let tag = req.body.tag;
-  userModel.updateOne({username: res.locals.username},
-    {
-      $push:{userTags: tag }
-    });
+  let newTag = req.body.tag;
+  let tags = {
+    tags:String
+  };
+  userModel.findOne({username: res.locals.username}, (err, user) =>{
+    if(err){
+      res.status(404).send(err)
+    }
+    else {
+      tags = user.userTags;
+      console.log('the old tag array: ', tags);
+      tags.push(newTag);
+      console.log('the new tag array: ', tags);
+      userModel.updateOne({username: res.locals.username},
+        {
+          userTags: tags
+        },
+        function(err, data){
+          if(err){
+            console.log('the err is', err)
+          }
+          else {
+            console.log('the data is', data);
+            console.log('the tag after add is: ', tags)
+          }
+        }
+        )
+    }
+
+  });
+
+
 
 });
 
