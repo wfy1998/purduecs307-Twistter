@@ -123,15 +123,13 @@ router.post('/addTag', checkAuth, (req, res) => {
           else {
             console.log('the tag after add is: ', tags)
           }
-        }
-        )
-    }
+        })// end updateOne
 
-  });
+    }// end else
 
+  });// end findOne
 
-
-});
+});// end function
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
 
