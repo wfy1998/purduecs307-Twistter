@@ -13,11 +13,11 @@ export class FinduserComponent implements OnInit {
 
   ngOnInit() {
     this.getEnterName = localStorage.getItem('userName');
-
   }
 
   onClickSearch(postInput: HTMLTextAreaElement) {
     if (postInput.value !== '') {
+      localStorage.setItem('searchUser', postInput.value);
       window.location.href = 'this._other.findUser(postInput.value)';
     } else {
       alert('Please enter a username');
