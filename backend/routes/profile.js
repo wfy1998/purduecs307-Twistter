@@ -12,39 +12,51 @@ router.get('/getOthers', checkAuth, (req, res) => {
 router.post('/follow', checkAuth, (req, res) => {
   const username = res.locals.username;
   const newFollow = new followModel();
-  newFollow.followedUserName = req.body.username;
+  const userToBeFollowed = req.body.username;
+  newFollow.followedUserName = userToBeFollowed;
+  console.log(userToBeFollowed);
 
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log('err query user', username);
+      return;
     }
-    let allFollowed = user.userFollowed;
 
-    //reading user tags
-    let tagsOfUser = [];
-    for (let tempTag in user.userTags) {
-      tagsOfUser.push(tempTag);
-    }
-    //assigning tags
-    newFollow.followedUserTag = tagsOfUser;
-    newFollow.initialTagsWhenFollowed = tagsOfUser;
-
-    //saving follow model
-    followModel.save((err, follow) => {
+    userModel.findOne({username: userToBeFollowed}, (err, BeFollowedUser) => {
       if (err) {
         console.log(err);
-        console.log('save follow error');
-        return
+        return;
       }
-      let followID = follow._id;
-      userModel.updateOne({username: username}, {$push: {userFollowed: followID}}, (err) => {
+      //reading tags of userToBeFollowed
+      let tagsOfUser = BeFollowedUser.userTags;
+      console.log(tagsOfUser);
+
+      //assigning tags
+      newFollow.followedUserTag = tagsOfUser;
+      newFollow.initialTagsWhenFollowed = tagsOfUser;
+
+      //saving follow model
+      newFollow.save((err, follow) => {
         if (err) {
           console.log(err);
+          console.log('save follow error');
+          return
         }
-      });
-    });
+        let followID = follow._id;
+        userModel.updateOne({username: username}, {$push: {userFollowed: followID}}, (err) => {
+          if (err) {
+            console.log(err);
+            return
+          }
+          console.log('success');
+        }); //end update current user follow list
 
-  });
+      }); //end saving new follow model
+
+    }); //end finding user tobefollowed
+
+  }); //end find initial user
+
 });
 
 router.post('/unfollow', checkAuth, (req, res) => {

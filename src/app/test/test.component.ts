@@ -21,10 +21,10 @@ export class TestComponent implements OnInit {
   };
 
   followName = {
-    name: ''
+    username: ''
   };
   unfollowName = {
-    name: ''
+    username: ''
   };
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
