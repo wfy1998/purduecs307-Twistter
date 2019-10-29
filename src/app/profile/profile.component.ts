@@ -4,9 +4,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../auth.service';
 import {OtherService} from '../other.service';
 
-
-
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -17,24 +14,27 @@ export class ProfileComponent implements OnInit {
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) {
   }
 
+  changeProfile = {
+      enteredFirstName: '',
+      enteredLastName: '',
+      enteredAge: '',
+      enteredGender: '',
+      enteredAddress: '',
+      enteredPhone: ''
+    };
   getUserName = '';
   getFirstName = '';
   getLastName = '';
   getEmail = '';
-  getAge: number;
+  getAge: string;
   getGender = '';
-  getPhone: number;
+  getPhone: string;
   getAddress = '';
   getTag = '';
   getTagNum = '';
   getTagList = [];
   getFollowStatus: boolean;
-  enteredFirstName: string;
-  enteredLastName: string;
-  enteredAge: number;
-  enteredGender: string;
-  enteredAddress: string;
-  enteredPhone: number;
+
 
   ngOnInit() {
     // set all profile value from local storage
@@ -42,9 +42,9 @@ export class ProfileComponent implements OnInit {
     this.getFirstName = localStorage.getItem('firstName');
     this.getLastName = localStorage.getItem('lastName');
     this.getEmail = localStorage.getItem('email');
-    this.getAge = Number(localStorage.getItem('age'));
+    this.getAge = localStorage.getItem('age');
     this.getGender = localStorage.getItem('gender');
-    this.getPhone = Number(localStorage.getItem('phone'));
+    this.getPhone = localStorage.getItem('phone');
     this.getAddress = localStorage.getItem('address');
 
     // console.log(localStorage);
@@ -74,19 +74,25 @@ export class ProfileComponent implements OnInit {
   }
 
   onSaveProfiel() {
-    this.getFirstName = this.enteredFirstName;
-    this.getLastName = this.enteredLastName;
-    if (this.enteredAge >= 0 && this.enteredAge <= 120) {
-      this.getAge = this.enteredAge;
-    } else {
-      alert('Invalid Input! Entered age must between 0 and 120.');
-    }
-    this.getGender = this.enteredGender;
-    if (this.enteredPhone.toString().length === 10) {
-      this.getPhone = this.enteredPhone;
-    } else {
-      alert('Invalid Phone Number! Phone number must be 10 digits.');
-    }
+    this.getFirstName = this.changeProfile.enteredFirstName;
+    this.getLastName = this.changeProfile.enteredLastName;
+    // use string instead of number
+    // if (this.changeProfile.enteredAge >= 0 && this.changeProfile.enteredAge <= 120) {
+    //   this.getAge = this.changeProfile.enteredAge;
+    // } else {
+    //   alert('Invalid Input! Entered age must between 0 and 120.');
+    // }
+    this.getGender = this.changeProfile.enteredGender;
+    // use string
+    // if (this.changeProfile.enteredPhone.toString().length === 10) {
+    //   this.getPhone = this.changeProfile.enteredPhone;
+    // } else {
+    //   alert('Invalid Phone Number! Phone number must be 10 digits.');
+    // }
+    this._other.changeProfile(this.changeProfile)
+      .subscribe(res => {
+        console.log('change profile success');
+      });
   }
 
   onFollow() {
