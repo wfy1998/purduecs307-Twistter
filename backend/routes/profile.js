@@ -220,8 +220,4 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
 
 });
 
-function checkFollow(user, userToCheck) {
-
-}
-
 module.exports = router;

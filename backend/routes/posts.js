@@ -29,7 +29,7 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
       console.log('Add car detail success!');
       return res.status(200).send(newPost);
     }
-  })
+  });
 
   console.log('final');
 
