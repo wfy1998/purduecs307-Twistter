@@ -26,6 +26,7 @@ export class TimelineComponent implements OnInit {
     localStorage.removeItem('role');
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
+    localStorage.removeItem('searchUser');
   }
 
 
