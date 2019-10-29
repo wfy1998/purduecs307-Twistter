@@ -20,6 +20,12 @@ export class TestComponent implements OnInit {
     tag: ''
   };
 
+  followName = {
+    name: ''
+  };
+  unfollowName = {
+    name: ''
+  };
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
@@ -46,6 +52,20 @@ export class TestComponent implements OnInit {
     },
       err => console.log(err)
       );
+  }
+  follow() {
+    this._other.followUser(this.followName)
+      .subscribe(res => {
+        console.log('follow success');
+      });
+  }
+
+  unfollow() {
+    this._other.unfollowUser(this.unfollowName)
+      .subscribe(res => {
+        console.log('follow success');
+      });
+
   }
 
 }
