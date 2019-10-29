@@ -5,24 +5,64 @@ const checkAuth = require("../middleware/check-auth");
 
 const postModel = require('../models/Post');
 const userModel = require('../models/User');
+const followModel = require('../models/Followed');
 
-router.post('/getMorePosts', checkAuth, (req, res)  => {
+
+router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
+
+  var postData = {
+    createdAt: '',
+    username: '',
+    content: '',
+    tags: [],
+    numberOfLikes: 0,
+    highlight: false,
+    quoted: false,
+    comment: '',
+    originName: ''
+  };
+
+  var postsToReturn = [];
 
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
-    .populate('Followed')
-    .exec((err, doc) => {
+    .populate('userFollowed')
+    .exec((err, user) => {
       if (err) {
         res.status(500).send('no such user /or query failed');
         return;
       }
-      if (!doc) {
+      if (!user) {
         console.log('query returned null');
         return;
       }
-      console.log(doc);
-      let followedUsers = doc;
+
+      console.log(user);
+
+      for (let temp in user.userFollowed) {
+        let flusername = user.userFollowed[temp].followedUserName;
+        let followedTags = user.userFollowed[temp].followedUserTag;
+        let initialTags = user.userFollowed[temp].initialTagsWhenFollowed;
+
+        userModel.findOne({username: flusername})
+          .populate({
+            path: 'userPosts',
+            match: { tags: { $in: Array.from(followedTags)}}
+            //sort: { 'createdAt': -1 }
+          })
+          .exec((err, fluser) => {
+            if (err) {console.log(err); return res.status(500);}
+
+            console.log(fluser);
+
+            // for (let tempPost in fluser.userPosts) {
+            //
+            // }
+          });
+      }
+
+
 
       res.status(200);
     });

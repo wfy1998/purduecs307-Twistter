@@ -27,6 +27,17 @@ export class TestComponent implements OnInit {
     username: ''
   };
 
+  allPosts = {
+    createdAt: '',
+    username: '',
+    content: '',
+    tags: [],
+    numberOfLikes: 0,
+    quoted: false,
+    comment: '',
+    originName: ''
+  };
+
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
@@ -66,6 +77,15 @@ export class TestComponent implements OnInit {
         console.log('unfollow success');
       });
 
+  }
+
+  getMorePosts() {
+    this._other.getMorePosts()
+      .subscribe(res => {
+        console.log(res);
+        this.allPosts.username = (res as any ).username;
+        this.allPosts.content = (res as any ).content;
+      }, err => console.log(err));
   }
 
 }

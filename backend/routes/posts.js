@@ -3,8 +3,7 @@ const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 
 const post = require('../models/Post');
-const tag = require('../models/Tag');
-const user = require('../models/User');
+const userModel = require('../models/User');
 
 
 
@@ -20,13 +19,17 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   }
   // console.log(newPost.tags);
 
-  post.insertMany(newPost, function (err, newPost){
+  newPost.save(function (err, newPost){
     if (err){
       console.log('Add trans details failed', err);
       return res.status(400).send(err);
     }
     else {
       console.log('Add car detail success!');
+
+      userModel.updateOne({username: res.locals.username}, {$push: {userPosts: newPost._id}},
+        (err) => {if (err) {console.log(err); return res.status(500);};});
+
       return res.status(200).send(newPost);
     }
   });

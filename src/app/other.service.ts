@@ -57,7 +57,7 @@ export class OtherService {
   }
   /* ---------- timeline ----------- */
   getMorePosts() {
-    return this.http.post(this._getMorePostsURL, {});
+    return this.http.get(this._getMorePostsURL);
   }
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
