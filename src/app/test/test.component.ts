@@ -63,7 +63,7 @@ export class TestComponent implements OnInit {
   unfollow() {
     this._other.unfollowUser(this.unfollowName)
       .subscribe(res => {
-        console.log('follow success');
+        console.log('unfollow success');
       });
 
   }

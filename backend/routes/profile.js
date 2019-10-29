@@ -10,6 +10,7 @@ router.get('/getOthers', checkAuth, (req, res) => {
 });
 
 router.post('/follow', checkAuth, (req, res) => {
+  console.log('follow');
   const username = res.locals.username;
   const newFollow = new followModel();
   const userToBeFollowed = req.body.username;
@@ -60,8 +61,43 @@ router.post('/follow', checkAuth, (req, res) => {
 });
 
 router.post('/unfollow', checkAuth, (req, res) => {
-  // const username = res.locals.username;
-  // userModel.update({username: username})
+  console.log('unfollow');
+  const username = res.locals.username;
+  const userToBeUnfollowed = req.body.username;
+  console.log(userToBeUnfollowed);
+
+  userModel.findOne({username: username}, (err, user) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    let followList = user.userFollowed;
+    for (let tempID in followList) {
+      followModel.findById(followList[tempID], (err, follow) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if (!follow) {
+          return;
+        }
+        if (follow.followedUserName === userToBeUnfollowed) {
+          followModel.findByIdAndRemove(followList[tempID], (err) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+          userModel.updateOne({username: username}, {$pull: {userFollowed: followList[tempID]}}, (err) => {
+            if (err) {console.log(err); return}
+            console.log('removed');
+          });
+        }
+      }); //end find follow model by id
+    }
+
+  });
+
 });
 
 router.post('/changeFollowedTag', checkAuth, (req, res) => {
@@ -134,7 +170,49 @@ router.post('/addTag', checkAuth, (req, res) => {
 });
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
+  console.log('checkFollowStatus');
+  const username = res.locals.username;
+  const userToCheck = req.body.username;
+  console.log(userToCheck);
+
+  let followed = false;
+
+  userModel.findOne({username: username}, (err, user) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (!user) {
+      return;
+    }
+
+    let followList = user.userFollowed;
+    for (let tempID in followList) {
+      followModel.findById(followList[tempID], (err, follow) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if (!follow) {
+          return;
+        }
+        if (follow.followedUserName === userToBeUnfollowed) {
+          follow = true;
+          res.status(200).send({follow});
+        }
+      }); //end find follow model by id
+
+      if (followed) { //async: no need to check further
+        return;
+      }
+    }
+
+  });
 
 });
+
+function checkFollow(user, userToCheck) {
+
+}
 
 module.exports = router;
