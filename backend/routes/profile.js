@@ -6,7 +6,18 @@ const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
 router.get('/getOthers', checkAuth, (req, res) => {
-    
+    userModel.findOne({username: username}, (err, user) =>{
+      if (err){
+        console.log('the error is: ', err);
+        res.status(500).send(err);
+      }
+      if(!user){
+        res.status(500).send('cannot find the user')
+      }
+      else {
+        res.json(user)
+      }
+    })
 });
 
 router.post('/follow', checkAuth, (req, res) => {
