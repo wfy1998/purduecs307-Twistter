@@ -42,7 +42,7 @@ export class TestComponent implements OnInit {
 
   submitNewTag() {
     this._other.addNewTag(this.tag).subscribe(res => {
-      console.log('add tag:', this.tag);
+      console.log('add tag success:', this.tag);
     },
       err => console.log(err)
       );

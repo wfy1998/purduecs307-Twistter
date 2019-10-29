@@ -51,19 +51,12 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 
 router.post('/addTag', checkAuth, (req, res) => {
   console.log('the user name', res.locals.username);
-  console.log('the new tag is: ', req.body);
-  userModel.findOne({username: res.locals.username}, (err, user) =>{
-    if(err){
-      res.status(500).send(err);
-    }
-    if(!user){
-      res.status(500).send('user not found');
-    }
-    else {
-      user.userTags.update(req.body.tag);
-      res.status(200)
-    }
-  })
+  console.log('the new tag is: ', req.body.tag);
+  let tag = req.body.tag;
+  userModel.updateOne({username: res.locals.username},
+    {
+      $push:{userTags: tag }
+    });
 
 });
 

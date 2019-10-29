@@ -8,6 +8,7 @@ import {FindPasswordComponent} from './findPassword/findPassword.component';
 import {ProfileComponent} from './profile/profile.component';
 import {TimelineComponent} from './timeline/timeline.component';
 import {FinduserComponent} from './finduser/finduser.component';
+import {TestComponent} from './test/test.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,9 @@ const routes: Routes = [
   },
   {
     path: 'finduser', component: FinduserComponent
+  },
+  {
+    path: 'test', component: TestComponent
   }
 ];
 
