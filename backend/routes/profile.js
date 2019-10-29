@@ -33,6 +33,9 @@ router.post('/follow', checkAuth, (req, res) => {
       console.log('err query user', username);
       return;
     }
+    if (!user) {
+      return;
+    }
 
     userModel.findOne({username: userToBeFollowed}, (err, BeFollowedUser) => {
       if (err) {
@@ -61,6 +64,7 @@ router.post('/follow', checkAuth, (req, res) => {
             return
           }
           console.log('success');
+          return res.status(200);
         }); //end update current user follow list
 
       }); //end saving new follow model
@@ -102,6 +106,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
           userModel.updateOne({username: username}, {$pull: {userFollowed: followList[tempID]}}, (err) => {
             if (err) {console.log(err); return}
             console.log('removed');
+            return res.status(200);
           });
         }
       }); //end find follow model by id
