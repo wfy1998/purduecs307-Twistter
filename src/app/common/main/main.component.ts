@@ -16,7 +16,6 @@ export class MainComponent implements OnInit {
   loginUserData = {};
   private token: string;
 
-
   ngOnInit() {
     // this._cookieService.put('test', localStorage.getItem('token'));
   }
@@ -44,8 +43,10 @@ export class MainComponent implements OnInit {
         err => {
           if (err.status === 401) {
             alert('Incorrect username and password combination!');
-          } else if (err.status === 400) {
+          } else if (err.status === 403) {
             alert('No such username exist!');
+          } else if (err.status === 400) {
+            alert('Bad request body (null)!');
           }
           console.log(err);
         }

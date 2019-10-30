@@ -5,21 +5,34 @@ const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/User');
 
-
 router.post('/', (req, res) => {
   console.log('login request');
   const userData = req.body;
+
+  // check field of request body
+  try {
+    if (userData.username == null || userData.password == null) {
+      console.log('null body property');
+      res.status(400).send();
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(400).send();
+    return;
+  }
+
   userModel.findOne({username: userData.username}, (err, user) => {
     console.log(user);
     if (err) {
       console.log('query err occurred');
-      res.status(500);
+      res.status(500).send('query error');
       return
     }
 
     if (!user) {
       console.log('No matching username');
-      res.status(400).send('Invalid username entered!');
+      res.status(403).send('No such user');
       return
     }
 
