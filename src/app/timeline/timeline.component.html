@@ -285,14 +285,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                               What's new...
                             </div>
                             <div class="panel-body">
-                              <textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..." [(ngModel)]="postData.message"></textarea>
+                              <textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..." [(ngModel)]="postData.content"></textarea>
                             </div>
                             <div class="panel-footer share-buttons">
 <!--                              <a href="#"><i class="fa fa-map-marker"></i></a>-->
 <!--                              <a href="#"><i class="fa fa-photo"></i></a>-->
 <!--                              <a href="#"><i class="fa fa-video-camera"></i></a>-->
 
-                                <textarea name="tag" class="form-control " rows="1" placeholder="Tag(s)...Separate with ," [(ngModel)]="postData.tag"></textarea>
+                                <textarea name="tag" class="form-control " rows="1" placeholder="Tag(s)...Separate with ," [(ngModel)]="postData.tags"></textarea>
 
                               <button type="submit" class="btn btn-primary btn-xs pull-right" (click)="newPost()">Post</button>
                             </div>
@@ -304,6 +304,27 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
                   </div>
                 </li>
+
+
+                <div class="listings-list clearfix" >
+                  <div class="card text-center m-3">
+                    <div class="card-body">
+                      <div class="listing"  *ngFor="let post of posts" >
+
+                        <div class="content" id="list-content-override">
+                          <div class="content"> <td>{{post.content}}</td> </div>
+                          <p> <a href="/"> like </a> </p>
+                          <div class="create by: ">{{post.username}} </div>
+                        </div>
+
+                      </div> <!-- end .listing -->
+                    </div>
+
+                  </div>
+                  <!--<div class="card-footer pb-0 pt-3 list-footer-override">-->
+                    <!--<jw-pagination [items]="CarcharactersAll" [pageSize]="3"  (changePage)="onChangePage($event)"></jw-pagination>-->
+                  <!--</div>&lt;!&ndash;  '[pageSize]=': how many item showed on each page &ndash;&gt;-->
+                </div> <!-- end .listings -->
 
 
 
