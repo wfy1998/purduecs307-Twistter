@@ -40,7 +40,7 @@ export class TestComponent implements OnInit {
 
   nameToCheck = {
     username: String
-  }
+  };
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
@@ -90,6 +90,15 @@ export class TestComponent implements OnInit {
         // this.allPosts.username = (res as any ).username;
         // this.allPosts.content = (res as any ).content;
       }, err => console.log(err));
+  }
+
+  getHighlight() {
+    this._other.getHighlightedPosts()
+      .subscribe(res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
   }
 
   checkFollow() {

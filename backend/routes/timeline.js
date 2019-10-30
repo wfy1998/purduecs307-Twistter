@@ -89,7 +89,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
         userModel.findOne({username: flusername})
           .populate({
             path: 'userPosts',
-            match: { tags: { $nin: Array.from(initialTags)}},
+            match: {tags: { $elemMatch: { $nin: Array.from(initialTags)} } },
           })
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
