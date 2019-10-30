@@ -32,7 +32,6 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
       for (let post in posts) {
         allPosts.push(post);
       }
-
     })
   }
 });
