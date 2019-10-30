@@ -14,9 +14,14 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   newPost.username = data.username;
   newPost.content = data.content;
   // todo: chekck if newPost.Tags work.
-  for( var tag in data.tags){
-  newPost.tags.push(data.tags[tag]);
+  for( let tag in data.tags){
+    newPost.tags.push(data.tags[tag]);
   }
+  newPost.likedByUser = [];
+  newPost.numberOfLikes = 0;
+  newPost.quoted = false;
+  newPost.comment = '';
+  newPost.originName = '';
   // console.log(newPost.tags);
 
   newPost.save(function (err, newPost){

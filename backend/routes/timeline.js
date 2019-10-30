@@ -29,7 +29,6 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
       for (let temp in user.userFollowed) {
         let flusername = user.userFollowed[temp].followedUserName;
         let followedTags = user.userFollowed[temp].followedUserTag;
-        let initialTags = user.userFollowed[temp].initialTagsWhenFollowed;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -46,7 +45,6 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
                 content: fluser.userPosts[tempPost].content,
                 tags: fluser.userPosts[tempPost].tags,
                 numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
-                highlight: false,
                 quoted: fluser.userPosts[tempPost].quoted,
                 comment: fluser.userPosts[tempPost].comment,
                 originName: fluser.userPosts[tempPost].originName
@@ -69,7 +67,64 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
 
 });
 
+router.get('/getHighlight', checkAuth, (req, res)  => {
+  console.log('getting highlighted posts');
 
+  var postsToReturn = [];
+
+  // getting all the user that are followed by current user (specified by username)
+  userModel.findOne({username: res.locals.username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send('no such user /or query failed');
+        return;
+      }
+      if (!user) {
+        console.log('query returned null');
+        return;
+      }
+
+      for (let temp in user.userFollowed) {
+        let flusername = user.userFollowed[temp].followedUserName;
+        let initialTags = user.userFollowed[temp].initialTagsWhenFollowed;
+
+        userModel.findOne({username: flusername})
+          .populate({
+            path: 'userPosts',
+            match: { tags: { $nin: Array.from(initialTags)}},
+          })
+          .exec((err, fluser) => {
+            if (err) {console.log(err); return res.status(500);}
+
+            for (let tempPost in fluser.userPosts) {
+              let postData = {
+                createdAt: fluser.userPosts[tempPost].createdAt,
+                username: fluser.userPosts[tempPost].username,
+                content: fluser.userPosts[tempPost].content,
+                tags: fluser.userPosts[tempPost].tags,
+                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
+                quoted: fluser.userPosts[tempPost].quoted,
+                comment: fluser.userPosts[tempPost].comment,
+                originName: fluser.userPosts[tempPost].originName
+              };
+              postsToReturn.push(postData);
+            }
+          });
+      }
+
+      //sleeping and wait for callbacks to finish
+      const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      };
+      sleep(2000).then(() => {
+        console.log(postsToReturn);
+        res.status(200).send(postsToReturn);
+      });
+
+    });
+
+});
 
 router.get('/likePost', checkAuth, (req, res)  => {
   let data = req.body;

@@ -20,6 +20,7 @@ export class OtherService {
   private _checkFollowStatusURL = 'http://localhost:3000/api/profile/checkFollowStatus';
   /* ---------- timeline ----------- */
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
+  private _getHighlightedPostsURL = 'http://localhost:3000/api/timeline/getHighlight';
   private _likePostURL = 'http://localhost:3000/api/timeline/likePost';
   private _quoteURL = 'http://localhost:3000/api/timeline/quote';
   private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
@@ -58,6 +59,9 @@ export class OtherService {
   /* ---------- timeline ----------- */
   getMorePosts() {
     return this.http.get(this._getMorePostsURL);
+  }
+  getHighlightedPosts() {
+    return this.http.get(this._getHighlightedPostsURL);
   }
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
