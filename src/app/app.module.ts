@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { MainComponent } from './common/main/main.component';
-import { LoginComponent } from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -31,7 +30,6 @@ import { OtherProfileComponent } from './other-profile/other-profile.component';
     HeaderComponent,
     FooterComponent,
     MainComponent,
-    LoginComponent,
     RegisterComponent,
     ProfileComponent,
     TimelineComponent,

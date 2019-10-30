@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from './login/login.component';
 import {AppComponent} from './app.component';
 import {RegisterComponent} from './register/register.component';
 import {MainComponent} from './common/main/main.component';
@@ -14,10 +13,6 @@ import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
-
-  {
-    path: 'login', component: LoginComponent
-  },
 
   {
     path: 'register', component: RegisterComponent
