@@ -83,8 +83,8 @@ export class TestComponent implements OnInit {
     this._other.getMorePosts()
       .subscribe(res => {
         console.log(res);
-        this.allPosts.username = (res as any ).username;
-        this.allPosts.content = (res as any ).content;
+        // this.allPosts.username = (res as any ).username;
+        // this.allPosts.content = (res as any ).content;
       }, err => console.log(err));
   }
 

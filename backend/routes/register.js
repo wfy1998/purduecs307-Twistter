@@ -1,11 +1,9 @@
-const path = require('path');
 const utility = require('utility');
 const express = require('express');
 const router = express.Router();
 
 const userModel = require('../models/User');
 
-// POST /register register page
 router.post('/', (req, res, next) => {
   console.log('register request');
   /* validation */
