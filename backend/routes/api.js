@@ -27,7 +27,7 @@ mongoose.connection.on("open", function () {
 router.use('/login', require('./login'));
 /* ---- /api/register ---- */
 router.use('/register', require('./register'));
-/* ---- /api/logout ---- */
+
 /* -------------------- profile part ------------------------ */
 router.use('/profile', require('./profile'));
 
