@@ -5,8 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/User');
 
-
-router.post('/', (req, res, next) => {
+router.post('/', (req, res) => {
   console.log('login request');
   const userData = req.body;
   userModel.findOne({username: userData.username}, (err, user) => {
@@ -19,7 +18,7 @@ router.post('/', (req, res, next) => {
 
     if (!user) {
       console.log('No matching username');
-      res.status(401).send('Invalid username entered!');
+      res.status(400).send('Invalid username entered!');
       return
     }
 

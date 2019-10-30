@@ -41,7 +41,14 @@ export class MainComponent implements OnInit {
           console.log('the cookie', this._cookieService.get('loginKey'));
           this._router.navigate(['/timeline']);
         },
-        err => console.log(err)
+        err => {
+          if (err.status === 401) {
+            alert('Incorrect username and password combination!');
+          } else if (err.status === 400) {
+            alert('No such username exist!');
+          }
+          console.log(err);
+        }
       );
 
   }
