@@ -11,14 +11,16 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
 
   try {
     if (data.username == null || data.content == null
-        || data.tags == null) {
+      || data.content === '' || data.tags == null
+      || data.tags.length === 0 ) {
       console.log('null body property');
       res.status(400).send();
       return;
     }
     if (data.username !== res.locals.username) {
       console.log('unmatched username from "request body" and "token"');
-      res.status(401).send('unmatched post username compared to token used')
+      res.status(401).send('unmatched post username compared to token used');
+      return;
     }
   } catch (e) {
     console.log(e);
