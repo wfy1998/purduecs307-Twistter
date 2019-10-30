@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/User');
 
+
 router.post('/', (req, res) => {
   console.log('login request');
   const userData = req.body;
