@@ -27,14 +27,26 @@ export class TimelineComponent implements OnInit {
     comment: '',
     originName: ''
   };
+  jsonUserName = {
+    username: ''
+  };
+  getTagList = [];
+  getTag = '';
+  getAddedTagList = [];
 
   constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
 
   ngOnInit() {
+    this.jsonUserName.username = localStorage.getItem('userName');
+    // getTagList
+    this._other.getOthersProfile(this.jsonUserName).subscribe(
+      (res: any) => {
+        this.getTagList = res.userTags;
+      });
 
     // hard code, need to be changed
     this.postData.username = localStorage.getItem('userName');
-    this.postData.tags.push('a new tag');
+    // this.postData.tags.push('a new tag');
     this._other.getMorePosts().subscribe((res: any) => {
       this.posts = res;
       console.log('the posts is: ', this.posts);
@@ -64,5 +76,14 @@ export class TimelineComponent implements OnInit {
   }
 
 
-
+  onTagToPost(tagValue: string) {
+    if (this.postData.tags.length === 3) {
+      alert('Too many tags!');
+      return;
+    }
+    this.getTag = tagValue;
+    this.getAddedTagList.push(this.getTag);
+    this.postData.tags.push(this.getTag);
+    console.log(this.postData.tags[0]);
+  }
 }

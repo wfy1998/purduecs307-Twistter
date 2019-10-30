@@ -266,35 +266,65 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
 
           <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-10">
               <ul class="timeline-list">
+<!--                Post Section-->
                 <li class="media media-clearfix-xs">
                   <div class="media-left">
                     <div class="user-wrapper">
-                      <img src="assets/images/people/110/guy-5.jpg" alt="people" class="img-circle" width="80" />
-                      <div><a href="#">Adrian D.</a></div>
+                      <img src="assets/images/people/default_user.jpg"
+                           alt="people" class="img-circle" width="80" />
+                      <div><a href="#">{{postData.username}}</a></div>
                       <div class="date">19 OCT</div>
                     </div>
                   </div>
                   <div class="media-body">
                     <div class="media-body-wrapper">
                       <div class="row">
-                        <div class="col-md-10 col-lg-8">
+<!--                        For writing post-->
+                        <div class="col-md-5">
                           <div class="panel panel-default share clearfix-xs">
                             <div class="panel-heading ">
                               What's new...
                             </div>
                             <div class="panel-body">
-                              <textarea name="status" class="form-control share-text" rows="3" placeholder="Share your status..." [(ngModel)]="postData.content"></textarea>
+                              <textarea name="status" class="form-control share-text" rows="3"
+                                        placeholder="Share your status..." [(ngModel)]="postData.content">
+
+                              </textarea>
                             </div>
                             <div class="panel-footer share-buttons">
 <!--                              <a href="#"><i class="fa fa-map-marker"></i></a>-->
 <!--                              <a href="#"><i class="fa fa-photo"></i></a>-->
 <!--                              <a href="#"><i class="fa fa-video-camera"></i></a>-->
+                              <div *ngIf="postData.tags.length>0">
+                                <div *ngFor="let addedTag of postData.tags" style="display: inline">
+                                  <button class="btn btn-info btn-xs" style="margin: 2px; display: inline">{{ addedTag }}</button>
+                                </div>
+                              </div>
 
-                                <textarea name="tag" class="form-control " rows="1" placeholder="Tag(s)...Separate with ," [(ngModel)]="postData.tags"></textarea>
-
-                              <button type="submit" class="btn btn-primary btn-xs pull-right" (click)="newPost()">Post</button>
+                              <button type="submit" class="btn btn-primary btn-xs pull-right"
+                                      (click)="newPost()">Post</button>
+                            </div>
+                          </div>
+                        </div>
+<!--                        For adding tag-->
+                        <div class="col-md-7">
+                          <div class="panel panel-default share clearfix-xs">
+                            <div class="panel-heading">
+                              Click tag button to add it to your post. Maximum 3 tags.
+                            </div>
+                            <div class="panel-body">
+                              <p class="mat-body-1" style="display: inline; margin-left: 10px;"
+                                 *ngIf="getTagList.length<=0"> No Tag added yet!</p>
+                              <div *ngIf="getTagList.length>0" >
+                                <div  *ngFor="let tag of getTagList; let i = index" style="display: inline;" >
+                                  <p *ngIf="i%5 == 0" style="line-height: 50%;margin: 2px"><br></p>
+                                  <button ngDefaultControl [(ngModel)]="getTag" (click)="onTagToPost(tag)" style="margin: 2px; display: inline"
+                                          class="btn btn-info btn-xs" >
+                                    {{ tag }}</button>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -310,7 +340,6 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                   <div class="card text-center m-3">
                     <div class="card-body">
                       <div class="listing"  *ngFor="let post of posts" >
-
                         <div class="content" id="list-content-override">
                           <div class="content"> <td>{{post.content}}</td> </div>
                           <p> <a href="/"> like </a> </p>
