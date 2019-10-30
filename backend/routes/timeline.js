@@ -11,18 +11,6 @@ const followModel = require('../models/Followed');
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
 
-  var postData = {
-    createdAt: '',
-    username: '',
-    content: '',
-    tags: [],
-    numberOfLikes: 0,
-    highlight: false,
-    quoted: false,
-    comment: '',
-    originName: ''
-  };
-
   var postsToReturn = [];
 
   // getting all the user that are followed by current user (specified by username)
@@ -38,8 +26,6 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         return;
       }
 
-      console.log(user);
-
       for (let temp in user.userFollowed) {
         let flusername = user.userFollowed[temp].followedUserName;
         let followedTags = user.userFollowed[temp].followedUserTag;
@@ -48,40 +34,42 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         userModel.findOne({username: flusername})
           .populate({
             path: 'userPosts',
-            match: { tags: { $in: Array.from(followedTags)}}
-            //sort: { 'createdAt': -1 }
+            match: { tags: { $in: Array.from(followedTags)}},
           })
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
 
-            console.log(fluser);
-
-            // for (let tempPost in fluser.userPosts) {
-            //
-            // }
+            for (let tempPost in fluser.userPosts) {
+              let postData = {
+                createdAt: fluser.userPosts[tempPost].createdAt,
+                username: fluser.userPosts[tempPost].username,
+                content: fluser.userPosts[tempPost].content,
+                tags: fluser.userPosts[tempPost].tags,
+                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
+                highlight: false,
+                quoted: fluser.userPosts[tempPost].quoted,
+                comment: fluser.userPosts[tempPost].comment,
+                originName: fluser.userPosts[tempPost].originName
+              };
+              postsToReturn.push(postData);
+            }
           });
       }
 
+      //sleeping and wait for callbacks to finish
+      const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      };
+      sleep(2000).then(() => {
+        console.log(postsToReturn);
+        res.status(200).send(postsToReturn);
+      });
 
-
-      res.status(200);
     });
-  // followedUsers: list of Followed model document
-  // var allPosts = [];
-  // for (let tempUser in followedUsers) {
-  //   //for each user & tag pair, search all posts
-  //   postModel.find({username: tempUser.followedUserName}, (err, posts) => {
-  //     if (err) {
-  //       console.log('post search error');
-  //       return
-  //     }
-  //     for (let post in posts) {
-  //       allPosts.push(post);
-  //     }
-  //
-  //   })
-  // }
+
 });
+
+
 
 router.get('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
