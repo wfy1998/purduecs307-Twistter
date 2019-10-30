@@ -283,7 +283,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
-                            <div class="col-sm-4"><span class="text-muted">Last</span></div>
+                            <div class="col-sm-4"><span class="text-muted">Last name</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
                                                             placeholder={{getLastName}}
@@ -303,6 +303,16 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
+                            <div class="col-sm-4"><span class="text-muted">School</span></div>
+                            <div class="col-sm-8"><textarea rows="1"
+                                                            class="form-control share-text"
+                                                            placeholder={{getAge}}
+                                                            [(ngModel)]="changeProfile.enteredSchool">
+                        {{getAge}}</textarea></div>
+                          </div>
+                        </li>
+                        <li class="padding-v-5">
+                          <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Gender</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
@@ -313,7 +323,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
-                            <div class="col-sm-4"><span class="text-muted">Lives in</span></div>
+                            <div class="col-sm-4"><span class="text-muted">Address</span></div>
                             <div class="col-sm-8"><textarea rows="4"
                                                             class="form-control share-text"
                                                             placeholder={{getAddress}}

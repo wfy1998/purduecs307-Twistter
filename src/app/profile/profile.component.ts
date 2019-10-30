@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
       enteredFirstName: '',
       enteredLastName: '',
       enteredAge: '',
+      enteredSchool: '',
       enteredGender: '',
       enteredAddress: '',
       enteredPhone: ''
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   getLastName = '';
   // getEmail = '';
   getAge = '';
+  getSchool = '';
   getGender = '';
   getPhone = '';
   getAddress = '';
@@ -47,14 +49,15 @@ export class ProfileComponent implements OnInit {
     this.jsonUserName.username = localStorage.getItem('userName');
     this._other.getOthersProfile(this.jsonUserName)
     .subscribe( (res: any) => {
-      this.getUserName = res.username;
-      this.getAddress = res.address;
-      this.getGender = res.gender;
-      this.getAge = res.age;
-      this.getPhone = res.phone;
       this.getFirstName = res.firstName;
       this.getLastName = res.lastName;
+      this.getUserName = res.username;
       this.getTagList = res.userTags;
+      this.getAge = res.age;
+      this.getSchool = res.school;
+      this.getGender = res.gender;
+      this.getPhone = res.phone;
+      this.getAddress = res.address;
       console.log('tags:' + this.getTagList);
     });
     // this.getUserName = localStorage.getItem('userName');
@@ -79,7 +82,6 @@ export class ProfileComponent implements OnInit {
     console.log('click');
   }
 
-
   onAddTag() {
     for (const tag of this.getTagList) {
       if (tag === this.getTag) {
@@ -96,10 +98,11 @@ export class ProfileComponent implements OnInit {
   onSaveProfiel() {
     this.getFirstName = this.changeProfile.enteredFirstName;
     this.getLastName = this.changeProfile.enteredLastName;
-      this.getAge = this.changeProfile.enteredAge;
+    this.getAge = this.changeProfile.enteredAge;
+    this.getSchool = this.changeProfile.enteredSchool;
     this.getGender = this.changeProfile.enteredGender;
-      this.getPhone = this.changeProfile.enteredPhone;
-      this.getAddress = this.changeProfile.enteredAddress;
+    this.getPhone = this.changeProfile.enteredPhone;
+    this.getAddress = this.changeProfile.enteredAddress;
     this._other.changeProfile(this.changeProfile)
       .subscribe(res => {
         console.log('change profile success');
@@ -118,13 +121,16 @@ export class ProfileComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('email');
-    localStorage.removeItem('address');
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');
-    localStorage.removeItem('role');
-    localStorage.removeItem('token');
+    localStorage.removeItem('email');
     localStorage.removeItem('userName');
+    localStorage.removeItem('token');
+    localStorage.removeItem('age');
+    localStorage.removeItem('school');
+    localStorage.removeItem('gender');
+    localStorage.removeItem('phone');
+    localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
   }
 }

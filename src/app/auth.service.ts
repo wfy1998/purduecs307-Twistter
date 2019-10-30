@@ -11,7 +11,7 @@ export class AuthService {
   private _loginUserURL = 'http://localhost:3000/api/login';
   private _createUserURL = 'http://localhost:3000/api/register';
   private _deleteAccountURL = 'http://localhost:3000/api/delete';
-  private _findPasswordUrl = 'http://localhost:3000/api/findPassword';
+  // private _findPasswordUrl = 'http://localhost:3000/api/findPassword';
 
   constructor(private http: HttpClient) { }
 
@@ -24,12 +24,12 @@ export class AuthService {
   logoutUser() {
     localStorage.removeItem('token');
   }
-  deleteAccount(username) {
-    return this.http.post<any>(this._deleteAccountURL, username);
+  deleteAccount() {
+    return this.http.post<any>(this._deleteAccountURL, {});
   }
-  findPassword(email) {
-    return this.http.post<any>(this._findPasswordUrl, email);
-  }
+  // findPassword(email) {
+  //   return this.http.post<any>(this._findPasswordUrl, email);
+  // }
 
 
   // checkUserNameAndEmail(userName: string, email: string) {

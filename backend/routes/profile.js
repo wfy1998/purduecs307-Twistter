@@ -157,14 +157,13 @@ router.post('/changeProfile', checkAuth, (req, res) => {
     {
       username: res.locals.username,
     }, {
-
       firstName: req.body.enteredFirstName,
       lastName: req.body.enteredLastName,
       age: req.body.enteredAge,
+      school: req.body.enteredSchool,
       gender: req.body.enteredGender,
+      phone: req.body.enteredPhone,
       address: req.body.enteredAddress,
-      phone: req.body.enteredPhone
-
     },
     function(err, data){
       if(err) {
