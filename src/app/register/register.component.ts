@@ -25,12 +25,19 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
     console.log('click');
-     console.log(this.registerUserData);
+    console.log(this.registerUserData);
     this.authService.createUser(this.registerUserData)
       .subscribe(data => {
         console.log(data);
-          console.log('yes');
-          this.router.navigate(['/login']);
+        console.log('yes');
+        this.router.navigate(['/']);
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad request! Please fill in all blanks');
+        } else if (err.status === 500) {
+          alert('Creation Failed on the Server!');
+        }
+        console.log(err);
       });
   }
 }

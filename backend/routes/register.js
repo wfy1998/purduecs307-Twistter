@@ -6,6 +6,7 @@ const userModel = require('../models/User');
 
 router.post('/', (req, res, next) => {
   console.log('register request');
+  //console.log(req.body);
   /* validation */
   try {
     if (!(req.body.username.length >= 1 &&
@@ -37,10 +38,15 @@ router.post('/', (req, res, next) => {
   newUser.phone = '';
   newUser.address = '';
 
+  let tempToken = req.body.username;
+  tempToken.concat(req.body.password);
+  newUser.token = utility.md5(tempToken, 'base64');
+  //console.log(newUser);
+
   newUser.save((err) => {
     if (err) {
       console.log(err);
-      res.status(500);
+      res.status(500).send();
       return
     }
 
