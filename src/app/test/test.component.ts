@@ -38,6 +38,10 @@ export class TestComponent implements OnInit {
     originName: ''
   };
 
+  nameToCheck = {
+    username: String
+  }
+
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
@@ -86,6 +90,15 @@ export class TestComponent implements OnInit {
         // this.allPosts.username = (res as any ).username;
         // this.allPosts.content = (res as any ).content;
       }, err => console.log(err));
+  }
+
+  checkFollow() {
+    this._other.checkFollowStatus(this.nameToCheck)
+      .subscribe(res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
   }
 
   resetProfile() {

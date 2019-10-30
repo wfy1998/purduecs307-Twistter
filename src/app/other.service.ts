@@ -56,8 +56,8 @@ export class OtherService {
     console.log('the tag in the service is: ', tag);
     return this.http.post<any>(this._addNewTagURL, tag);
   }
-  checkFollowStatus() {
-    return this.http.get(this._checkFollowStatusURL);
+  checkFollowStatus(username) {
+    return this.http.post(this._checkFollowStatusURL, username);
   }
   /* ---------- timeline ----------- */
   getMorePosts() {

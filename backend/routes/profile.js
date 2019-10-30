@@ -237,7 +237,7 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
         if (!follow) {
           return;
         }
-        if (follow.followedUserName === userToBeUnfollowed) {
+        if (follow.followedUserName === userToCheck) {
           follow = true;
           res.status(200).send({follow});
         }

@@ -37,5 +37,10 @@
   <button name = "submit" type="submit" class="login100-form-btn" (click)="getMorePosts()">getPosts</button>
 </div>
 
-
+// check follow status
+<div class="panel-body">
+  <a aria-placeholder="" [(ngModel)]=this.allPosts.username></a>
+  <textarea name="status" class="form-control share-text" rows="5" placeholder="" [(ngModel)]="nameToCheck.username" ></textarea>
+  <button name = "submit" type="submit" class="login100-form-btn" (click)="checkFollow()">checkFollowStatus</button>
+</div>
 
