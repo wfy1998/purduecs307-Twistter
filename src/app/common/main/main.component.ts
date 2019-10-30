@@ -17,24 +17,24 @@ export class MainComponent implements OnInit {
   private token: string;
 
 
-
   ngOnInit() {
     // this._cookieService.put('test', localStorage.getItem('token'));
   }
 
   loginUser() {
     this._auth.loginUser(this.loginUserData)
-      .subscribe(
-        res => {
+      .subscribe(res => {
           console.log(res.body);
           this.token = res.token;
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('userName', res.user.username);
-          localStorage.setItem('email', res.user.email);
           localStorage.setItem('firstName', res.user.firstName);
           localStorage.setItem('lastName', res.user.lastName);
-          localStorage.setItem('role', res.user.role);
+          localStorage.setItem('email', res.user.email);
+          localStorage.setItem('userName', res.user.username);
           localStorage.setItem('token', res.token);
+          localStorage.setItem('age', res.user.age);
+          localStorage.setItem('school', res.user.school);
+          localStorage.setItem('gender', res.user.gender);
+          localStorage.setItem('phone', res.user.phone);
           localStorage.setItem('address', res.user.address);
           localStorage.setItem('searchUser', '');
           this._cookieService.put('loginKey', res.token);
@@ -50,7 +50,6 @@ export class MainComponent implements OnInit {
           console.log(err);
         }
       );
-
   }
   getToken() {
     return localStorage.getItem('token');
