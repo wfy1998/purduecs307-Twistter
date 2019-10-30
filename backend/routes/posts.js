@@ -11,9 +11,9 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   console.log( 'res.locals.username:', res.locals.username);
   let data = req.body;
   const newPost = new post();
+
   newPost.username = data.username;
   newPost.content = data.content;
-  // todo: chekck if newPost.Tags work.
   for( let tag in data.tags){
     newPost.tags.push(data.tags[tag]);
   }
@@ -22,7 +22,6 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   newPost.quoted = false;
   newPost.comment = '';
   newPost.originName = '';
-  // console.log(newPost.tags);
 
   newPost.save(function (err, newPost){
     if (err){
