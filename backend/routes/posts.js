@@ -5,8 +5,6 @@ const checkAuth = require("../middleware/check-auth");
 const post = require('../models/Post');
 const userModel = require('../models/User');
 
-
-
 router.post('/createNewPost', checkAuth, (req, res)  => {
   console.log( 'res.locals.username:', res.locals.username);
   let data = req.body;
@@ -41,7 +39,5 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   console.log('final');
 
 });
-
-
 
 module.exports = router;
