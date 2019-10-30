@@ -38,7 +38,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.jsonUserName.username = localStorage.getItem('userName');
     // getTagList
-    this._other.getOthersProfile(this.jsonUserName).subscribe(
+    this._other.getOwnProfile().subscribe(
       (res: any) => {
         this.getTagList = res.userTags;
       });
@@ -89,5 +89,9 @@ export class TimelineComponent implements OnInit {
     this.getAddedTagList.push(this.getTag);
     this.postData.tags.push(this.getTag);
     console.log(this.postData.tags[0]);
+  }
+
+  likePost() {
+
   }
 }

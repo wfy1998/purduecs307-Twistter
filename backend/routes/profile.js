@@ -155,7 +155,7 @@ router.post('/', checkAuth, (req, res) => {
   console.log('getting own profile');
   userModel.findOne({username: res.locals.username}, (err, user) => {
     if (err) {console.log(err); return res.status(500)}
-    res.status(200).send(json(user));
+    res.status(200).send(user);
   })
 });
 

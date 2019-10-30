@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit {
       .subscribe();
   }
 
-  onSaveProfiel() {
+  onSaveProfile() {
     this.getFirstName = this.changeProfile.enteredFirstName;
     this.getLastName = this.changeProfile.enteredLastName;
     this.getAge = this.changeProfile.enteredAge;
@@ -107,6 +107,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(res => {
         console.log('change profile success');
       });
+    localStorage.setItem('firstName', this.changeProfile.enteredFirstName);
+    localStorage.setItem('lastName', this.changeProfile.enteredLastName);
+    localStorage.setItem('age', this.changeProfile.enteredAge);
+    localStorage.setItem('school', this.changeProfile.enteredSchool);
+    localStorage.setItem('gender', this.changeProfile.enteredGender);
+    localStorage.setItem('phone', this.changeProfile.enteredPhone);
+    localStorage.setItem('address', this.changeProfile.enteredAddress);
     window.location.reload();
   }
 
