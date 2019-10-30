@@ -22,9 +22,9 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         return;
       }
 
-      for (let temp in user.userFollowed) {
-        let flusername = user.userFollowed[temp].followedUserName;
-        let followedTags = user.userFollowed[temp].followedUserTag;
+      for (let temp of user.userFollowed) {
+        let flusername = temp.followedUserName;
+        let followedTags = temp.followedUserTag;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -34,17 +34,17 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
 
-            for (let tempPost in fluser.userPosts) {
+            for (let tempPost of fluser.userPosts) {
               let postData = {
-                postID: fluser.userPosts[tempPost]._id,
-                createdAt: fluser.userPosts[tempPost].createdAt,
-                username: fluser.userPosts[tempPost].username,
-                content: fluser.userPosts[tempPost].content,
-                tags: fluser.userPosts[tempPost].tags,
-                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
-                quoted: fluser.userPosts[tempPost].quoted,
-                comment: fluser.userPosts[tempPost].comment,
-                originName: fluser.userPosts[tempPost].originName
+                postID: tempPost._id,
+                createdAt: tempPost.createdAt,
+                username: tempPost.username,
+                content: tempPost.content,
+                tags: tempPost.tags,
+                numberOfLikes: tempPost.numberOfLikes,
+                quoted: tempPost.quoted,
+                comment: tempPost.comment,
+                originName: tempPost.originName
               };
               postsToReturn.push(postData);
             }
@@ -82,9 +82,9 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
         return;
       }
 
-      for (let temp in user.userFollowed) {
-        let flusername = user.userFollowed[temp].followedUserName;
-        let initialTags = user.userFollowed[temp].initialTagsWhenFollowed;
+      for (let temp of user.userFollowed) {
+        let flusername = temp.followedUserName;
+        let initialTags = temp.initialTagsWhenFollowed;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -94,18 +94,18 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
 
-            for (let tempPost in fluser.userPosts) {
-              let postData = {
-                postID: fluser.userPosts[tempPost]._id,
-                createdAt: fluser.userPosts[tempPost].createdAt,
-                username: fluser.userPosts[tempPost].username,
-                content: fluser.userPosts[tempPost].content,
-                tags: fluser.userPosts[tempPost].tags,
-                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
-                quoted: fluser.userPosts[tempPost].quoted,
-                comment: fluser.userPosts[tempPost].comment,
-                originName: fluser.userPosts[tempPost].originName
-              };
+              for (let tempPost of fluser.userPosts) {
+                let postData = {
+                  postID:tempPost._id,
+                  createdAt: tempPost.createdAt,
+                  username: tempPost.username,
+                  content: tempPost.content,
+                  tags: tempPost.tags,
+                  numberOfLikes: tempPost.numberOfLikes,
+                  quoted: tempPost.quoted,
+                  comment: tempPost.comment,
+                  originName: tempPost.originName
+                };
               postsToReturn.push(postData);
             }
           });
@@ -181,17 +181,17 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 
       var postsToReturn = [];
 
-      for (let tempPost in user.userPosts) {
+      for (let tempPost of user.userPosts) {
         let postData = {
-          postID: user.userPosts[tempPost]._id,
-          createdAt: user.userPosts[tempPost].createdAt,
-          username: user.userPosts[tempPost].username,
-          content: user.userPosts[tempPost].content,
-          tags: user.userPosts[tempPost].tags,
-          numberOfLikes: user.userPosts[tempPost].numberOfLikes,
-          quoted: user.userPosts[tempPost].quoted,
-          comment: user.userPosts[tempPost].comment,
-          originName: user.userPosts[tempPost].originName
+          postID: tempPost._id,
+          createdAt: tempPost.createdAt,
+          username: tempPost.username,
+          content: tempPost.content,
+          tags: tempPost.tags,
+          numberOfLikes: tempPost.numberOfLikes,
+          quoted: tempPost.quoted,
+          comment: tempPost.comment,
+          originName: tempPost.originName
         };
         postsToReturn.push(postData);
       }

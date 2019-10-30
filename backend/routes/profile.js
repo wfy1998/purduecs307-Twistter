@@ -96,8 +96,8 @@ router.post('/unfollow', checkAuth, (req, res) => {
       return;
     }
     let followList = user.userFollowed;
-    for (let tempID in followList) {
-      followModel.findById(followList[tempID], (err, follow) => {
+    for (let tempID of followList) {
+      followModel.findById(tempID, (err, follow) => {
         if (err) {
           console.log(err);
           return;
@@ -236,8 +236,8 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
     }
 
     let followList = user.userFollowed;
-    for (let tempID in followList) {
-      followModel.findById(followList[tempID], (err, follow) => {
+    for (let tempID of followList) {
+      followModel.findById(tempID, (err, follow) => {
         if (err) {
           console.log(err);
           return;

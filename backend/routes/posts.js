@@ -31,8 +31,8 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   const newPost = new post();
   newPost.username = data.username;
   newPost.content = data.content;
-  for( let tag in data.tags){
-    newPost.tags.push(data.tags[tag]);
+  for( let tag of data.tags){
+    newPost.tags.push(tag);
   }
   newPost.likedByUser = [];
   newPost.numberOfLikes = 0;
