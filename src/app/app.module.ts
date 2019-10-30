@@ -14,7 +14,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {OtherService} from './other.service';
 import {ReactiveFormsModule } from '@angular/forms';
-import {FindPasswordComponent} from './findPassword/findPassword.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import {CookieService} from 'angular2-cookie/core';
@@ -34,7 +33,6 @@ import { OtherProfileComponent } from './other-profile/other-profile.component';
     MainComponent,
     LoginComponent,
     RegisterComponent,
-    FindPasswordComponent,
     ProfileComponent,
     TimelineComponent,
     TestComponent,
