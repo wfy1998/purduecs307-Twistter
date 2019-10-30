@@ -1,16 +1,8 @@
 const express = require("express");
 const router = express.Router();
-
 const mongoose = require("mongoose");
-const jwt = require('jsonwebtoken');
 
 const db = "mongodb+srv://feiyang:feiyang@cluster0-is36o.mongodb.net/test?retryWrites=true&w=majority";
-const email = require("emailjs");
-
-const User = require('../models/User');
-const Post = require('../models/Post');
-
-const checkAuth = require("../middleware/check-auth");
 
 mongoose.set('useCreateIndex', true);
 mongoose.connect(db,{ useNewUrlParser: true,  useUnifiedTopology: true  });
@@ -27,7 +19,9 @@ mongoose.connection.on("open", function () {
 router.use('/login', require('./login'));
 /* ---- /api/register ---- */
 router.use('/register', require('./register'));
-/* ---- /api/logout ---- */
+/* ---- /api/delete ---- */
+router.use('/delete', require('./delete'));
+
 /* -------------------- profile part ------------------------ */
 router.use('/profile', require('./profile'));
 
@@ -42,9 +36,6 @@ router.use('tag', require('./tag'));
 
 /* ---------------------- tag part -------------------------- */
 router.use('find', require('./find'));
-
-
-
 
 // empty email now
 // const server = email.server.connect({

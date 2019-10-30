@@ -7,7 +7,7 @@
 					</span>
 
 
-      <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+      <div class="wrap-input100 validate-input" data-validate = "Valid username is required">
         <input class="input100" [(ngModel)]="loginUserData.username" type="text" name="username">
         <span class="focus-input100"></span>
         <span class="label-input100">Username</span>
@@ -20,27 +20,27 @@
         <span class="label-input100">Password</span>
       </div>
 
-      <div class="flex-sb-m w-full p-t-3 p-b-32">
-        <div class="contact100-form-checkbox">
-          <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-          <label class="label-checkbox100" for="ckb1">
-            Remember me
-          </label>
-        </div>
+<!--      <div class="flex-sb-m w-full p-t-3 p-b-32">-->
+<!--        <div class="contact100-form-checkbox">-->
+<!--          <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">-->
+<!--          <label class="label-checkbox100" for="ckb1">-->
+<!--            Remember me-->
+<!--          </label>-->
+<!--        </div>-->
 
-        <div>
-          <button id="findPassword" type="submit" class="login100-form-btn"
-                  routerLink="/findPassword" routerLinkActive="active">
-            <!--<a href="Admin/index.html" class="txt1">-->
-            findPassword
-            <!--</a>-->
-          </button>
-        </div>
-      </div>
+<!--        <div>-->
+<!--          <button id="findPassword" type="submit" class="login100-form-btn"-->
+<!--                  routerLink="/findPassword" routerLinkActive="active">-->
+<!--            &lt;!&ndash;<a href="Admin/index.html" class="txt1">&ndash;&gt;-->
+<!--            findPassword-->
+<!--            &lt;!&ndash;</a>&ndash;&gt;-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
 
 
       <div class="container-login100-form-btn">
-        <button (click)="loginUser()" type="button" class="login100-form-btn">
+        <button (click)="loginUser()" type="submit" class="login100-form-btn">
           <!--<a href="Admin/index.html" class="txt1">-->
           Login
           <!--</a>-->
@@ -50,7 +50,7 @@
 
 
       <div class="text-center p-t-46 p-b-20">
-        <button id="button" type="submit" class="login100-form-btn"
+        <button id="button" type="button" class="login100-form-btn"
                 routerLink="/register" routerLinkActive="active">
           <!--<a href="Admin/index.html" class="txt1">-->
           Sign up
@@ -58,22 +58,22 @@
         </button>
       </div>
 
-      <div class="text-center p-t-46 p-b-20">
-          <span class="txt2">
-							or sign in using
-						</span>
-      </div>
+<!--      <div class="text-center p-t-46 p-b-20">-->
+<!--          <span class="txt2">-->
+<!--							or sign in using-->
+<!--						</span>-->
+<!--      </div>-->
 
 
-      <div class="login100-form-social flex-c-m">
-        <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
-          <i class="fa fa-facebook-f" aria-hidden="true"></i>
-        </a>
+<!--      <div class="login100-form-social flex-c-m">-->
+<!--        <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">-->
+<!--          <i class="fa fa-facebook-f" aria-hidden="true"></i>-->
+<!--        </a>-->
 
-        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
-          <i class="fa fa-twitter" aria-hidden="true"></i>
-        </a>
-      </div>
+<!--        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">-->
+<!--          <i class="fa fa-twitter" aria-hidden="true"></i>-->
+<!--        </a>-->
+<!--      </div>-->
     </form>
 
     <div class="login100-more" style="background-image: url('assets/images/twitter-wallpaper.jpg');">

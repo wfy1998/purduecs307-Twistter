@@ -9,7 +9,7 @@ const postSchema = mongoose.Schema({
   tags:{type: [String]},
 
   likedByUser: {type: [String]},
-  numberOfLikes: {type: String},
+  numberOfLikes: {type: Number},
 
   quoted: {type: Boolean},
   comment: {type: String},

@@ -20,6 +20,7 @@ export class OtherService {
   private _checkFollowStatusURL = 'http://localhost:3000/api/profile/checkFollowStatus';
   /* ---------- timeline ----------- */
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
+  private _getHighlightedPostsURL = 'http://localhost:3000/api/timeline/getHighlight';
   private _likePostURL = 'http://localhost:3000/api/timeline/likePost';
   private _quoteURL = 'http://localhost:3000/api/timeline/quote';
   private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
@@ -34,7 +35,7 @@ export class OtherService {
 
   /* ---------- profile ----------- */
   getOthersProfile(username) {
-    return this.http.get(this._getOthersProfileURL, username);
+    return this.http.post(this._getOthersProfileURL, username);
   }
   followUser(username) {
     return this.http.post<any>(this._followUserURL, username);
@@ -42,11 +43,11 @@ export class OtherService {
   unfollowUser(username) {
     return this.http.post<any>(this._unfollowUserURL, username);
   }
-  changeFrollowedTag(taglist) {
-    return this.http.post<any>(this._changeFollowedTagURL, taglist);
+  changeFrollowedTag(username, taglist) {
+    return this.http.post<any>(this._changeFollowedTagURL, {username, taglist});
   }
   getOwnProfile() {
-    return this.http.get(this._getOwnProfileURL);
+    return this.http.post(this._getOwnProfileURL, {});
   }
   changeProfile(User) {
     return this.http.post<any>(this._changeProfileURL, User);
@@ -55,9 +56,15 @@ export class OtherService {
     console.log('the tag in the service is: ', tag);
     return this.http.post<any>(this._addNewTagURL, tag);
   }
+  checkFollowStatus(username) {
+    return this.http.post(this._checkFollowStatusURL, username);
+  }
   /* ---------- timeline ----------- */
   getMorePosts() {
     return this.http.get(this._getMorePostsURL);
+  }
+  getHighlightedPosts() {
+    return this.http.get(this._getHighlightedPostsURL);
   }
   likePost(postID) {
     return this.http.post<any>(this._likePostURL, postID);
@@ -66,7 +73,7 @@ export class OtherService {
     return this.http.post<any>(this._quoteURL, {postID, comment});
   }
   getUserLine(username) {
-    return this.http.get(this._getUserLine, username);
+    return this.http.post(this._getUserLine, username);
   }
   /* ---------- post ----------- */
   createNewPost(post) {
@@ -75,11 +82,16 @@ export class OtherService {
   }
   /* ---------- tag ----------- */
   getTags() {
-    return this.http.get(this._getTagsURL);
+    return this.http.post(this._getTagsURL, {});
   }
   /* ---------- find user ----------- */
   findUser(username) {
     return this.http.post<any>(this._findUser, username);
+  }
+
+  /* -------------for test purpose only ----------*/
+  resetAccount() {
+    return this.http.post<any>('http://localhost:3000/api/profile/reset', {});
   }
 
   // checkUserNameAndEmail(userName: string, email: string) {

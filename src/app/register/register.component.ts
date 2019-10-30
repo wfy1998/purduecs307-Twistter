@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
           console.log('yes');
-          this.router.navigate(['/timeline']);
+          this.router.navigate(['/login']);
       });
   }
 }

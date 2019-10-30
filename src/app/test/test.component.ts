@@ -27,6 +27,21 @@ export class TestComponent implements OnInit {
     username: ''
   };
 
+  allPosts = {
+    createdAt: '',
+    username: '',
+    content: '',
+    tags: [],
+    numberOfLikes: 0,
+    quoted: false,
+    comment: '',
+    originName: ''
+  };
+
+  nameToCheck = {
+    username: String
+  }
+
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
@@ -63,9 +78,31 @@ export class TestComponent implements OnInit {
   unfollow() {
     this._other.unfollowUser(this.unfollowName)
       .subscribe(res => {
-        console.log('follow success');
+        console.log('unfollow success');
       });
 
+  }
+
+  getMorePosts() {
+    this._other.getMorePosts()
+      .subscribe(res => {
+        console.log(res);
+        // this.allPosts.username = (res as any ).username;
+        // this.allPosts.content = (res as any ).content;
+      }, err => console.log(err));
+  }
+
+  checkFollow() {
+    this._other.checkFollowStatus(this.nameToCheck)
+      .subscribe(res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  resetProfile() {
+    this._other.resetAccount().subscribe(err => console.log(err));
   }
 
 }

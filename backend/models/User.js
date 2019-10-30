@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
 
   userPosts: [{type: Schema.ObjectId, ref: 'Post'}],
   userTags: {type: [String]},
-  userFollowed: [{type: Schema.ObjectId, ref: 'Followed'}],
+  userFollowed: [{type: Schema.ObjectId, ref: 'followed'}],
 
   token: {type: String, unique:true},
 

@@ -5,22 +5,23 @@ const userModel = require('../models/User');
 const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/getOthers', checkAuth, (req, res) => {
-    userModel.findOne({username: username}, (err, user) =>{
+router.post('/getOthers', checkAuth, (req, res) => {
+    userModel.findOne({username: req.body.username}, (err, user) =>{
       if (err){
         console.log('the error is: ', err);
         res.status(500).send(err);
       }
       if(!user){
-        res.status(500).send('cannot find the user')
+        res.status(500).send('cannot find the user');
       }
       else {
-        res.json(user)
+        res.send(json(user));
       }
     })
 });
 
 router.post('/follow', checkAuth, (req, res) => {
+  console.log('follow');
   const username = res.locals.username;
   const newFollow = new followModel();
   const userToBeFollowed = req.body.username;
@@ -30,6 +31,9 @@ router.post('/follow', checkAuth, (req, res) => {
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log('err query user', username);
+      return;
+    }
+    if (!user) {
       return;
     }
 
@@ -60,6 +64,7 @@ router.post('/follow', checkAuth, (req, res) => {
             return
           }
           console.log('success');
+          return res.status(200);
         }); //end update current user follow list
 
       }); //end saving new follow model
@@ -71,16 +76,79 @@ router.post('/follow', checkAuth, (req, res) => {
 });
 
 router.post('/unfollow', checkAuth, (req, res) => {
-  // const username = res.locals.username;
-  // userModel.update({username: username})
+  console.log('unfollow');
+  const username = res.locals.username;
+  const userToBeUnfollowed = req.body.username;
+  console.log(userToBeUnfollowed);
+
+  userModel.findOne({username: username}, (err, user) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    let followList = user.userFollowed;
+    for (let tempID in followList) {
+      followModel.findById(followList[tempID], (err, follow) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if (!follow) {
+          return;
+        }
+        if (follow.followedUserName === userToBeUnfollowed) {
+          followModel.findByIdAndRemove(followList[tempID], (err) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+          userModel.updateOne({username: username}, {$pull: {userFollowed: followList[tempID]}}, (err) => {
+            if (err) {console.log(err); return}
+            console.log('removed');
+            return res.status(200);
+          });
+        }
+      }); //end find follow model by id
+    }
+
+  });
+
 });
 
 router.post('/changeFollowedTag', checkAuth, (req, res) => {
+  //todo assuming input tag list is in string array
+  const followedUser = req.body.username;
+  const username = res.locals.username;
+  const tags = req.body.taglist;
+  console.log('changing followed tags', followedUser, tags);
+
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {console.log(err); return res.status(500)}
+      if (!user) {console.log('no such user'); return res.status(500)}
+
+      for (let temp of user.userFollowed) {
+        if (temp.followedUserName === followedUser) {
+          followModel.findByIdAndUpdate(temp._id, {followedUserTag: tags}, (err) => {
+            if (err) {console.log(err); res.status(500);}
+          });
+          res.status(200);
+          return;
+        }
+      }
+
+    })
 
 });
 
-router.get('/', checkAuth, (req, res) => {
-
+router.post('/', checkAuth, (req, res) => {
+  console.log('getting own profile');
+  userModel.findOne({username: res.locals.username}, (err, user) => {
+    if (err) {console.log(err); return res.status(500)}
+    res.status(200).send(json(user));
+  })
 });
 
 router.post('/changeProfile', checkAuth, (req, res) => {
@@ -89,13 +157,13 @@ router.post('/changeProfile', checkAuth, (req, res) => {
     {
       username: res.locals.username,
     }, {
-
       firstName: req.body.enteredFirstName,
       lastName: req.body.enteredLastName,
       age: req.body.enteredAge,
+      school: req.body.enteredSchool,
+      gender: req.body.enteredGender,
+      phone: req.body.enteredPhone,
       address: req.body.enteredAddress,
-      phone: req.body.enteredPhone
-
     },
     function(err, data){
       if(err) {
@@ -143,7 +211,58 @@ router.post('/addTag', checkAuth, (req, res) => {
 });// end function
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
+  console.log('checkFollowStatus');
+  const username = res.locals.username;
+  const userToCheck = req.body.username;
+  console.log(userToCheck);
 
+  let followed = false;
+
+  userModel.findOne({username: username}, (err, user) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    if (!user) {
+      return;
+    }
+
+    let followList = user.userFollowed;
+    for (let tempID in followList) {
+      followModel.findById(followList[tempID], (err, follow) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if (!follow) {
+          return;
+        }
+        if (follow.followedUserName === userToCheck) {
+          follow = true;
+          res.status(200).send({follow});
+        }
+      }); //end find follow model by id
+
+      if (followed) { //async: no need to check further
+        return;
+      }
+    }
+
+  });
+
+});
+
+router.post('/reset', checkAuth, (req, res) => {
+  console.log('resetting');
+  userModel.findOneAndUpdate({username: res.locals.username}, { $set: {
+      'userPosts': [],
+      'userTags': [],
+      'userFollowed': []
+    }
+  } , (err, user) => {
+    if (err) {console.log(err)}
+    console.log(user);
+  })
 });
 
 module.exports = router;

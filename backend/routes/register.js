@@ -1,11 +1,9 @@
-const path = require('path');
 const utility = require('utility');
 const express = require('express');
 const router = express.Router();
 
 const userModel = require('../models/User');
 
-// POST /register register page
 router.post('/', (req, res, next) => {
   console.log('register request');
   /* validation */
@@ -30,6 +28,15 @@ router.post('/', (req, res, next) => {
   newUser.email = req.body.email;
   newUser.username = req.body.username;
   newUser.password = utility.md5(req.body.password, 'base64');
+
+  newUser.userTags = [];
+
+  newUser.age = '-1';
+  newUser.school = '';
+  newUser.gender = '';
+  newUser.phone = '';
+  newUser.address = '';
+
   newUser.save((err) => {
     if (err) {
       console.log(err);
@@ -38,7 +45,7 @@ router.post('/', (req, res, next) => {
     }
 
     console.log('new user created');
-    res.status(201).redirect('/posts')
+    res.status(201).redirect('/')
   })
 });
 

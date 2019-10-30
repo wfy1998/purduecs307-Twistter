@@ -24,8 +24,8 @@ export class AuthService {
   logoutUser() {
     localStorage.removeItem('token');
   }
-  deleteAccount(username) {
-    return this.http.post<any>(this._deleteAccountURL, username);
+  deleteAccount() {
+    return this.http.post<any>(this._deleteAccountURL, {});
   }
   findPassword(email) {
     return this.http.post<any>(this._findPasswordUrl, email);
