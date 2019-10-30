@@ -15,7 +15,7 @@ router.post('/getOthers', checkAuth, (req, res) => {
         res.status(500).send('cannot find the user');
       }
       else {
-        res.send(json(user));
+        res.json(user);
       }
     })
 });

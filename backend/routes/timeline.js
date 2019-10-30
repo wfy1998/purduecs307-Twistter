@@ -56,7 +56,7 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       };
       sleep(2000).then(() => {
-        console.log(postsToReturn);
+        console.log('the return post', postsToReturn);
         res.status(200).send(postsToReturn);
       });
 

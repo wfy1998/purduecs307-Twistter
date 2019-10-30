@@ -4,6 +4,7 @@ import {OtherService} from '../other.service';
 import {Router} from '@angular/router';
 
 
+
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
@@ -12,14 +13,18 @@ import {Router} from '@angular/router';
 export class TimelineComponent implements OnInit {
   postData = {
     username: '',
-
   };
   constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
 
   ngOnInit() {
+
+    this._other.getMorePosts().subscribe((res: any) => {
+      console.log(res);
+    });
+
   }
   logOut() {
-    localStorage.removeItem('email')
+    localStorage.removeItem('email');
     localStorage.removeItem('address');
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');
@@ -40,5 +45,7 @@ export class TimelineComponent implements OnInit {
         err => console.log(err)
       );
   }
+
+
 
 }
