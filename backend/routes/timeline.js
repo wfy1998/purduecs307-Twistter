@@ -5,14 +5,10 @@ const checkAuth = require("../middleware/check-auth");
 
 const postModel = require('../models/Post');
 const userModel = require('../models/User');
-const followModel = require('../models/Followed');
-
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
-
   var postsToReturn = [];
-
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
     .populate('userFollowed')
@@ -40,6 +36,7 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
 
             for (let tempPost in fluser.userPosts) {
               let postData = {
+                postID: fluser.userPosts[tempPost]._id,
                 createdAt: fluser.userPosts[tempPost].createdAt,
                 username: fluser.userPosts[tempPost].username,
                 content: fluser.userPosts[tempPost].content,
@@ -99,6 +96,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 
             for (let tempPost in fluser.userPosts) {
               let postData = {
+                postID: fluser.userPosts[tempPost]._id,
                 createdAt: fluser.userPosts[tempPost].createdAt,
                 username: fluser.userPosts[tempPost].username,
                 content: fluser.userPosts[tempPost].content,
@@ -126,7 +124,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 
 });
 
-router.get('/likePost', checkAuth, (req, res)  => {
+router.post('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
   postModel.findOne( {_id: data.postID}, (err, post) => {
       if (err) {
@@ -148,7 +146,7 @@ router.get('/likePost', checkAuth, (req, res)  => {
     })
 });
 
-router.get('/quote', checkAuth, (req, res)  => {
+router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
   let newPost = new postModel();
   postModel.findOne( {_id: data.postID}, (err, post) => {
@@ -185,6 +183,7 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 
       for (let tempPost in user.userPosts) {
         let postData = {
+          postID: user.userPosts[tempPost]._id,
           createdAt: user.userPosts[tempPost].createdAt,
           username: user.userPosts[tempPost].username,
           content: user.userPosts[tempPost].content,
