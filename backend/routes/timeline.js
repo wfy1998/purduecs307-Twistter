@@ -174,6 +174,32 @@ router.get('/quote', checkAuth, (req, res)  => {
 });
 
 router.post('/getUserLine', checkAuth, (req, res) => {
+  const username = req.body.username;
+  console.log('getting userline', username);
+  userModel.findOne({username: username})
+    .populate('userPosts')
+    .exec((err, user) => {
+      if (err) {console.log(err); return res.status(500);}
+
+      var postsToReturn = [];
+
+      for (let tempPost in user.userPosts) {
+        let postData = {
+          createdAt: user.userPosts[tempPost].createdAt,
+          username: user.userPosts[tempPost].username,
+          content: user.userPosts[tempPost].content,
+          tags: user.userPosts[tempPost].tags,
+          numberOfLikes: user.userPosts[tempPost].numberOfLikes,
+          quoted: user.userPosts[tempPost].quoted,
+          comment: user.userPosts[tempPost].comment,
+          originName: user.userPosts[tempPost].originName
+        };
+        postsToReturn.push(postData);
+      }
+
+      console.log(postsToReturn);
+      res.status(200).send(postsToReturn);
+    })
 
 });
 
