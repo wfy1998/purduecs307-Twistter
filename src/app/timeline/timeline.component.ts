@@ -5,7 +5,6 @@ import {Router} from '@angular/router';
 import {NumberValueAccessor} from '@angular/forms/src/directives/number_value_accessor';
 
 
-
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',

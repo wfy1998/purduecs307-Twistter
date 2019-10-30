@@ -16,7 +16,7 @@ export class FinduserComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('email')
+    localStorage.removeItem('email');
     localStorage.removeItem('address');
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');
