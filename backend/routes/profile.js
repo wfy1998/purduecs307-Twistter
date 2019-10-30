@@ -12,7 +12,7 @@ router.post('/getOthers', checkAuth, (req, res) => {
         res.status(500).send(err);
       }
       if(!user){
-        res.status(500).send('cannot find the user');
+        res.status(403).send('cannot find the user');
       }
       else {
         res.json(user);
@@ -34,12 +34,17 @@ router.post('/follow', checkAuth, (req, res) => {
       return;
     }
     if (!user) {
+      res.status(403).send('cannot find the user');
       return;
     }
 
     userModel.findOne({username: userToBeFollowed}, (err, BeFollowedUser) => {
       if (err) {
         console.log(err);
+        return;
+      }
+      if(!BeFollowedUser){
+        res.status(403).send('cannot find the user');
         return;
       }
       //reading tags of userToBeFollowed
@@ -86,7 +91,10 @@ router.post('/unfollow', checkAuth, (req, res) => {
       console.log(err);
       return;
     }
-
+    if(!user){
+      res.status(403).send('cannot find the user');
+      return;
+    }
     let followList = user.userFollowed;
     for (let tempID in followList) {
       followModel.findById(followList[tempID], (err, follow) => {
