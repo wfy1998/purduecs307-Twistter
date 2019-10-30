@@ -43,8 +43,8 @@ export class OtherService {
   unfollowUser(username) {
     return this.http.post<any>(this._unfollowUserURL, username);
   }
-  changeFrollowedTag(taglist) {
-    return this.http.post<any>(this._changeFollowedTagURL, taglist);
+  changeFrollowedTag(username, taglist) {
+    return this.http.post<any>(this._changeFollowedTagURL, {username, taglist});
   }
   getOwnProfile() {
     return this.http.post(this._getOwnProfileURL, {});

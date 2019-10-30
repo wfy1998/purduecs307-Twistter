@@ -117,6 +117,29 @@ router.post('/unfollow', checkAuth, (req, res) => {
 });
 
 router.post('/changeFollowedTag', checkAuth, (req, res) => {
+  //todo assuming input tag list is in string array
+  const followedUser = req.body.username;
+  const username = res.locals.username;
+  const tags = req.body.taglist;
+  console.log('changing followed tags', followedUser, tags);
+
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {console.log(err); return res.status(500)}
+      if (!user) {console.log('no such user'); return res.status(500)}
+
+      for (let temp of user.userFollowed) {
+        if (temp.followedUserName === followedUser) {
+          followModel.findByIdAndUpdate(temp._id, {followedUserTag: tags}, (err) => {
+            if (err) {console.log(err); res.status(500);}
+          });
+          res.status(200);
+          return;
+        }
+      }
+
+    })
 
 });
 
