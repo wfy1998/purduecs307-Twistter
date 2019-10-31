@@ -29,6 +29,9 @@ export class OtherProfileComponent implements OnInit {
   follow = {
     username: ''
   };
+  unfollow = {
+    username: ''
+  };
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private _activateroute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -75,7 +78,22 @@ export class OtherProfileComponent implements OnInit {
       }
       console.log(err);
     });
+  }
 
+  onunFollow() {
+    this.unfollow.username = this._activateroute.snapshot.params.username;
+    this._other.unfollowUser(this.unfollow).subscribe(res => {
+      console.log('unfollow success');
+    }, err => {
+      if (err.status === 400) {
+        alert('Bad request! Please fill in all the blanks');
+      } else if (err.status === 403) {
+        alert('User not found');
+      } else if (err.status === 500) {
+        alert('Server Error!');
+      }
+      console.log(err);
+    });
   }
 
   logOut() {
@@ -91,4 +109,5 @@ export class OtherProfileComponent implements OnInit {
     localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
   }
+
 }

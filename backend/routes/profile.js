@@ -103,6 +103,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
       return;
     }
     if(!user){
@@ -114,6 +115,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
       followModel.findById(tempID, (err, follow) => {
         if (err) {
           console.log(err);
+          res.status(500).send();
           return;
         }
         if (!follow) {
