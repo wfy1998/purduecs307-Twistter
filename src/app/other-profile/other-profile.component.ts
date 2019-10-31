@@ -67,4 +67,17 @@ export class OtherProfileComponent implements OnInit {
 
   }
 
+  logOut() {
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('email');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('token');
+    localStorage.removeItem('age');
+    localStorage.removeItem('school');
+    localStorage.removeItem('gender');
+    localStorage.removeItem('phone');
+    localStorage.removeItem('address');
+    localStorage.removeItem('searchUser');
+  }
 }
