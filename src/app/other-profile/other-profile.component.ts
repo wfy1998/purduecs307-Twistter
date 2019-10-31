@@ -41,13 +41,13 @@ export class OtherProfileComponent implements OnInit {
   follow = {
     username: ''
   };
+  checkFollow = false;
   unfollow = {
     username: ''
   };
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private _activateroute: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log('the router username is,', this._activateroute.snapshot.params.username);
     // set all profile value from local storage
     this.jsonUserName.username = this._activateroute.snapshot.params.username;
     this._other.getOthersProfile(this.jsonUserName)
@@ -55,8 +55,7 @@ export class OtherProfileComponent implements OnInit {
         this.getFirstName = res.firstName;
         this.getLastName = res.lastName;
         this.getUserName = res.username;
-        this.getTagList = res.userTags;
-        console.log('tags:' + this.getTagList);
+        // this.getTagList = res.userTags;
       }, err => {
         if (err.status === 400) {
           alert('Bad request! please fill in all the blanks!');
@@ -67,11 +66,16 @@ export class OtherProfileComponent implements OnInit {
         }
       });
 
-      this._other.getUserLine(this.jsonUserName).subscribe((res: any) =>{
-        this.posts = res;
-        console.log('the post in other profile is: ', this.posts);
-      });
+      // this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
+      //   this.posts = res;
+      //   // console.log('the post in other profile is: ', this.posts);
+      // });
 
+      this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
+        console.log('res: ', res);
+        this.checkFollow = res;
+        console.log('check follow: ', this.checkFollow);
+      });
 
 
 
@@ -80,7 +84,7 @@ export class OtherProfileComponent implements OnInit {
   onFollow() {
     this.follow.username = this._activateroute.snapshot.params.username;
     this._other.followUser(this.follow).subscribe(res => {
-      console.log('follow success');
+      // console.log('follow success');
     }, err => {
       if (err.status === 400) {
         alert('Bad request! Please fill in all the blanks');
@@ -91,7 +95,7 @@ export class OtherProfileComponent implements OnInit {
       } else if (err.status === 500) {
         alert('Server Error!');
       }
-      console.log(err);
+      // console.log(err);
     });
   }
 
