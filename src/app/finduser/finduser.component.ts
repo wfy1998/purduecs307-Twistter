@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OtherService} from '../other.service';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-finduser',
@@ -8,11 +10,30 @@ import {OtherService} from '../other.service';
 })
 export class FinduserComponent implements OnInit {
 
+  username = {
+    username: ''
+  };
   getEnterName = '';
-  constructor(private _other: OtherService) { }
+  constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
     this.getEnterName = localStorage.getItem('userName');
+  }
+
+  search() {
+    this._other.getOthersProfile(this.username)
+      .subscribe( (res: any) => {
+        console.log('find the user,', res.username);
+        this._router.navigate(['/other_profile', res.username]);
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad request! please fill in all the blanks!');
+        } else if (err.status === 403) {
+          alert('User Not Found!');
+        } else if (err.status === 500) {
+          alert('Server Error!');
+        }
+      });
   }
 
   logOut() {
@@ -24,14 +45,5 @@ export class FinduserComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('searchUser');
-  }
-
-  onClickSearch(postInput: HTMLTextAreaElement) {
-    if (postInput.value !== '') {
-      localStorage.setItem('searchUser', postInput.value);
-      window.location.href = 'this._other.findUser(postInput.value)';
-    } else {
-      alert('Please enter a username');
-    }
   }
 }
