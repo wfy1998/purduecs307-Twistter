@@ -8,7 +8,7 @@ const userModel = require('../models/User');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
-  var postsToReturn = [];
+  let postsToReturn = [];
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
     .populate('userFollowed')
@@ -67,7 +67,7 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
 router.get('/getHighlight', checkAuth, (req, res)  => {
   console.log('getting highlighted posts');
 
-  var postsToReturn = [];
+  let postsToReturn = [];
 
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
@@ -126,17 +126,35 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 
 router.post('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
+
+  try {
+    if (data.postID == null || data.postID === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
   postModel.findOne( {_id: data.postID}, (err, post) => {
       if (err) {
         console.log(err);
-        res.status(500).send('post not found');
+        res.status(500).send('query error');
         return
       }
+      if (!post) {
+        res.status(403).send('post not found');
+        return
+      }
+
       let numberOfLikes = post.numberOfLikes;
       numberOfLikes++;
       console.log(post._id + ' number of likes: ' + post.numberOfLikes);
+      console.log('now: ', numberOfLikes);
 
-      postModel.update({_id: data.postID}, {numberOfLikes: numberOfLikes}, (result, err) => {
+      postModel.update({_id: data.postID}, {numberOfLikes: numberOfLikes}, (err) => {
         if (err) {
           console.log(err);
           res.status(500).send('error update number of likes');
@@ -148,10 +166,27 @@ router.post('/likePost', checkAuth, (req, res)  => {
 
 router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
+
+  try {
+    if (data.postID == null || data.postID === ''
+      || data.comment == null || data.comment === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
   let newPost = new postModel();
   postModel.findOne( {_id: data.postID}, (err, post) => {
     if (err) {
       console.log(err);
+      return
+    }
+    if (!post) {
+      res.status(403).send('post not found');
       return
     }
     newPost.username = res.locals.username;
@@ -160,15 +195,18 @@ router.post('/quote', checkAuth, (req, res)  => {
     newPost.quoted = true;
     newPost.comment = data.comment;
     newPost.originName = post.username;
+
+    newPost.save((err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('new quote creation failed');
+        return
+      }
+      console.log('new quote created');
+    });
+
   });
-  newPost.save((err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('new quote creation failed');
-      return
-    }
-    console.log('new quote created');
-  });
+
 });
 
 router.post('/getUserLine', checkAuth, (req, res) => {
@@ -179,7 +217,7 @@ router.post('/getUserLine', checkAuth, (req, res) => {
     .exec((err, user) => {
       if (err) {console.log(err); return res.status(500);}
 
-      var postsToReturn = [];
+      let postsToReturn = [];
 
       for (let tempPost of user.userPosts) {
         let postData = {
