@@ -19,11 +19,19 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this._other.getOthersProfile(this.username).subscribe( (res: any) => {
-      console.log('find the user,', res.username);
-      this._router.navigate(['/other_profile', res.username]);
-    });
-
+    this._other.getOthersProfile(this.username)
+      .subscribe( (res: any) => {
+        console.log('find the user,', res.username);
+        this._router.navigate(['/other_profile', res.username]);
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad request! please fill in all the blanks!');
+        } else if (err.status === 403) {
+          alert('User Not Found!');
+        } else if (err.status === 500) {
+          alert('Server Error!');
+        }
+      });
   }
 
 }

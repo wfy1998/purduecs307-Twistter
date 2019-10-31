@@ -9,8 +9,8 @@ router.post('/', (req, res, next) => {
   //console.log(req.body);
   /* validation */
   try {
-    if (!(req.body.username.length >= 1 &&
-          req.body.username.length <= 64)) {
+    if (!(req.body.username.length >= 2 &&
+          req.body.username.length <= 30)) {
       console.log('register request exception 1');
       throw new Error('name length exception')
     }
@@ -53,6 +53,60 @@ router.post('/', (req, res, next) => {
     console.log('new user created');
     res.status(201).redirect('/')
   })
+});
+
+router.post('/checkUsername', (req, res) => {
+  console.log('check username availability');
+  /* validation */
+  try {
+    if (req.body.username == null || req.body.username === '') {
+      console.log('bad request');
+      throw new Error()
+    }
+  } catch (exception) {
+    console.log(exception);
+    res.status(400).send('bad request');
+    return;
+  }
+
+  userModel.findOne({username: req.body.username}, (err, user) => {
+    if (err) {console.log('query failed'); res.status(500).send()}
+    if (!user) {
+      console.log('username not used');
+      res.status(200).send();
+      return
+    }
+    console.log('repeated username detected');
+    res.status(403).send();
+  })
+
+});
+
+router.post('/checkEmail', (req, res) => {
+  console.log('check email availability');
+  /* validation */
+  try {
+    if (req.body.email == null || req.body.email === '') {
+      console.log('bad request');
+      throw new Error()
+    }
+  } catch (exception) {
+    console.log(exception);
+    res.status(400).send('bad request');
+    return;
+  }
+
+  userModel.findOne({email: req.body.email}, (err, user) => {
+    if (err) {console.log('query failed'); res.status(500).send()}
+    if (!user) {
+      console.log('email not used');
+      res.status(200).send();
+      return
+    }
+    console.log('repeated email detected');
+    res.status(403).send();
+  })
+
 });
 
 module.exports = router;

@@ -4,23 +4,36 @@ const router = express.Router();
 const userModel = require('../models/User');
 const followModel = require('../models/Followed');
 const checkAuth = require('../middleware/check-auth');
+const repeatedFollowCheck = require('../middleware/repeatedFollowCheck');
 
 router.post('/getOthers', checkAuth, (req, res) => {
-    userModel.findOne({username: req.body.username}, (err, user) =>{
-      if (err){
-        console.log('the error is: ', err);
-        res.status(500).send(err);
-      }
-      if(!user){
-        res.status(500).send('cannot find the user');
-      }
-      else {
-        res.json(user);
-      }
-    })
+  const data = req.body;
+  try {
+    if (data.username == null || data.username === '') {
+      res.status(400).send();
+      return;
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return;
+  }
+
+  userModel.findOne({username: req.body.username}, (err, user) =>{
+    if (err){
+      console.log('the error is: ', err);
+      res.status(500).send(err);
+    }
+    if(!user){
+      res.status(403).send('cannot find the user');
+    }
+    else {
+      res.json(user);
+    }
+  })
 });
 
-router.post('/follow', checkAuth, (req, res) => {
+router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
   console.log('follow');
   const username = res.locals.username;
   const newFollow = new followModel();
@@ -31,15 +44,21 @@ router.post('/follow', checkAuth, (req, res) => {
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log('err query user', username);
+      res.status(500).send();
       return;
     }
     if (!user) {
+      res.status(403).send('cannot find the user');
       return;
     }
 
     userModel.findOne({username: userToBeFollowed}, (err, BeFollowedUser) => {
       if (err) {
         console.log(err);
+        return;
+      }
+      if(!BeFollowedUser){
+        res.status(403).send('cannot find the user');
         return;
       }
       //reading tags of userToBeFollowed
@@ -86,10 +105,13 @@ router.post('/unfollow', checkAuth, (req, res) => {
       console.log(err);
       return;
     }
-
+    if(!user){
+      res.status(403).send('cannot find the user');
+      return;
+    }
     let followList = user.userFollowed;
-    for (let tempID in followList) {
-      followModel.findById(followList[tempID], (err, follow) => {
+    for (let tempID of followList) {
+      followModel.findById(tempID, (err, follow) => {
         if (err) {
           console.log(err);
           return;
@@ -147,28 +169,42 @@ router.post('/', checkAuth, (req, res) => {
   console.log('getting own profile');
   userModel.findOne({username: res.locals.username}, (err, user) => {
     if (err) {console.log(err); return res.status(500)}
-    res.status(200).send(json(user));
+    res.json(user)
   })
 });
 
 router.post('/changeProfile', checkAuth, (req, res) => {
+  let data = req.body;
+  try {
+    if (data.enteredFirstName == null || data.enteredLastName == null
+      || data.enteredAge == null || data.enteredSchool == null
+      || data.enteredGender == null || data.enteredPhone == null
+      || data.enteredAddress == null) {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
 
   userModel.updateOne(
     {
       username: res.locals.username,
     }, {
-      firstName: req.body.enteredFirstName,
-      lastName: req.body.enteredLastName,
-      age: req.body.enteredAge,
-      school: req.body.enteredSchool,
-      gender: req.body.enteredGender,
-      phone: req.body.enteredPhone,
-      address: req.body.enteredAddress,
+      firstName: data.enteredFirstName,
+      lastName: data.enteredLastName,
+      age: data.enteredAge,
+      school: data.enteredSchool,
+      gender: data.enteredGender,
+      phone: data.enteredPhone,
+      address: data.enteredAddress
     },
     function(err, data){
       if(err) {
         console.log('update info failed.', err);
-        return res.status(400).send(err);
+        return res.status(500).send();
       } else {
         console.log('update info success!');
         return res.status(200).send(data);
@@ -178,33 +214,52 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 });
 
 router.post('/addTag', checkAuth, (req, res) => {
-  let newTag = req.body.tag;
-  let tags = {
-    tags:String
-  };
-  userModel.findOne({username: res.locals.username}, (err, user) =>{
-    if(err){
-      res.status(404).send(err)
-    }
-    else {
-      tags = user.userTags;
-      console.log('the old tag array: ', tags);
-      tags.push(newTag);
-      console.log('the new tag array: ', tags);
-      userModel.updateOne({username: res.locals.username},
-        {
-          userTags: tags
-        },
-        function(err, data){
-          if(err){
-            console.log('the err is', err)
-          }
-          else {
-            console.log('the tag after add is: ', tags)
-          }
-        })// end updateOne
+  let data = req.body;
 
-    }// end else
+  try {
+    if (data.tag == null || data.tag === '') {
+      res.status(400).send();
+      return;
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return;
+  }
+
+  let newTag = req.body.tag;
+  let tags = [];
+  userModel.findOne({username: res.locals.username}, (err, user) =>{
+    if (err){
+      res.status(500).send();
+      return;
+    }
+    if (!user) {
+      res.status(403).send();
+      return;
+    }
+    tags = user.userTags;
+    console.log('the old tag array: ', tags);
+
+    //repeated tag check!
+    for (let tempTag of tags) {
+      if (tempTag === newTag) {
+        console.log('repeated tag detected!');
+        return;
+      }
+    }
+
+    tags.push(newTag);
+    console.log('the new tag array: ', tags);
+    userModel.updateOne({username: res.locals.username},
+      { userTags: tags },  function(err, data){
+        if(err){
+          console.log('the err is', err)
+        }
+        else {
+          console.log('the tag after add is: ', tags)
+        }
+      })// end updateOne
 
   });// end findOne
 
@@ -212,43 +267,47 @@ router.post('/addTag', checkAuth, (req, res) => {
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
   console.log('checkFollowStatus');
+
+  try {
+    if (req.body.username == null || req.body.username === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
   const username = res.locals.username;
   const userToCheck = req.body.username;
   console.log(userToCheck);
 
   let followed = false;
 
-  userModel.findOne({username: username}, (err, user) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    if (!user) {
-      return;
-    }
-
-    let followList = user.userFollowed;
-    for (let tempID in followList) {
-      followModel.findById(followList[tempID], (err, follow) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        if (!follow) {
-          return;
-        }
-        if (follow.followedUserName === userToCheck) {
-          follow = true;
-          res.status(200).send({follow});
-        }
-      }); //end find follow model by id
-
-      if (followed) { //async: no need to check further
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
         return;
       }
-    }
+      if (!user) {
+        res.status(403).send();
+        return;
+      }
 
-  });
+      for (let tempFollow of user.userFollowed) {
+        if (tempFollow.followedUserName === userToCheck) {
+          followed = true;
+          res.status(200).send({followed});
+          return;
+        }
+      }
+      res.status(200).send({followed});
+
+    });
 
 });
 

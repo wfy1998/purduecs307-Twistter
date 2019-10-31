@@ -8,7 +8,7 @@ const userModel = require('../models/User');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
-  var postsToReturn = [];
+  let postsToReturn = [];
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
     .populate('userFollowed')
@@ -22,9 +22,9 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
         return;
       }
 
-      for (let temp in user.userFollowed) {
-        let flusername = user.userFollowed[temp].followedUserName;
-        let followedTags = user.userFollowed[temp].followedUserTag;
+      for (let temp of user.userFollowed) {
+        let flusername = temp.followedUserName;
+        let followedTags = temp.followedUserTag;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -34,17 +34,17 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
 
-            for (let tempPost in fluser.userPosts) {
+            for (let tempPost of fluser.userPosts) {
               let postData = {
-                postID: fluser.userPosts[tempPost]._id,
-                createdAt: fluser.userPosts[tempPost].createdAt,
-                username: fluser.userPosts[tempPost].username,
-                content: fluser.userPosts[tempPost].content,
-                tags: fluser.userPosts[tempPost].tags,
-                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
-                quoted: fluser.userPosts[tempPost].quoted,
-                comment: fluser.userPosts[tempPost].comment,
-                originName: fluser.userPosts[tempPost].originName
+                postID: tempPost._id,
+                createdAt: tempPost.createdAt,
+                username: tempPost.username,
+                content: tempPost.content,
+                tags: tempPost.tags,
+                numberOfLikes: tempPost.numberOfLikes,
+                quoted: tempPost.quoted,
+                comment: tempPost.comment,
+                originName: tempPost.originName
               };
               postsToReturn.push(postData);
             }
@@ -67,7 +67,7 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
 router.get('/getHighlight', checkAuth, (req, res)  => {
   console.log('getting highlighted posts');
 
-  var postsToReturn = [];
+  let postsToReturn = [];
 
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
@@ -82,9 +82,9 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
         return;
       }
 
-      for (let temp in user.userFollowed) {
-        let flusername = user.userFollowed[temp].followedUserName;
-        let initialTags = user.userFollowed[temp].initialTagsWhenFollowed;
+      for (let temp of user.userFollowed) {
+        let flusername = temp.followedUserName;
+        let initialTags = temp.initialTagsWhenFollowed;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -94,18 +94,18 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
 
-            for (let tempPost in fluser.userPosts) {
-              let postData = {
-                postID: fluser.userPosts[tempPost]._id,
-                createdAt: fluser.userPosts[tempPost].createdAt,
-                username: fluser.userPosts[tempPost].username,
-                content: fluser.userPosts[tempPost].content,
-                tags: fluser.userPosts[tempPost].tags,
-                numberOfLikes: fluser.userPosts[tempPost].numberOfLikes,
-                quoted: fluser.userPosts[tempPost].quoted,
-                comment: fluser.userPosts[tempPost].comment,
-                originName: fluser.userPosts[tempPost].originName
-              };
+              for (let tempPost of fluser.userPosts) {
+                let postData = {
+                  postID:tempPost._id,
+                  createdAt: tempPost.createdAt,
+                  username: tempPost.username,
+                  content: tempPost.content,
+                  tags: tempPost.tags,
+                  numberOfLikes: tempPost.numberOfLikes,
+                  quoted: tempPost.quoted,
+                  comment: tempPost.comment,
+                  originName: tempPost.originName
+                };
               postsToReturn.push(postData);
             }
           });
@@ -126,17 +126,35 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 
 router.post('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
+
+  try {
+    if (data.postID == null || data.postID === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
   postModel.findOne( {_id: data.postID}, (err, post) => {
       if (err) {
         console.log(err);
-        res.status(500).send('post not found');
+        res.status(500).send('query error');
         return
       }
+      if (!post) {
+        res.status(403).send('post not found');
+        return
+      }
+
       let numberOfLikes = post.numberOfLikes;
       numberOfLikes++;
       console.log(post._id + ' number of likes: ' + post.numberOfLikes);
+      console.log('now: ', numberOfLikes);
 
-      postModel.update({_id: data.postID}, {numberOfLikes: numberOfLikes}, (result, err) => {
+      postModel.update({_id: data.postID}, {numberOfLikes: numberOfLikes}, (err) => {
         if (err) {
           console.log(err);
           res.status(500).send('error update number of likes');
@@ -148,10 +166,27 @@ router.post('/likePost', checkAuth, (req, res)  => {
 
 router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
+
+  try {
+    if (data.postID == null || data.postID === ''
+      || data.comment == null || data.comment === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
   let newPost = new postModel();
   postModel.findOne( {_id: data.postID}, (err, post) => {
     if (err) {
       console.log(err);
+      return
+    }
+    if (!post) {
+      res.status(403).send('post not found');
       return
     }
     newPost.username = res.locals.username;
@@ -160,15 +195,18 @@ router.post('/quote', checkAuth, (req, res)  => {
     newPost.quoted = true;
     newPost.comment = data.comment;
     newPost.originName = post.username;
+
+    newPost.save((err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('new quote creation failed');
+        return
+      }
+      console.log('new quote created');
+    });
+
   });
-  newPost.save((err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('new quote creation failed');
-      return
-    }
-    console.log('new quote created');
-  });
+
 });
 
 router.post('/getUserLine', checkAuth, (req, res) => {
@@ -179,19 +217,19 @@ router.post('/getUserLine', checkAuth, (req, res) => {
     .exec((err, user) => {
       if (err) {console.log(err); return res.status(500);}
 
-      var postsToReturn = [];
+      let postsToReturn = [];
 
-      for (let tempPost in user.userPosts) {
+      for (let tempPost of user.userPosts) {
         let postData = {
-          postID: user.userPosts[tempPost]._id,
-          createdAt: user.userPosts[tempPost].createdAt,
-          username: user.userPosts[tempPost].username,
-          content: user.userPosts[tempPost].content,
-          tags: user.userPosts[tempPost].tags,
-          numberOfLikes: user.userPosts[tempPost].numberOfLikes,
-          quoted: user.userPosts[tempPost].quoted,
-          comment: user.userPosts[tempPost].comment,
-          originName: user.userPosts[tempPost].originName
+          postID: tempPost._id,
+          createdAt: tempPost.createdAt,
+          username: tempPost.username,
+          content: tempPost.content,
+          tags: tempPost.tags,
+          numberOfLikes: tempPost.numberOfLikes,
+          quoted: tempPost.quoted,
+          comment: tempPost.comment,
+          originName: tempPost.originName
         };
         postsToReturn.push(postData);
       }

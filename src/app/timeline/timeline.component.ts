@@ -39,7 +39,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.jsonUserName.username = localStorage.getItem('userName');
     // getTagList
-    this._other.getOthersProfile(this.jsonUserName).subscribe(
+    this._other.getOwnProfile().subscribe(
       (res: any) => {
         this.getTagList = res.userTags;
       });
@@ -64,15 +64,20 @@ export class TimelineComponent implements OnInit {
     localStorage.removeItem('searchUser');
   }
 
-
   newPost() {
     this._other.createNewPost(this.postData)
-      .subscribe(
-        res => {
+      .subscribe(res => {
           console.log('post success');
-        },
-        err => console.log(err)
-      );
+          }, err => {
+          if (err.status === 400) {
+            alert('Bad request! Please fill in all the blanks');
+          } else if (err.status === 401) {
+            alert('Unmatched username compared to your token');
+          } else if (err.status === 500) {
+            alert('Post creation failed!');
+          }
+          console.log(err);
+      });
   }
 
 
