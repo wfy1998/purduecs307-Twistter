@@ -96,7 +96,20 @@ export class ProfileComponent implements OnInit {
     this.getTagList.push(this.getTag);
     this.jsontag.tag = this.getTag;
     this._other.addNewTag(this.jsontag)
-      .subscribe();
+      .subscribe(res => {
+        console.log('add tag success');
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad Request!');
+        } else if (err.status === 403) {
+          alert('No such user!');
+        } else if (err.status === 406) {
+          alert('Repeated Tags!');
+        } else if (err.status === 500) {
+          alert('Server Error!');
+        }
+        console.log(err);
+      });
   }
 
   onSaveProfiel() {

@@ -245,6 +245,7 @@ router.post('/addTag', checkAuth, (req, res) => {
     for (let tempTag of tags) {
       if (tempTag === newTag) {
         console.log('repeated tag detected!');
+        res.status(406).send();
         return;
       }
     }
