@@ -68,6 +68,8 @@ export class TimelineComponent implements OnInit {
     this._other.createNewPost(this.postData)
       .subscribe(res => {
           console.log('post success');
+          alert('Post success!');
+          window.location.reload();
           }, err => {
           if (err.status === 400) {
             alert('Bad request! Please fill in all the blanks');
