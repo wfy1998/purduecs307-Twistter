@@ -16,22 +16,28 @@ export class TimelineComponent implements OnInit {
     content: '',
     tags: [],
   };
-  posts = {
-    username: '',
-    content: '',
-    tags: [],
-    likedByUser: [],
-    numberOfLikes: Number,
-    quoted: Boolean,
+  quotedPost = {
     comment: '',
-    originName: ''
+    postID: ''
   };
+  posts = [
+    // username: '',
+    // content: '',
+    // tags: [],
+    // likedByUser: [],
+    // numberOfLikes: Number,
+    // quoted: Boolean,
+    // comment: '',
+    // originName: ''
+  ];
   jsonUserName = {
     username: ''
   };
   getTagList = [];
   getTag = '';
   getAddedTagList = [];
+  valueOfLikes: number;
+
 
 
   constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
@@ -49,7 +55,8 @@ export class TimelineComponent implements OnInit {
     // this.postData.tags.push('a new tag');
     this._other.getMorePosts().subscribe((res: any) => {
       this.posts = res;
-      console.log('the posts is: ', this.posts);
+      this.valueOfLikes = res.numberOfLikes;
+      console.log('the posts is: ', res);
     });
 
   }
@@ -102,4 +109,23 @@ export class TimelineComponent implements OnInit {
     window.location.reload();
   }
 
+  onAddLike(likedPostID) {
+    for (const post of this.posts) {
+      if (likedPostID === post.postID) {
+        alert('Already Liked!');
+        return;
+      }
+    }
+    this.valueOfLikes++;
+    this._other.likePost(likedPostID).subscribe( (res: any) => {
+      console.log('Liked!');
+      console.log();
+    });
+  }
+  onQuote(quotePostID) {
+    this.quotedPost.postID = quotePostID;
+    this._other.quote(this.quotedPost.postID, this.quotedPost.comment).subscribe( (res: any) => {
+      console.log('Quoted!');
+    });
+  }
 }
