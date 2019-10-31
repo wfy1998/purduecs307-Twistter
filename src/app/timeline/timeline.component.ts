@@ -69,7 +69,7 @@ export class TimelineComponent implements OnInit {
       .subscribe(res => {
           console.log('post success');
           alert('Post success!');
-          window.location.reload();
+          this.postData.content = '';
           }, err => {
           if (err.status === 400) {
             alert('Bad request! Please fill in content and choose tags!');
