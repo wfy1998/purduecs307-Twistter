@@ -268,7 +268,6 @@ router.post('/addTag', checkAuth, (req, res) => {
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
   console.log('checkFollowStatus');
-
   try {
     if (req.body.username == null || req.body.username === '') {
       res.status(400).send();
@@ -302,6 +301,7 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
       for (let tempFollow of user.userFollowed) {
         if (tempFollow.followedUserName === userToCheck) {
           followed = true;
+          console.log('the follow status: ', followed);
           res.status(200).send({followed});
           return;
         }
