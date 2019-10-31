@@ -314,15 +314,42 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
 
 router.post('/reset', checkAuth, (req, res) => {
   console.log('resetting');
-  userModel.findOneAndUpdate({username: res.locals.username}, { $set: {
-      'userPosts': [],
-      'userTags': [],
-      'userFollowed': []
+  userModel.findOne({username: res.locals.username}, (err, user) => {
+    if (err) {console.log(err); res.status(500).send(); return}
+    if (!user) {res.status(403).send(); return}
+
+    let followData = user.userFollowed;
+    let postsData = user.userPosts;
+
+    for (let temp of followData) {
+      followModel.findByIdAndDelete(temp, (err) => {
+        if (err) {
+          console.log(err);
+          console.log('deletion failed for' + temp)
+        }
+      });
     }
-  } , (err, user) => {
-    if (err) {console.log(err)}
-    console.log(user);
-  })
+
+    for (let temp of postsData) {
+      postModel.findByIdAndDelete(temp, (err) => {
+        if (err) {
+          console.log(err);
+          console.log('deletion failed for' + temp)
+        }
+      })
+    }
+
+    userModel.findOneAndUpdate({username: res.locals.username}, { $set: {
+        'userPosts': [],
+        'userTags': [],
+        'userFollowed': []
+      }
+    } , (err, user) => {
+      if (err) {console.log(err)}
+      console.log(user);
+    })
+
+  });
 });
 
 module.exports = router;
