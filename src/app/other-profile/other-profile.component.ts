@@ -63,6 +63,17 @@ export class OtherProfileComponent implements OnInit {
     this.follow.username = this._activateroute.snapshot.params.username;
     this._other.followUser(this.follow).subscribe(res => {
       console.log('follow success');
+    }, err => {
+      if (err.status === 400) {
+        alert('Bad request! Please fill in all the blanks');
+      } else if (err.status === 403) {
+        alert('User not found');
+      } else if (err.status === 406) {
+        alert('Repeated Follow!');
+      } else if (err.status === 500) {
+        alert('Server Error!');
+      }
+      console.log(err);
     });
 
   }
