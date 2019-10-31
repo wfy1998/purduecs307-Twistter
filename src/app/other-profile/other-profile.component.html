@@ -274,71 +274,49 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">First name</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getFirstName}}
-                                                            [(ngModel)]="changeProfile.enteredFirstName">
-                        {{getFirstName}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">{{getFirstName}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Last name</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getLastName}}
-                                                            [(ngModel)]="changeProfile.enteredLastName">
-                        {{getLastName}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                        {{getLastName}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Age</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getAge}}
-                                                            [(ngModel)]="changeProfile.enteredAge">
-                        {{getAge}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                        {{getAge}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">School</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getAge}}
-                                                            [(ngModel)]="changeProfile.enteredSchool">
-                        {{getSchool}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                        {{getSchool}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Gender</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getGender}}
-                                                            [(ngModel)]="changeProfile.enteredGender">
-                        {{getGender}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                        {{getGender}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Address</span></div>
-                            <div class="col-sm-8"><textarea rows="4"
-                                                            class="form-control share-text"
-                                                            placeholder={{getAddress}}
-                                                            [(ngModel)]="changeProfile.enteredAddress">
-                              {{getAddress}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                              {{getAddress}}</p></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
                           <div class="row">
                             <div class="col-sm-4"><span class="text-muted">Phone Number</span></div>
-                            <div class="col-sm-8"><textarea rows="1"
-                                                            class="form-control share-text"
-                                                            placeholder={{getPhone}}
-                                                            [(ngModel)]="changeProfile.enteredPhone">
-                        {{getPhone}}</textarea></div>
+                            <div class="col-sm-8"><p class="form-control share-text">
+                        {{getPhone}}</p></div>
                           </div>
                         </li>
                       </ul>
@@ -356,7 +334,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     <i class="fa fa-fw fa-info-circle"></i> Tag
                   </div>
                   <div class="panel-body" >
-                    <div class="input-group-btn">
+                    <div class="input-group-btn" *ngIf="checkFollow.followed">
                         <textarea rows="1"
                                   class="form-control share-text"
                                   placeholder="Add Tag one at a time...Click it to Remove..."
@@ -384,6 +362,24 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     <div class="panel-heading panel-heading-gray">
                       <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
                       <i class="fa fa-fw fa-info-circle"></i> Userline
+                      <!--<div class="listings-list clearfix" >-->
+                        <!--<div class="card text-center m-3">-->
+                          <!--<div class="card-body">-->
+                            <!--<div class="listing"  *ngFor="let post of posts" >-->
+                              <!--<div class="content" id="list-content-override">-->
+                                <!--<div class="content"> <td>{{post.content}}</td> </div>-->
+                                <!--<p> <a href=""> like </a> </p>-->
+                                <!--<div class="create by: ">{{post.username}} </div>-->
+                              <!--</div>-->
+
+                            <!--</div> &lt;!&ndash; end .listing &ndash;&gt;-->
+                          <!--</div>-->
+
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="card-footer pb-0 pt-3 list-footer-override">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<jw-pagination [items]="CarcharactersAll" [pageSize]="3"  (changePage)="onChangePage($event)"></jw-pagination>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&lt;!&ndash;  '[pageSize]=': how many item showed on each page &ndash;&gt;&ndash;&gt;-->
+                      <!--</div> &lt;!&ndash; end .listings &ndash;&gt;-->
                     </div>
                     <div class="panel-body">
                     </div>

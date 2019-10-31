@@ -14,9 +14,6 @@ app.use(bodyParser.json());
 
 app.use('/api', api);
 
-app.get('/', function (req, res) {
-  res.redirect('/login')
-});
 
 app.listen(port, function () {
   console.log('Server is running on ' + port)

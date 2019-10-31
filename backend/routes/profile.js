@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userModel = require('../models/User');
 const followModel = require('../models/Followed');
+const postModel = require('../models/Post');
 const checkAuth = require('../middleware/check-auth');
 const repeatedFollowCheck = require('../middleware/repeatedFollowCheck');
 
@@ -103,6 +104,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
   userModel.findOne({username: username}, (err, user) => {
     if (err) {
       console.log(err);
+      res.status(500).send();
       return;
     }
     if(!user){
@@ -114,6 +116,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
       followModel.findById(tempID, (err, follow) => {
         if (err) {
           console.log(err);
+          res.status(500).send();
           return;
         }
         if (!follow) {
@@ -268,7 +271,6 @@ router.post('/addTag', checkAuth, (req, res) => {
 
 router.post('/checkFollowStatus', checkAuth, (req, res) => {
   console.log('checkFollowStatus');
-
   try {
     if (req.body.username == null || req.body.username === '') {
       res.status(400).send();
@@ -302,6 +304,7 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
       for (let tempFollow of user.userFollowed) {
         if (tempFollow.followedUserName === userToCheck) {
           followed = true;
+          console.log('the follow status: ', followed);
           res.status(200).send({followed});
           return;
         }
@@ -344,9 +347,9 @@ router.post('/reset', checkAuth, (req, res) => {
         'userTags': [],
         'userFollowed': []
       }
-    } , (err, user) => {
+    } , (err) => {
       if (err) {console.log(err)}
-      console.log(user);
+      console.log(done);
     })
 
   });
