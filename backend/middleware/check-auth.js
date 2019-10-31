@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         return
       }
       if (!user) {
-        res.status(401).send('not such user found!')
+        res.status(401).send('not such user found!');
         return
       }
       res.locals.username = user.username;

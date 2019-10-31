@@ -51,7 +51,7 @@ router.post('/', (req, res, next) => {
     }
 
     console.log('new user created');
-    res.status(201).redirect('/')
+    res.status(201).send()
   })
 });
 
