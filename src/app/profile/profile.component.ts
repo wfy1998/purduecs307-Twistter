@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     // set all profile value from local storage
     this.jsonUserName.username = localStorage.getItem('userName');
-    this._other.getOthersProfile(this.jsonUserName)
+    this._other.getOwnProfile()
     .subscribe( (res: any) => {
       this.getFirstName = res.firstName;
       this.getLastName = res.lastName;
@@ -59,6 +59,14 @@ export class ProfileComponent implements OnInit {
       this.getPhone = res.phone;
       this.getAddress = res.address;
       console.log('tags:' + this.getTagList);
+    }, err => {
+      if (err.status === 400) {
+        alert('Bad request! please fill in all the blanks!');
+      } else if (err.status === 403) {
+        alert('User Not Found!');
+      } else if (err.status === 500) {
+        alert('Server Error!');
+      }
     });
     // this.getUserName = localStorage.getItem('userName');
     // this.getFirstName = localStorage.getItem('firstName');

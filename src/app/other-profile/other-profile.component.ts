@@ -9,15 +9,6 @@ import {OtherService} from '../other.service';
   styleUrls: ['./other-profile.component.css']
 })
 export class OtherProfileComponent implements OnInit {
-  changeProfile = {
-    enteredFirstName: '',
-    enteredLastName: '',
-    enteredAge: '',
-    enteredSchool: '',
-    enteredGender: '',
-    enteredAddress: '',
-    enteredPhone: ''
-  };
   jsonUserName = {
     username: ''
   };
@@ -27,22 +18,45 @@ export class OtherProfileComponent implements OnInit {
   getUserName = '';
   getFirstName = '';
   getLastName = '';
-  // getEmail = '';
-  getAge = '';
-  getSchool = '';
-  getGender = '';
-  getPhone = '';
-  getAddress = '';
+  // getAge = '';
+  // getSchool = '';
+  // getGender = '';
+  // getPhone = '';
+  // getAddress = '';
   getTag = '';
   getTagList = [];
   getFollowStatus: boolean;
   follow = {
     username: ''
-  }
+  };
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private _activateroute: ActivatedRoute) { }
 
   ngOnInit() {
     console.log('the router username is,', this._activateroute.snapshot.params.username);
+    // set all profile value from local storage
+    this.jsonUserName.username = localStorage.getItem('userName');
+    this._other.getOthersProfile(this.jsonUserName)
+      .subscribe( (res: any) => {
+        this.getFirstName = res.firstName;
+        this.getLastName = res.lastName;
+        this.getUserName = res.username;
+        this.getTagList = res.userTags;
+        // sensitive information
+        // this.getAge = res.age;
+        // this.getSchool = res.school;
+        // this.getGender = res.gender;
+        // this.getPhone = res.phone;
+        // this.getAddress = res.address;
+        console.log('tags:' + this.getTagList);
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad request! please fill in all the blanks!');
+        } else if (err.status === 403) {
+          alert('User Not Found!');
+        } else if (err.status === 500) {
+          alert('Server Error!');
+        }
+      });
   }
 
   onFollow() {
