@@ -7,7 +7,11 @@ module.exports = (req, res, next) => {
     jwt.verify(token, "secretKey");
     userModel.findOne({token: token}, (err, user) => {
       if (err) {
-        res.status(401).send('invalid token user combination');
+        res.status(401).send('invalid token user combination!');
+        return
+      }
+      if (!user) {
+        res.status(401).send('not such user found!');
         return
       }
       res.locals.username = user.username;

@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  onSaveProfiel() {
+  onSaveProfile() {
     this.getFirstName = this.changeProfile.enteredFirstName;
     this.getLastName = this.changeProfile.enteredLastName;
     this.getAge = this.changeProfile.enteredAge;
