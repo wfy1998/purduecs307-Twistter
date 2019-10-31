@@ -72,7 +72,7 @@ export class TimelineComponent implements OnInit {
           window.location.reload();
           }, err => {
           if (err.status === 400) {
-            alert('Bad request! Please fill in all the blanks');
+            alert('Bad request! Please fill in content and choose tags!');
           } else if (err.status === 401) {
             alert('Unmatched username compared to your token');
           } else if (err.status === 500) {
@@ -82,13 +82,12 @@ export class TimelineComponent implements OnInit {
       });
   }
 
-
   onTagToPost(tagValue: string) {
     if (this.postData.tags.length === 3) {
       alert('Too many tags!');
       return;
     }
-    for (let tag of this.getAddedTagList) {
+    for (const tag of this.getAddedTagList) {
       if (tag === tagValue) {
         alert('Existed tag!');
         return;
