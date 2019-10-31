@@ -30,6 +30,7 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
           .populate({
             path: 'userPosts',
             match: { tags: { $in: Array.from(followedTags)}},
+            options: { sort: { 'createdAt': -1 } }
           })
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
@@ -90,6 +91,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
           .populate({
             path: 'userPosts',
             match: {tags: { $elemMatch: { $nin: Array.from(initialTags)} } },
+            options: { sort: { 'createdAt': -1 } }
           })
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
@@ -213,7 +215,10 @@ router.post('/getUserLine', checkAuth, (req, res) => {
   const username = req.body.username;
   console.log('getting userline', username);
   userModel.findOne({username: username})
-    .populate('userPosts')
+    .populate({
+      path: 'userPosts',
+      options: { sort: { 'createdAt': -1 } }
+    })
     .exec((err, user) => {
       if (err) {console.log(err); return res.status(500);}
 
