@@ -299,7 +299,9 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--                              <a href="#"><i class="fa fa-video-camera"></i></a>-->
                               <div *ngIf="postData.tags.length>0">
                                 <div *ngFor="let addedTag of postData.tags" style="display: inline">
-                                  <button class="btn btn-info btn-xs" style="margin: 2px; display: inline">{{ addedTag }}</button>
+                                  <button  (click)="onRemoveTag()"
+                                           class="btn btn-info btn-xs"
+                                           style="margin: 2px; display: inline">{{ addedTag }}</button>
                                 </div>
                               </div>
 
@@ -417,7 +419,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                           </div>
                           <div><p><i class="icon-tag-1"></i> <a href="#">A</a>, <a href="#">B</a>, <a href="#">C</a>.</p></div>
                           <div>
-                            <p><a href="#"><i class="icon-thumbs-up"></i><span>  Like</span></a> | <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>
+                            <p><a href="#"><i class="icon-thumbs-up"></i><span>  Like</span></a> |
+                              <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>
                           </div>
                         </div>
                         <div class="view-all-comments">
@@ -495,8 +498,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="input-group">
 
                                 <span class="input-group-btn">
-                   <a href="" class="btn btn-default"><i class="fa fa-photo"></i></a>
-                </span>
+                                <a href="" class="btn btn-default"><i class="fa fa-photo"></i></a>
+                                </span>
 
                               <input type="text" class="form-control" />
 

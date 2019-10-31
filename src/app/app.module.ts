@@ -22,6 +22,8 @@ import { TestComponent } from './test/test.component';
 import {FinduserComponent} from './finduser/finduser.component';
 import { SearchComponent } from './search/search.component';
 import { OtherProfileComponent } from './other-profile/other-profile.component';
+import {DatePipe} from '@angular/common';
+
 
 
 
@@ -48,7 +50,7 @@ import { OtherProfileComponent } from './other-profile/other-profile.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, OtherService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, }],
+  providers: [AuthService, OtherService, CookieService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -387,6 +387,45 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       <i class="fa fa-fw fa-info-circle"></i> Userline
                     </div>
                     <div class="panel-body">
+                      <li class="media media-clearfix-xs" *ngFor="let post of getPostList">
+                        <div class="media-left">
+                          <div class="user-wrapper">
+                            <img src="../../assets/images/people/default_user.jpg" alt="people" class="img-circle" width="80" />
+
+                            <div><a href="#">{{getFirstName}} {{getLastName}}</a></div>
+                            <div class="date">{{post.createdAt}}</div>
+                          </div>
+                        </div>
+                        <div class="media-body">
+                          <div class="media-body-wrapper">
+                            <div class="panel panel-default">
+
+                              <div class="panel-body">
+                                <p>{{post.content}}</p>
+                                <div class="timeline-added-images">
+                                  <img src="assets/images/social/100/1.jpg" width="80" alt="photo" />
+                                  <img src="assets/images/social/100/2.jpg" width="80" alt="photo" />
+                                  <img src="assets/images/social/100/3.jpg" width="80" alt="photo" />
+                                  <br>
+                                </div>
+                                <div>
+                                  <i class="icon-tag-1"></i>
+                                  <div *ngFor="let tag of post.tags; let i=index" style="display: inline">
+                                  <a *ngIf="i == 0"> {{tag}}</a>
+                                  <a *ngIf="i > 0">, {{tag}}</a>
+                                  </div>
+                                </div>
+                                <div>
+                                  <p><a href="#"><i class="icon-thumbs-up"></i><span>  Like</span></a> |
+                                    <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+
                     </div>
                   </div>
                 </div>

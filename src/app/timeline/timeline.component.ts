@@ -33,6 +33,7 @@ export class TimelineComponent implements OnInit {
   getTag = '';
   getAddedTagList = [];
 
+
   constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
 
   ngOnInit() {
@@ -80,9 +81,19 @@ export class TimelineComponent implements OnInit {
       alert('Too many tags!');
       return;
     }
+    for (let tag of this.getAddedTagList) {
+      if (tag === tagValue) {
+        alert('Existed tag!');
+        return;
+      }
+    }
     this.getTag = tagValue;
     this.getAddedTagList.push(this.getTag);
     this.postData.tags.push(this.getTag);
     console.log(this.postData.tags[0]);
   }
+  onRemoveTag() {
+    window.location.reload();
+  }
+
 }

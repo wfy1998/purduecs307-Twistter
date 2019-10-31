@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../auth.service';
 import {OtherService} from '../other.service';
+import {DatePipe} from '@angular/common';
 import {error} from 'util';
 
 @Component({
@@ -12,8 +13,7 @@ import {error} from 'util';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) {
-  }
+  constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private datepipe: DatePipe) {}
 
   changeProfile = {
       enteredFirstName: '',
@@ -42,7 +42,8 @@ export class ProfileComponent implements OnInit {
   getTag = '';
   getTagList = [];
   getFollowStatus: boolean;
-
+  getPostList: Array<any> = [
+  ];
 
   ngOnInit() {
     // set all profile value from local storage
@@ -58,7 +59,10 @@ export class ProfileComponent implements OnInit {
       this.getGender = res.gender;
       this.getPhone = res.phone;
       this.getAddress = res.address;
-      console.log('tags:' + this.getTagList);
+    });
+    this._other.getUserLine(this.jsonUserName).subscribe( (res: any) => {
+      this.getPostList = res;
+
     });
     // this.getUserName = localStorage.getItem('userName');
     // this.getFirstName = localStorage.getItem('firstName');
