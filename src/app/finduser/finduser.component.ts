@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-finduser',
   templateUrl: './finduser.component.html',
-  styleUrls: ['./finduser.component.css']
+  styleUrls: ['../../assets/css/vendor/all.css']
 })
 export class FinduserComponent implements OnInit {
 
