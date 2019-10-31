@@ -9,6 +9,11 @@ router.post('/getTags', checkAuth, (req, res)  => {
     if (err) {
       console.log(err);
       res.status(500).send("user not found");
+      return;
+    }
+    if (!user) {
+      res.status(403).send("user not found");
+      return;
     }
     console.log(user.userTags);
     res.status(200).send(Array.from(user.userTags))
