@@ -46,19 +46,13 @@ export class OtherProfileComponent implements OnInit {
   ngOnInit() {
     console.log('the router username is,', this._activateroute.snapshot.params.username);
     // set all profile value from local storage
-    this.jsonUserName.username = this._activateroute.snapshot.params.username
+    this.jsonUserName.username = this._activateroute.snapshot.params.username;
     this._other.getOthersProfile(this.jsonUserName)
       .subscribe( (res: any) => {
         this.getFirstName = res.firstName;
         this.getLastName = res.lastName;
         this.getUserName = res.username;
         this.getTagList = res.userTags;
-        // sensitive information
-        // this.getAge = res.age;
-        // this.getSchool = res.school;
-        // this.getGender = res.gender;
-        // this.getPhone = res.phone;
-        // this.getAddress = res.address;
         console.log('tags:' + this.getTagList);
       }, err => {
         if (err.status === 400) {
