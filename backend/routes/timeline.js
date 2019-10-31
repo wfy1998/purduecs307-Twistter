@@ -128,6 +128,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 
 router.post('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
+  let username = res.locals.username;
 
   try {
     if (data.postID == null || data.postID === '') {
@@ -151,12 +152,27 @@ router.post('/likePost', checkAuth, (req, res)  => {
         return
       }
 
+      console.log('checking repeated likes');
+      let userList = post.likedByUser;
+      for (let tempUser of userList) {
+        if (tempUser === username) {
+          console.log('repeated like by' + username);
+          res.status(406).send();
+          return;
+        }
+      }
+      userList.push(username);
+
       let numberOfLikes = post.numberOfLikes;
       numberOfLikes++;
       console.log(post._id + ' number of likes: ' + post.numberOfLikes);
       console.log('now: ', numberOfLikes);
 
-      postModel.update({_id: data.postID}, {numberOfLikes: numberOfLikes}, (err) => {
+      postModel.update({_id: data.postID}, { $set: {
+            numberOfLikes: numberOfLikes,
+            likedByUser: userList
+          }
+        }, (err) => {
         if (err) {
           console.log(err);
           res.status(500).send('error update number of likes');
