@@ -174,23 +174,37 @@ router.post('/', checkAuth, (req, res) => {
 });
 
 router.post('/changeProfile', checkAuth, (req, res) => {
+  let data = req.body;
+  try {
+    if (data.enteredFirstName == null || data.enteredLastName == null
+      || data.enteredAge == null || data.enteredSchool == null
+      || data.enteredGender == null || data.enteredPhone == null
+      || data.enteredAddress == null) {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
 
   userModel.updateOne(
     {
       username: res.locals.username,
     }, {
-      firstName: req.body.enteredFirstName,
-      lastName: req.body.enteredLastName,
-      age: req.body.enteredAge,
-      school: req.body.enteredSchool,
-      gender: req.body.enteredGender,
-      phone: req.body.enteredPhone,
-      address: req.body.enteredAddress,
+      firstName: data.enteredFirstName,
+      lastName: data.enteredLastName,
+      age: data.enteredAge,
+      school: data.enteredSchool,
+      gender: data.enteredGender,
+      phone: data.enteredPhone,
+      address: data.enteredAddress
     },
     function(err, data){
       if(err) {
         console.log('update info failed.', err);
-        return res.status(400).send(err);
+        return res.status(500).send();
       } else {
         console.log('update info success!');
         return res.status(200).send(data);
@@ -200,33 +214,52 @@ router.post('/changeProfile', checkAuth, (req, res) => {
 });
 
 router.post('/addTag', checkAuth, (req, res) => {
-  let newTag = req.body.tag;
-  let tags = {
-    tags:String
-  };
-  userModel.findOne({username: res.locals.username}, (err, user) =>{
-    if(err){
-      res.status(404).send(err)
-    }
-    else {
-      tags = user.userTags;
-      console.log('the old tag array: ', tags);
-      tags.push(newTag);
-      console.log('the new tag array: ', tags);
-      userModel.updateOne({username: res.locals.username},
-        {
-          userTags: tags
-        },
-        function(err, data){
-          if(err){
-            console.log('the err is', err)
-          }
-          else {
-            console.log('the tag after add is: ', tags)
-          }
-        })// end updateOne
+  let data = req.body;
 
-    }// end else
+  try {
+    if (data.tag == null || data.tag === '') {
+      res.status(400).send();
+      return;
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return;
+  }
+
+  let newTag = req.body.tag;
+  let tags = [];
+  userModel.findOne({username: res.locals.username}, (err, user) =>{
+    if (err){
+      res.status(500).send();
+      return;
+    }
+    if (!user) {
+      res.status(403).send();
+      return;
+    }
+    tags = user.userTags;
+    console.log('the old tag array: ', tags);
+
+    //repeated tag check!
+    for (let tempTag of tags) {
+      if (tempTag === newTag) {
+        console.log('repeated tag detected!');
+        return;
+      }
+    }
+
+    tags.push(newTag);
+    console.log('the new tag array: ', tags);
+    userModel.updateOne({username: res.locals.username},
+      { userTags: tags },  function(err, data){
+        if(err){
+          console.log('the err is', err)
+        }
+        else {
+          console.log('the tag after add is: ', tags)
+        }
+      })// end updateOne
 
   });// end findOne
 
