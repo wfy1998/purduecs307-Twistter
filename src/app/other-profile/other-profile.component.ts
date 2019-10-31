@@ -15,6 +15,18 @@ export class OtherProfileComponent implements OnInit {
   jsontag = {
     tag: ''
   };
+
+  posts = {
+    username: '',
+    content: '',
+    tags: [],
+    likedByUser: [],
+    numberOfLikes: Number,
+    quoted: Boolean,
+    comment: '',
+    originName: ''
+  };
+
   getUserName = '';
   getFirstName = '';
   getLastName = '';
@@ -34,7 +46,7 @@ export class OtherProfileComponent implements OnInit {
   ngOnInit() {
     console.log('the router username is,', this._activateroute.snapshot.params.username);
     // set all profile value from local storage
-    this.jsonUserName.username = localStorage.getItem('userName');
+    this.jsonUserName.username = this._activateroute.snapshot.params.username
     this._other.getOthersProfile(this.jsonUserName)
       .subscribe( (res: any) => {
         this.getFirstName = res.firstName;
@@ -57,6 +69,15 @@ export class OtherProfileComponent implements OnInit {
           alert('Server Error!');
         }
       });
+
+      this._other.getUserLine(this.jsonUserName).subscribe((res: any) =>{
+        this.posts = res;
+        console.log('the post in other profile is: ', this.posts);
+      });
+
+
+
+
   }
 
   onFollow() {
@@ -91,4 +112,7 @@ export class OtherProfileComponent implements OnInit {
     localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
   }
+
+
+
 }
