@@ -39,7 +39,8 @@ export class TimelineComponent implements OnInit {
   //   // comment: '',
   //   // originName: ''
   // ];
-  posts: any[] = [];
+  // todo check duplicate
+  // posts: any[] = [];
   jsonUserName = {
     username: ''
   };
