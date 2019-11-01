@@ -6,7 +6,7 @@ import {OtherService} from '../other.service';
 @Component({
   selector: 'app-other-profile',
   templateUrl: './other-profile.component.html',
-  styleUrls: ['./other-profile.component.css']
+  styleUrls: ['../../assets/css/vendor/all.css']
 })
 export class OtherProfileComponent implements OnInit {
   jsonUserName = {

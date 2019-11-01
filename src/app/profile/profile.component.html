@@ -274,7 +274,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                                             class="form-control share-text"
                                                             placeholder={{getFirstName}}
                                                             [(ngModel)]="changeProfile.enteredFirstName">
-                        {{getFirstName}}</textarea></div>
+                        {{changeProfile.enteredFirstName}}</textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -426,10 +426,16 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         <div class="media-body">
                           <div class="media-body-wrapper">
                             <div class="panel panel-default">
-
+                              <div *ngIf="post.quoted == true" class="panel-heading panel-heading-gray">
+                                <p *ngIf="post.comment == ''">Quoted  from {{post.originName}}</p>
+                                <p *ngIf="post.comment != ''">Quoted from {{post.originName}}: {{post.comment}}</p>
+                              </div>
                               <div class="panel-body">
                                 <p>{{post.content}}</p>
                                 <div class="timeline-added-images">
+<!--                                  <img src="assets/images/social/100/1.jpg" width="80" alt="photo" />-->
+<!--                                  <img src="assets/images/social/100/2.jpg" width="80" alt="photo" />-->
+<!--                                  <img src="assets/images/social/100/3.jpg" width="80" alt="photo" />-->
                                   <br>
                                 </div>
                                 <div>
