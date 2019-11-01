@@ -63,6 +63,8 @@ export class ProfileComponent implements OnInit {
       this.getPostList = res;
 
     });
+
+
     // this.getUserName = localStorage.getItem('userName');
     // this.getFirstName = localStorage.getItem('firstName');
     // this.getLastName = localStorage.getItem('lastName');
