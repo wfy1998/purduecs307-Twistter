@@ -185,7 +185,7 @@ router.post('/likePost', checkAuth, (req, res)  => {
 
 router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
-  console.log(data);
+  console.log('the data is: ', data);
   try {
     if (data.postID == null || data.postID === '') {
       res.status(400).send();

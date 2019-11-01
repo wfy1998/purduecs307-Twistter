@@ -17,6 +17,18 @@ export class TimelineComponent implements OnInit {
     tags: [],
   };
   quotedPostComment: string[] = [];
+  quotedHighLightedPostComment: string[] = [];
+  posts = [
+    // username: '',
+    // content: '',
+    // tags: [],
+    // likedByUser: [],
+    // numberOfLikes: Number,
+    // quoted: Boolean,
+    // comment: '',
+    // originName: ''
+  ];
+  highLightedPosts = [];
   // posts = [
   //   // username: '',
   //   // content: '',
@@ -63,6 +75,14 @@ export class TimelineComponent implements OnInit {
         this.getLikeNum.push(post.numberOfLikes);
       }
     });
+    // todo check it is works
+    this._other.getHighlightedPosts().subscribe((res: any) => {
+      this.highLightedPosts = res;
+      // this.valueOfLikes.push(res.numberOfLikes);
+      console.log('the high lighted posts is: ', res);
+    });
+
+
   }
   logOut() {
     localStorage.removeItem('email');
@@ -141,5 +161,15 @@ export class TimelineComponent implements OnInit {
     });
     console.log('Quoted!');
   }
+
+  onQuoteHighLightedPost(quotePostID, index) {
+    console.log(quotePostID);
+    console.log(this.quotedHighLightedPostComment[index]);
+    this._other.quote(quotePostID, this.quotedHighLightedPostComment[index]).subscribe( (res: any) => {
+    });
+    console.log('Quoted!');
+  }
+
+
 
 }
