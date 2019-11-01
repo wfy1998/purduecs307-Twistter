@@ -149,15 +149,15 @@ router.post('/changeFollowedTag', checkAuth, (req, res) => {
   userModel.findOne({username: username})
     .populate('userFollowed')
     .exec((err, user) => {
-      if (err) {console.log(err); return res.status(500)}
-      if (!user) {console.log('no such user'); return res.status(500)}
+      if (err) {console.log(err); return res.status(500).send()}
+      if (!user) {console.log('no such user'); return res.status(500).send()}
 
       for (let temp of user.userFollowed) {
         if (temp.followedUserName === followedUser) {
           followModel.findByIdAndUpdate(temp._id, {followedUserTag: tags}, (err) => {
-            if (err) {console.log(err); res.status(500);}
+            if (err) {console.log(err); res.status(500).send();}
           });
-          res.status(200);
+          res.status(200).send();
           return;
         }
       }
