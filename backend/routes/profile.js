@@ -322,6 +322,8 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
           return;
         }
       }
+      let t = [];
+      res.status(200).send({followed, t});
 
     });
 
