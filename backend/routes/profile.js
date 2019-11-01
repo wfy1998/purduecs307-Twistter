@@ -315,12 +315,13 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
       for (let tempFollow of user.userFollowed) {
         if (tempFollow.followedUserName === userToCheck) {
           followed = true;
+          let taglist = tempFollow.followedUserTag;
           console.log('the follow status: ', followed);
-          res.status(200).send({followed});
+          console.log('followed tags: ', taglist);
+          res.status(200).send({followed, taglist});
           return;
         }
       }
-      res.status(200).send({followed});
 
     });
 
@@ -366,48 +367,48 @@ router.post('/reset', checkAuth, (req, res) => {
   });
 });
 
-router.post('/getFollowedTags', (req, res) => {
-  console.log('get followed tags');
-  try {
-    if (req.body.username == null || req.body.username === '') {
-      res.status(400).send();
-      return
-    }
-  }
-  catch (e) {
-    res.status(400).send();
-    return
-  }
-
-  const username = res.locals.username;
-  console.log('username: ', res.locals.username);
-  const userToCheck = req.body.username;
-  console.log(userToCheck);
-
-  userModel.findOne({username: username})
-    .populate('userFollowed')
-    .exec((err, user) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send();
-        return;
-      }
-      if (!user) {
-        res.status(403).send();
-        return;
-      }
-
-      for (let tempFollow of user.userFollowed) {
-        if (tempFollow.followedUserName === userToCheck) {
-          let taglist = tempFollow.followedUserTag;
-          console.log('followed tags: ', taglist);
-          res.status(200).send({taglist});
-          return;
-        }
-      }
-
-    });
-
-});
+// router.post('/getFollowedTags', (req, res) => {
+//   console.log('get followed tags');
+//   try {
+//     if (req.body.username == null || req.body.username === '') {
+//       res.status(400).send();
+//       return
+//     }
+//   }
+//   catch (e) {
+//     res.status(400).send();
+//     return
+//   }
+//
+//   const username = res.locals.username;
+//   console.log('username: ', username);
+//   const userToCheck = req.body.username;
+//   console.log(userToCheck);
+//
+//   userModel.findOne({username: username})
+//     .populate('userFollowed')
+//     .exec((err, user) => {
+//       if (err) {
+//         console.log(err);
+//         res.status(500).send();
+//         return;
+//       }
+//       if (!user) {
+//         res.status(403).send();
+//         return;
+//       }
+//
+//       for (let tempFollow of user.userFollowed) {
+//         if (tempFollow.followedUserName === userToCheck) {
+//           let taglist = tempFollow.followedUserTag;
+//           console.log('followed tags: ', taglist);
+//           res.status(200).send({taglist});
+//           return;
+//         }
+//       }
+//
+//     });
+//
+// });
 
 module.exports = router;
