@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit {
     });
     this._other.getUserLine(this.jsonUserName).subscribe( (res: any) => {
       this.getPostList = res;
-
+      console.log(res);
     });
     this._other.getFollowedUsers().subscribe((res: any) => {
       this.getUserList = res.userList;
