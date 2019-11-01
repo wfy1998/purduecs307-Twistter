@@ -42,6 +42,7 @@ export class OtherProfileComponent implements OnInit {
     username: ''
   };
   checkFollow = false;
+  taglist = [];
   unfollow = {
     username: ''
   };
@@ -55,7 +56,7 @@ export class OtherProfileComponent implements OnInit {
         this.getFirstName = res.firstName;
         this.getLastName = res.lastName;
         this.getUserName = res.username;
-        // this.getTagList = res.userTags;
+        this.getTagList = res.userTags;
       }, err => {
         if (err.status === 400) {
           alert('Bad request! please fill in all the blanks!');
@@ -72,9 +73,9 @@ export class OtherProfileComponent implements OnInit {
       // });
 
       this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
-        console.log('res: ', res);
+        // console.log('res: ', res);
         this.checkFollow = res;
-        console.log('check follow: ', this.checkFollow);
+        // console.log('check follow: ', this.checkFollow);
       });
 
 
@@ -85,6 +86,7 @@ export class OtherProfileComponent implements OnInit {
     this.follow.username = this._activateroute.snapshot.params.username;
     this._other.followUser(this.follow).subscribe(res => {
       // console.log('follow success');
+      alert('follow success');
     }, err => {
       if (err.status === 400) {
         alert('Bad request! Please fill in all the blanks');
@@ -103,6 +105,7 @@ export class OtherProfileComponent implements OnInit {
     this.unfollow.username = this._activateroute.snapshot.params.username;
     this._other.unfollowUser(this.unfollow).subscribe(res => {
       console.log('unfollow success');
+      alert('unfollow success');
     }, err => {
       if (err.status === 400) {
         alert('Bad request! Please fill in all the blanks');
@@ -127,6 +130,15 @@ export class OtherProfileComponent implements OnInit {
     localStorage.removeItem('phone');
     localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
+  }
+
+  addFollowTag(tag) {
+    console.log('tag need to add: ', tag);
+    this.taglist.push(tag);
+  }
+  updateTag() {
+    console.log('the tag list is: ', this.taglist);
+    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist);
   }
 
 }
