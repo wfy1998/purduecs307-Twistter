@@ -162,7 +162,6 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--          </li>-->
         <li class=""><a href="http://localhost:1205/timeline"><i class="icon-ship-wheel"></i> <span>Timeline</span></a></li>
         <li class=""><a href=" http://localhost:1205/profile "><i class="icon-user-1"></i> <span>Profile</span></a></li>
-        <!--          users 界面还没有做-->
         <li class=""><a href="http://localhost:1205/finduser"><i class="fa fa-group"></i> <span>Find a User</span></a></li>
         <li><a (click)="logOut()" href="http://localhost:1205/"><i class="icon-lock-fill"></i> <span>Logout</span></a></li>
         <!-- Sample 2 Level Collapse -->
@@ -255,8 +254,6 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                   <div class="avatar">
                     <img src="../../assets/images/people/default_user.jpg" alt="" class="img-circle" style="max-width: 50%; max-height: 50%;">
                     <h3>{{getFirstName}} {{getLastName}}</h3>
-                    <button  style="margin-right: 5px" (click)="onFollow()" class="btn btn-success">Follow <i class="fa fa-check-circle fa-fw"></i></button>
-                    <button (click)="onunFollow()" class="btn btn-default">Unfollow <i class="fa fa-times-circle fa-fw"></i></button>
                   </div>
                 </div>
 
@@ -277,7 +274,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                                             class="form-control share-text"
                                                             placeholder={{getFirstName}}
                                                             [(ngModel)]="changeProfile.enteredFirstName">
-                        {{getFirstName}}</textarea></div>
+                        {{changeProfile.enteredFirstName}}</textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -349,11 +346,11 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
             </div>
 
           <div class="media-body">
-              <div class="col-md-12" >
+              <div class="col-md-10" >
                 <div class="panel panel-default" >
                   <div class="panel-heading panel-heading-gray" >
                     <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
-                    <i class="fa fa-fw fa-info-circle"></i> Tag
+                    <i class="fa fa-fw fa-tags"></i> My Tag
                   </div>
                   <div class="panel-body" >
                       <div class="input-group-btn">
@@ -379,11 +376,11 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
               </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
                   <div class="panel panel-default">
                     <div class="panel-heading panel-heading-gray">
                       <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
-                      <i class="fa fa-fw fa-info-circle"></i> Userline
+                      <i class="md-event-note"></i> My Userline
                     </div>
                     <div class="panel-body">
                       <li class="media media-clearfix-xs" *ngFor="let post of getPostList">
@@ -413,10 +410,6 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                   <a *ngIf="i == 0"> {{tag}}</a>
                                   <a *ngIf="i > 0">, {{tag}}</a>
                                   </div>
-                                </div>
-                                <div>
-                                  <p><a href="#"><i class="icon-thumbs-up"></i><span>  Like</span></a> |
-                                    <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>
                                 </div>
                               </div>
                             </div>

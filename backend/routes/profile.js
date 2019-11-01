@@ -359,7 +359,7 @@ router.post('/reset', checkAuth, (req, res) => {
         'userFollowed': []
       }
     } , (err) => {
-      if (err) {console.log(err)}
+      if (err) {console.log(err); return}
       console.log(done);
     })
 
