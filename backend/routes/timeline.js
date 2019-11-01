@@ -216,13 +216,21 @@ router.post('/quote', checkAuth, (req, res)  => {
     newPost.comment = data.comment;
     newPost.originName = post.username;
 
-    newPost.save((err) => {
+    newPost.save((err, post) => {
       if (err) {
         console.log(err);
         res.status(500).send('new quote creation failed');
         return
       }
-      console.log('new quote created');
+      let postID = post._id;
+      userModel.updateOne({username: res.locals.username}, {$push: {userPosts: postID}}, (err) => {
+        if (err) {
+          console.log(err);
+          return
+        }
+        console.log('quote success');
+        return res.status(200).send();
+      });
     });
 
   });

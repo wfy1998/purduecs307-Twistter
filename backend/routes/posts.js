@@ -39,7 +39,6 @@ router.post('/createNewPost', checkAuth, (req, res)  => {
   newPost.quoted = false;
   newPost.comment = '';
   newPost.originName = '';
-  //newPost.createdAt = new Date("<YYYY-mm-ddTHH:MM:ssZ>");
 
   newPost.save(function (err, newPost){
     if (err){
