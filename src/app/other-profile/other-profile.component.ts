@@ -41,7 +41,7 @@ export class OtherProfileComponent implements OnInit {
   follow = {
     username: ''
   };
-  checkFollow = false;
+  notFollow = false;
   taglist = [];
   unfollow = {
     username: ''
@@ -74,8 +74,8 @@ export class OtherProfileComponent implements OnInit {
 
       this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
         console.log('res: ', res);
-        this.checkFollow = res;
-        console.log('check follow: ', this.checkFollow);
+        this.notFollow = !res.followed;
+        console.log('check follow: ', this.notFollow);
       });
 
 
@@ -138,7 +138,10 @@ export class OtherProfileComponent implements OnInit {
   }
   updateTag() {
     console.log('the tag list is: ', this.taglist);
-    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist);
+    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist).subscribe((res: any) =>{
+      console.log('add tag success');
+      alert('add follow tag success');
+    });
   }
 
 }

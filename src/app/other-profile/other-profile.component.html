@@ -334,7 +334,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     <i class="fa fa-fw fa-info-circle"></i> Tag
                   </div>
                   <div class="panel-body" >
-                    <button (click)="onAddTag()" class="btn btn-primary"><i class="fa fa-plus"></i> update follow Tag</button>
+                    <button (click)="updateTag()" class="btn btn-primary"><i class="fa fa-plus"></i> update follow Tag</button>
                     <div class="input-group-btn" >
                       <p class="mat-body-1" style="display: inline; margin-left: 10px;"
                          *ngIf="getTagList.length<=0"> No Tag added yet!</p>
@@ -342,7 +342,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                          *ngIf="getTagList.length>0">Tags follow:</p>
                       <div *ngFor="let tag of getTagList" style="display: inline;;">
                         <p *ngIf="getTagList.indexOf(tag)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
-                        <button style="margin: 2px;" class="btn btn-info btn-xs" [disabled]="checkFollow.followed!" (click)="addFollowTag(tag)">{{ tag }}</button>
+                        <button style="margin: 2px;" class="btn btn-info btn-xs" [disabled]="notFollow" (click)="addFollowTag(tag)">{{ tag }}</button>
                       </div>
                     </div>
                   </div>
