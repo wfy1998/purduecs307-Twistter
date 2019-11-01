@@ -42,13 +42,14 @@ router.post('/', checkAuth, (req, res) => {
     };
     sleep(5000).then(() => {
       console.log('now hope all callbacks have finished!');
-      userModel.deleteOne({username: res.locals.username}, (err) => {
+      userModel.deleteOne({username: res.locals.username}, (err, user) => {
         if (err) {
           console.log('deletion error!');
           res.status(500).send();
           return
         }
-        res.status(200);
+        console.log('deletion complete');
+        res.status(200).send();
       })
     });
 
