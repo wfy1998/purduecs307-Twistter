@@ -34,10 +34,10 @@ export class ProfileComponent implements OnInit {
   getFirstName = '';
   getLastName = '';
   // getEmail = '';
-  getAge = '';
+  getAge: number;
   getSchool = '';
   getGender = '';
-  getPhone = '';
+  getPhone: number;
   getAddress = '';
   getTag = '';
   getTagList = [];
@@ -59,6 +59,8 @@ export class ProfileComponent implements OnInit {
       this.changeProfile.enteredGender = res.gender;
       this.changeProfile.enteredPhone = res.phone;
       this.changeProfile.enteredAddress = res.address;
+      this.getFirstName = this.changeProfile.enteredFirstName;
+      this.getLastName = this.changeProfile.enteredLastName;
     });
     this._other.getUserLine(this.jsonUserName).subscribe( (res: any) => {
       this.getPostList = res;
@@ -137,9 +139,21 @@ export class ProfileComponent implements OnInit {
     // this.getGender = this.changeProfile.enteredGender;
     // this.getPhone = this.changeProfile.enteredPhone;
     // this.getAddress = this.changeProfile.enteredAddress;
+    this.getAge = +this.changeProfile.enteredAge;
+    if (this.getAge < 0 || this.getAge > 120) {
+      alert('Please enter a valid age');
+      return;
+    }
+    this.getPhone = +this.changeProfile.enteredPhone;
+    if (this.getPhone.toString().length != 10) {
+      alert('Please enter a valid 10 digits Phone number!');
+      return;
+    }
     this._other.changeProfile(this.changeProfile)
       .subscribe(res => {
         console.log('change profile success');
+        this.getFirstName = this.changeProfile.enteredFirstName;
+        this.getLastName = this.changeProfile.enteredLastName;
       });
     window.location.reload();
   }
