@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
               .subscribe(data => {
                 console.log(data);
                 console.log('yes');
+                alert('create success');
                 this.router.navigate(['/']);
               }, err => {
                 if (err.status === 400) {
