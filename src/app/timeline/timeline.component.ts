@@ -16,10 +16,7 @@ export class TimelineComponent implements OnInit {
     content: '',
     tags: [],
   };
-  quotedPost = {
-    comment: '',
-    postID: ''
-  };
+  quotedPostComment: string[] = [];
   posts = [
     // username: '',
     // content: '',
@@ -33,10 +30,14 @@ export class TimelineComponent implements OnInit {
   jsonUserName = {
     username: ''
   };
+  jsonLikedID = {
+    postID: ''
+  };
   getTagList = [];
   getTag = '';
   getAddedTagList = [];
-  valueOfLikes: number;
+
+  // valueOfLikes: Array<any> = [];
 
 
 
@@ -55,7 +56,7 @@ export class TimelineComponent implements OnInit {
     // this.postData.tags.push('a new tag');
     this._other.getMorePosts().subscribe((res: any) => {
       this.posts = res;
-      this.valueOfLikes = res.numberOfLikes;
+      // this.valueOfLikes.push(res.numberOfLikes);
       console.log('the posts is: ', res);
     });
 
@@ -116,22 +117,19 @@ export class TimelineComponent implements OnInit {
   }
 
   onAddLike(likedPostID) {
-    for (const post of this.posts) {
-      if (likedPostID === post.postID) {
-        alert('Already Liked!');
-        return;
-      }
-    }
-    this.valueOfLikes++;
-    this._other.likePost(likedPostID).subscribe( (res: any) => {
+    this.jsonLikedID.postID = likedPostID;
+    this._other.likePost(this.jsonLikedID).subscribe( (res: any) => {
       console.log('Liked!');
-      console.log();
     });
+    alert('Liked!');
+    window.location.reload();
   }
-  onQuote(quotePostID) {
-    this.quotedPost.postID = quotePostID;
-    this._other.quote(this.quotedPost.postID, this.quotedPost.comment).subscribe( (res: any) => {
-      console.log('Quoted!');
+  onQuote(quotePostID, index) {
+    console.log(quotePostID);
+    console.log(this.quotedPostComment[index]);
+    this._other.quote(quotePostID, this.quotedPostComment[index]).subscribe( (res: any) => {
     });
+    console.log('Quoted!');
   }
+
 }
