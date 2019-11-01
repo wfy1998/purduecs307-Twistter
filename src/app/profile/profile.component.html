@@ -346,6 +346,32 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
             </div>
 
           <div class="media-body">
+
+            <div class="col-md-10" >
+              <div class="panel panel-default" >
+                <div class="panel-heading panel-heading-gray" >
+                  <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
+                  <i class="fa fa-fw fa-tags"></i> Followed users
+                </div>
+                <div class="panel-body" >
+                  <div class="input-group-btn">
+                    <p class="mat-body-1" style="display: inline; margin-left: 10px;"
+                       *ngIf="getTagList.length<=0"> You didn't follow any user!</p>
+                    <p style="margin: 10px;display: inline"
+                       *ngIf="getTagList.length>0">Tags added:</p>
+                    <div *ngFor="let tag of getTagList" style="display: inline;;">
+                      <p *ngIf="getTagList.indexOf(tag)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
+                      <button style="margin: 2px;"
+                              class="btn btn-info btn-xs">
+                        {{ tag }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
               <div class="col-md-10" >
                 <div class="panel panel-default" >
                   <div class="panel-heading panel-heading-gray" >
