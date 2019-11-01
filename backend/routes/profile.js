@@ -369,4 +369,22 @@ router.post('/reset', checkAuth, (req, res) => {
   });
 });
 
+router.post('/getFollowedUsers', (req, res) => {
+  console.log('get followed users');
+  const username = res.locals.username;
+
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec( (err, user) => {
+      if (err) {console.log(err); res.status(500).send(); return}
+      if (!user) {res.status(403).send(); return}
+      let userList = [];
+      for (const tempUser of user.userFollowed) {
+        userList.push(tempUser.followedUserName);
+      }
+      res.status(200).send(userList);
+    })
+
+});
+
 module.exports = router;
