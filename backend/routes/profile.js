@@ -140,11 +140,11 @@ router.post('/unfollow', checkAuth, (req, res) => {
 });
 
 router.post('/changeFollowedTag', checkAuth, (req, res) => {
-  const data = req.data;
-
+  const data = req.body;
+  console.log('data is: ', data);
   try {
     if (data.username == null || data.username === ''
-      || data.taglist == null || data.taglist === []) {
+      || data.taglist == null ) {
       res.status(400).send();
       return;
     }

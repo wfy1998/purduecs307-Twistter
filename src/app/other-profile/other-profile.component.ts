@@ -76,16 +76,18 @@ export class OtherProfileComponent implements OnInit {
       this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
         console.log('res: ', res);
         this.notFollow = !res.followed;
+        this.taglist = res.taglist;
         console.log('check follow: ', this.notFollow);
-      });
-
-    if (this.notFollow === false) {
-      console.log('wo tmd guangzhul');
-      this._other.getFollowedTags(this.jsonUserName).subscribe((res2: any) => {
-        this.taglist = res2.taglist;
         console.log('taglist we get at the beginning', this.taglist);
       });
-    }
+
+    // if (this.notFollow === false) {
+    //   console.log('wo tmd guangzhul');
+    //   this._other.getFollowedTags(this.jsonUserName).subscribe((res2: any) => {
+    //     this.taglist = res2.taglist;
+    //     console.log('taglist we get at the beginning', this.taglist);
+    //   });
+    // }
 
 
 
