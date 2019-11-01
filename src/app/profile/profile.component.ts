@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
 
   deleteAccount() {
     this._auth.deleteAccount().subscribe((res: any ) => {
-      alert('delete')
+      alert('deleteAccount')
       console.log('delete success');
       this._router.navigate(['/']);
     });
