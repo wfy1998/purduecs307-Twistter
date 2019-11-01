@@ -112,7 +112,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
           <!-- User -->
           <li class="dropdown">
             <a  class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../assets/images/people/default_user.jpg" width="35" alt="Bill" class="img-circle"> Bill <span class="caret"></span>
+              <img src="../../assets/images/people/default_user.jpg" width="35" alt="Bill" class="img-circle"> {{getUserName}} <span class="caret"></span>
             </a>
           </li>
         </ul>
@@ -358,7 +358,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     <p class="mat-body-1" style="display: inline; margin-left: 10px;"
                        *ngIf="getUserList.length<=0"> You didn't follow any user!</p>
                     <p style="margin: 10px;display: inline"
-                       *ngIf="getUserList.length>0">Tags added:</p>
+                       *ngIf="getUserList.length>0"></p>
                     <div *ngFor="let user of getUserList" style="display: inline;;">
                       <p *ngIf="getUserList.indexOf(user)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
                       <button (click)="navigateToUserProfile(user)" style="margin: 2px;"

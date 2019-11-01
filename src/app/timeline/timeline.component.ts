@@ -72,6 +72,11 @@ export class TimelineComponent implements OnInit {
   }
 
   newPost() {
+    if (this.postData.content.length >= 280) {
+      console.log(this.postData.content.length );
+      alert('the maximum characters is 280 ');
+      return;
+    }
     this._other.createNewPost(this.postData)
       .subscribe(res => {
           console.log('post success');
