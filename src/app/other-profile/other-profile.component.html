@@ -344,6 +344,13 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         <p *ngIf="getTagList.indexOf(tag)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
                         <button style="margin: 2px;" class="btn btn-info btn-xs" [disabled]="notFollow" (click)="addFollowTag(tag)">{{ tag }}</button>
                       </div>
+                      <p class="mat-body-1"> tag you select: </p>
+                      <div>
+                        <div *ngFor="let tag of taglist" style="display: inline;;">
+                          <p *ngIf="taglist.indexOf(tag)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
+                          <button style="margin: 2px;" class="btn btn-info btn-xs" [disabled]="true">{{ tag }}</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

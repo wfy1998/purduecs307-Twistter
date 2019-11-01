@@ -67,6 +67,7 @@ export class OtherProfileComponent implements OnInit {
         }
       });
 
+
       // this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
       //   this.posts = res;
       //   // console.log('the post in other profile is: ', this.posts);
@@ -77,6 +78,12 @@ export class OtherProfileComponent implements OnInit {
         this.notFollow = !res.followed;
         console.log('check follow: ', this.notFollow);
       });
+
+      if (this.notFollow === false) {
+        this._other.getFollowedTags(this.jsonUserName).subscribe((res: any) => {
+          this.taglist = res.taglist;
+        });
+      }
 
 
 
@@ -133,7 +140,7 @@ export class OtherProfileComponent implements OnInit {
     localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
   }
-
+  // todo check duplicate tags
   addFollowTag(tag) {
     console.log('tag need to add: ', tag);
     this.taglist.push(tag);
