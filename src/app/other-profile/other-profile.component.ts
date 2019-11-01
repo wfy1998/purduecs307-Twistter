@@ -43,6 +43,7 @@ export class OtherProfileComponent implements OnInit {
   };
   notFollow = false;
   taglist = [];
+  tagListCurrent = [];
   unfollow = {
     username: ''
   };
@@ -76,20 +77,18 @@ export class OtherProfileComponent implements OnInit {
       this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
         console.log('res: ', res);
         this.notFollow = !res.followed;
+        this.taglist = res.taglist;
         console.log('check follow: ', this.notFollow);
-
-
-        if (this.notFollow === false) {
-          console.log('wo tmd guangzhul');
-          this._other.getFollowedTags(this.jsonUserName).subscribe((res2: any) => {
-            this.taglist = res2.taglist;
-            console.log('taglist we get at the beginning', this.taglist);
-          });
-        }
-
-
-
+        console.log('taglist we get at the beginning', this.taglist);
       });
+
+    // if (this.notFollow === false) {
+    //   console.log('wo tmd guangzhul');
+    //   this._other.getFollowedTags(this.jsonUserName).subscribe((res2: any) => {
+    //     this.taglist = res2.taglist;
+    //     console.log('taglist we get at the beginning', this.taglist);
+    //   });
+    // }
 
 
 
@@ -150,11 +149,11 @@ export class OtherProfileComponent implements OnInit {
   // todo check duplicate tags
   addFollowTag(tag) {
     console.log('tag need to add: ', tag);
-    this.taglist.push(tag);
+    this.tagListCurrent.push(tag);
   }
   updateTag() {
     console.log('the tag list is: ', this.taglist);
-    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist)
+    this._other.changeFrollowedTag(this.jsonUserName.username, this.tagListCurrent)
       .subscribe((res: any) => {
         console.log('add tag success');
         alert('add follow tag success');
