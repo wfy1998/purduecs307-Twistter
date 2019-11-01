@@ -21,6 +21,11 @@ export class FinduserComponent implements OnInit {
   }
 
   search() {
+    if (this.username.username === this.getEnterName) {
+      alert('This is your own profile');
+      this.username.username = '';
+      return;
+    }
     this._other.getOthersProfile(this.username)
       .subscribe( (res: any) => {
         console.log('find the user,', res.username);
