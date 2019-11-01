@@ -129,6 +129,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
 router.post('/likePost', checkAuth, (req, res)  => {
   let data = req.body;
   let username = res.locals.username;
+  console.log(data);
 
   try {
     if (data.postID == null || data.postID === '') {
@@ -158,6 +159,7 @@ router.post('/likePost', checkAuth, (req, res)  => {
         if (tempUser === username) {
           console.log('repeated like by' + username);
           res.status(406).send();
+          alert('Repeated Likes!');
           return;
         }
       }
@@ -184,7 +186,7 @@ router.post('/likePost', checkAuth, (req, res)  => {
 
 router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
-
+  console.log(data);
   try {
     if (data.postID == null || data.postID === ''
       || data.comment == null || data.comment === '') {
@@ -214,13 +216,21 @@ router.post('/quote', checkAuth, (req, res)  => {
     newPost.comment = data.comment;
     newPost.originName = post.username;
 
-    newPost.save((err) => {
+    newPost.save((err, post) => {
       if (err) {
         console.log(err);
         res.status(500).send('new quote creation failed');
         return
       }
-      console.log('new quote created');
+      let postID = post._id;
+      userModel.updateOne({username: res.locals.username}, {$push: {userPosts: postID}}, (err) => {
+        if (err) {
+          console.log(err);
+          return
+        }
+        console.log('quote success');
+        return res.status(200).send();
+      });
     });
 
   });

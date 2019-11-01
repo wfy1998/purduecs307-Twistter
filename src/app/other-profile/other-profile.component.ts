@@ -12,20 +12,22 @@ export class OtherProfileComponent implements OnInit {
   jsonUserName = {
     username: ''
   };
-  jsontag = {
-    tag: ''
-  };
 
-  posts = {
-    username: '',
-    content: '',
-    tags: [],
-    likedByUser: [],
-    numberOfLikes: Number,
-    quoted: Boolean,
+  quotedPost = {
     comment: '',
-    originName: ''
+    postID: ''
   };
+  posts = [
+    // username: '',
+    // content: '',
+    // tags: [],
+    // likedByUser: [],
+    // numberOfLikes: Number,
+    // quoted: Boolean,
+    // comment: '',
+    // originName: ''
+  ];
+  valueOfLikes: number;
 
   getUserName = '';
   getFirstName = '';
@@ -68,6 +70,12 @@ export class OtherProfileComponent implements OnInit {
         }
       });
 
+    this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
+      this.posts = res;
+      this.valueOfLikes = res.numberOfLikes;
+      console.log('the posts is: ', res);
+    });
+
 
       // this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
       //   this.posts = res;
@@ -93,6 +101,26 @@ export class OtherProfileComponent implements OnInit {
 
 
 
+  }
+
+  onAddLike(likedPostID) {
+    for (const post of this.posts) {
+      if (likedPostID === post.postID) {
+        alert('Already Liked!');
+        return;
+      }
+    }
+    this.valueOfLikes++;
+    this._other.likePost(likedPostID).subscribe( (res: any) => {
+      console.log('Liked!');
+      console.log();
+    });
+  }
+  onQuote(quotePostID) {
+    this.quotedPost.postID = quotePostID;
+    this._other.quote(this.quotedPost.postID, this.quotedPost.comment).subscribe( (res: any) => {
+      console.log('Quoted!');
+    });
   }
 
   onFollow() {

@@ -48,8 +48,7 @@ router.post('/', checkAuth, (req, res) => {
           res.status(500).send();
           return
         }
-        console.log('dfxzdfdfsdf')
-        res.status(200).send();
+        res.status(200);
       })
     });
 
