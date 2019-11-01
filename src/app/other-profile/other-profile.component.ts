@@ -13,10 +13,7 @@ export class OtherProfileComponent implements OnInit {
     username: ''
   };
 
-  quotedPost = {
-    comment: '',
-    postID: ''
-  };
+  quotedPostComment: string[] = [];
   posts = [
     // username: '',
     // content: '',
@@ -27,8 +24,9 @@ export class OtherProfileComponent implements OnInit {
     // comment: '',
     // originName: ''
   ];
-  valueOfLikes: number;
-
+  jsonLikedID = {
+    postID: ''
+  };
   getUserName = '';
   getFirstName = '';
   getLastName = '';
@@ -49,6 +47,7 @@ export class OtherProfileComponent implements OnInit {
   unfollow = {
     username: ''
   };
+  getLikeNum: number[] = [];
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private _activateroute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -72,8 +71,10 @@ export class OtherProfileComponent implements OnInit {
 
     this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
       this.posts = res;
-      this.valueOfLikes = res.numberOfLikes;
       console.log('the posts is: ', res);
+      for (const post of this.posts) {
+        this.getLikeNum.push(post.numberOfLikes);
+      }
     });
 
 
@@ -89,7 +90,6 @@ export class OtherProfileComponent implements OnInit {
         console.log('check follow: ', this.notFollow);
         console.log('taglist we get at the beginning', this.taglist);
       });
-
     // if (this.notFollow === false) {
     //   console.log('wo tmd guangzhul');
     //   this._other.getFollowedTags(this.jsonUserName).subscribe((res2: any) => {
@@ -97,28 +97,23 @@ export class OtherProfileComponent implements OnInit {
     //     console.log('taglist we get at the beginning', this.taglist);
     //   });
     // }
-
-
-
-
   }
 
-  onAddLike(likedPostID) {
-    for (const post of this.posts) {
-      if (likedPostID === post.postID) {
+  onAddLike(likedPostID, index) {
+    this.jsonLikedID.postID = likedPostID;
+    this._other.likePost(this.jsonLikedID).subscribe( (res: any) => {
+
+    }, error => {
+      if (error.status === 406) {
         alert('Already Liked!');
-        return;
+        window.location.reload();
       }
-    }
-    this.valueOfLikes++;
-    this._other.likePost(likedPostID).subscribe( (res: any) => {
-      console.log('Liked!');
-      console.log();
     });
+    this.getLikeNum[index] = this.posts[index].numberOfLikes + 1;
+    console.log(this.getLikeNum[index]);
   }
-  onQuote(quotePostID) {
-    this.quotedPost.postID = quotePostID;
-    this._other.quote(this.quotedPost.postID, this.quotedPost.comment).subscribe( (res: any) => {
+  onQuote(quotePostID, index) {
+    this._other.quote(quotePostID, this.quotedPostComment[index]).subscribe( (res: any) => {
       console.log('Quoted!');
     });
   }

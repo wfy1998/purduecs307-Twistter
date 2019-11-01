@@ -348,11 +348,17 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                 <!--<div class="content"> <td>{{post.content}}</td> </div>-->
                                 <!--<p> <a href=""> like </a> </p>-->
                                 <!--<div class="create by: ">{{post.username}} </div>-->
-                              <!--</div>-->
+                              </div>
 
-                      <li class="media media-clearfix-xs" *ngFor="let post of posts">
-                        <div class="media-heading">
+                    <div class="panel-body">
+                      <li class="media media-clearfix-xs" *ngFor="let post of posts; let i=index">
+                        <div class="media-left">
+                          <div class="user-wrapper">
+                            <img src="assets/images/people/default_user.jpg" alt="people" class="img-circle" width="80" />
+
+                            <div><a href="http://localhost:1205/other-user/{{post.username}}">{{post.username}}</a></div>
                             <div class="date">{{post.createdAt}}</div>
+                          </div>
                         </div>
                         <div class="media-body" >
                           <div class="media-body-wrapper">
@@ -360,9 +366,9 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                               <div class="panel-body">
                                 <p>{{post.content}}</p>
                                 <div class="timeline-added-images">
-                                  <img src="assets/images/social/100/1.jpg" width="80" alt="photo" />
-                                  <img src="assets/images/social/100/2.jpg" width="80" alt="photo" />
-                                  <img src="assets/images/social/100/3.jpg" width="80" alt="photo" />
+                                  <!--                            <img src="assets/images/social/100/1.jpg" width="80" alt="photo" />-->
+                                  <!--                            <img src="assets/images/social/100/2.jpg" width="80" alt="photo" />-->
+                                  <!--                            <img src="assets/images/social/100/3.jpg" width="80" alt="photo" />-->
                                   <br>
                                 </div>
                                 <div>
@@ -377,20 +383,26 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                   <!--                              <i class="icon-thumbs-up"></i><span>  Like({{post.numberOfLikes}})</span></a> |-->
                                   <!--                              <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>-->
                                   <!--                                <p>Liked({{post.numberOfLikes}})</p>-->
-                                  <button style="display: inline" type="button" class="btn btn-success btn-sm" (click)="onAddLike(post.postID)">
-                                    <i class="icon-thumbs-up"></i> Like({{valueOfLikes}})</button>
-                                  <p style="display: inline">     <strong>|</strong>     </p>
-                                  <button type="button" class="btn btn-success btn-sm" (click)="onQuote(post.postID)">
+                                  <button style="display: inline; margin-right: 2px" type="button" class="btn btn-success btn-sm" (click)="onAddLike(post.postID, i)">
+                                    <i class="icon-thumbs-up"></i> Like </button>
+                                  <button style="display: inline; margin-right: 2px" type="button" class="btn btn-primary btn-xs">
+                                    <i class="icon-thumbs-o-up"></i>{{getLikeNum[i]}}</button>
+                                  <!--                            <p style="display: inline" *ngIf="likeClicked == false">{{posts[i].numberOfLikes}}</p>-->
+                                  <!--                            <p style="display: inline" *ngIf="likeClicked">{{getLikeNum}}</p>-->
+                                  <button style=" margin-left: 18px" type="button" class="btn btn-success btn-sm" (click)="onQuote(post.postID, i)">
                                     <i class="icon-share"></i> Quote</button>
                                 </div>
                                 <textarea name="status" class="form-control share-text" rows="1"
-                                          placeholder="Quote with/without comment..." [(ngModel)]="quotedPost.comment">
+                                          placeholder="Quote with/without comment..." [(ngModel)]="quotedPostComment[i]">
                           </textarea>
                               </div>
                             </div>
                           </div>
                         </div>
                       </li>
+
+
+                    </div>
                             <!--</div> &lt;!&ndash; end .listing &ndash;&gt;-->
                           <!--</div>-->
 
@@ -400,8 +412,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         <!--&lt;!&ndash;</div>&lt;!&ndash;  '[pageSize]=': how many item showed on each page &ndash;&gt;&ndash;&gt;-->
                       <!--</div> &lt;!&ndash; end .listings &ndash;&gt;-->
                     </div>
-                    <div class="panel-body">
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -429,7 +440,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
   </footer>
   <!-- // Footer -->
 
-</div>
+
 <!-- /st-container -->
 
 <!-- Inline Script for colors and config objects; used by various external scripts; -->

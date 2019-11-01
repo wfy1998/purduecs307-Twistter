@@ -377,10 +377,16 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--                              <i class="icon-thumbs-up"></i><span>  Like({{post.numberOfLikes}})</span></a> |-->
 <!--                              <a href="#"><i class="icon-share"></i><span>  Quote</span></a></p>-->
 <!--                                <p>Liked({{post.numberOfLikes}})</p>-->
-                            <button style="display: inline" type="button" class="btn btn-success btn-sm" (click)="onAddLike(post.postID)">
-                              <i class="icon-thumbs-up"></i> Like({{post.numberOfLikes}})</button>
-                            <p style="display: inline">     <strong>|</strong>     </p>
-                            <button type="button" class="btn btn-success btn-sm" (click)="onQuote(post.postID, i)">
+<!--                            <label class="btn btn-default" [class.active]='period === "yesterday"'>
+    <input type="radio" [(ngModel)]="period" value="yesterday" name="options" id="option1" autocomplete="off" checked> Yestedray
+</label>-->
+                            <button style="display: inline; margin-right: 2px" type="button" class="btn btn-success btn-sm" (click)="onAddLike(post.postID, i)">
+                              <i class="icon-thumbs-up"></i> Like </button>
+                            <button style="display: inline; margin-right: 2px" type="button" class="btn btn-primary btn-xs">
+                              <i class="icon-thumbs-o-up"></i>{{getLikeNum[i]}}</button>
+<!--                            <p style="display: inline" *ngIf="likeClicked == false">{{posts[i].numberOfLikes}}</p>-->
+<!--                            <p style="display: inline" *ngIf="likeClicked">{{getLikeNum}}</p>-->
+                            <button style=" margin-left: 18px" type="button" class="btn btn-success btn-sm" (click)="onQuote(post.postID, i)">
                               <i class="icon-share"></i> Quote</button>
                           </div>
                           <textarea name="status" class="form-control share-text" rows="1"

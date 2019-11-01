@@ -159,7 +159,6 @@ router.post('/likePost', checkAuth, (req, res)  => {
         if (tempUser === username) {
           console.log('repeated like by' + username);
           res.status(406).send();
-          alert('Repeated Likes!');
           return;
         }
       }
@@ -188,8 +187,7 @@ router.post('/quote', checkAuth, (req, res)  => {
   let data = req.body;
   console.log('the data is: ', data);
   try {
-    if (data.postID == null || data.postID === ''
-      || data.comment == null) {
+    if (data.postID == null || data.postID === '') {
       res.status(400).send();
       return
     }
