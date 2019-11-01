@@ -380,6 +380,7 @@ router.post('/getFollowedTags', (req, res) => {
   }
 
   const username = res.locals.username;
+  console.log('username: ', res.locals.username);
   const userToCheck = req.body.username;
   console.log(userToCheck);
 
