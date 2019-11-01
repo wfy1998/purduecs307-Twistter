@@ -140,24 +140,37 @@ router.post('/unfollow', checkAuth, (req, res) => {
 });
 
 router.post('/changeFollowedTag', checkAuth, (req, res) => {
-  //todo assuming input tag list is in string array
-  const followedUser = req.body.username;
+  const data = req.data;
+
+  try {
+    if (data.username == null || data.username === ''
+      || data.taglist == null || data.taglist === []) {
+      res.status(400).send();
+      return;
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return;
+  }
+
+  const followedUser = data.username;
   const username = res.locals.username;
-  const tags = req.body.taglist;
+  const tags = data.taglist;
   console.log('changing followed tags', followedUser, tags);
 
   userModel.findOne({username: username})
     .populate('userFollowed')
     .exec((err, user) => {
       if (err) {console.log(err); return res.status(500).send()}
-      if (!user) {console.log('no such user'); return res.status(500).send()}
+      if (!user) {console.log('no such user'); return res.status(403).send()}
 
       for (let temp of user.userFollowed) {
         if (temp.followedUserName === followedUser) {
           followModel.findByIdAndUpdate(temp._id, {followedUserTag: tags}, (err) => {
-            if (err) {console.log(err); res.status(500).send();}
+            if (err) {console.log(err); res.status(500).send(); return;}
+            res.status(200).send();
           });
-          res.status(200).send();
           return;
         }
       }
@@ -351,6 +364,49 @@ router.post('/reset', checkAuth, (req, res) => {
     })
 
   });
+});
+
+router.post('/getFollowedTags', (req, res) => {
+  console.log('get followed tags');
+  try {
+    if (req.body.username == null || req.body.username === '') {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
+  const username = res.locals.username;
+  const userToCheck = req.body.username;
+  console.log(userToCheck);
+
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+        return;
+      }
+      if (!user) {
+        res.status(403).send();
+        return;
+      }
+
+      for (let tempFollow of user.userFollowed) {
+        if (tempFollow.followedUserName === userToCheck) {
+          let taglist = tempFollow.followedUserTag;
+          console.log('followed tags: ', taglist);
+          res.status(200).send({taglist});
+          return;
+        }
+      }
+
+    });
+
 });
 
 module.exports = router;

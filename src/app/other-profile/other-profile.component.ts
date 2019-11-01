@@ -87,6 +87,7 @@ export class OtherProfileComponent implements OnInit {
     this._other.followUser(this.follow).subscribe(res => {
       // console.log('follow success');
       alert('follow success');
+      window.location.reload();
     }, err => {
       if (err.status === 400) {
         alert('Bad request! Please fill in all the blanks');
@@ -106,6 +107,7 @@ export class OtherProfileComponent implements OnInit {
     this._other.unfollowUser(this.unfollow).subscribe(res => {
       console.log('unfollow success');
       alert('unfollow success');
+      window.location.reload();
     }, err => {
       if (err.status === 400) {
         alert('Bad request! Please fill in all the blanks');
@@ -138,10 +140,20 @@ export class OtherProfileComponent implements OnInit {
   }
   updateTag() {
     console.log('the tag list is: ', this.taglist);
-    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist).subscribe((res: any) =>{
-      console.log('add tag success');
-      alert('add follow tag success');
-    });
+    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist)
+      .subscribe((res: any) => {
+        console.log('add tag success');
+        alert('add follow tag success');
+        window.location.reload();
+      }, err => {
+        if (err.status === 400) {
+          alert('Bad request! please fill in all the blanks!');
+        } else if (err.status === 403) {
+          alert('User Not Found!');
+        } else if (err.status === 500) {
+          alert('Server Error!');
+        }
+      });
   }
 
 }
