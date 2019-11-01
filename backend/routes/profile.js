@@ -123,12 +123,10 @@ router.post('/unfollow', checkAuth, (req, res) => {
           return;
         }
         if (follow.followedUserName === userToBeUnfollowed) {
-          followModel.findByIdAndRemove(followList[tempID], (err) => {
-            if (err) {
-              console.log(err);
-            }
+          followModel.findByIdAndRemove(tempID, (err) => {
+            if (err) { console.log(err); }
           });
-          userModel.updateOne({username: username}, {$pull: {userFollowed: followList[tempID]}}, (err) => {
+          userModel.updateOne({username: username}, {$pull: {userFollowed: tempID}}, (err) => {
             if (err) {console.log(err); return}
             console.log('removed');
             return res.status(200);
