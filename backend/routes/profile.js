@@ -298,6 +298,7 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
   console.log(userToCheck);
 
   let followed = false;
+  let taglist = [];
 
   userModel.findOne({username: username})
     .populate('userFollowed')
@@ -315,15 +316,14 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
       for (let tempFollow of user.userFollowed) {
         if (tempFollow.followedUserName === userToCheck) {
           followed = true;
-          let taglist = tempFollow.followedUserTag;
+          taglist = tempFollow.followedUserTag;
           console.log('the follow status: ', followed);
           console.log('followed tags: ', taglist);
           res.status(200).send({followed, taglist});
           return;
         }
       }
-      let t = [];
-      res.status(200).send({followed, t});
+      res.status(200).send({followed, taglist});
 
     });
 
