@@ -160,6 +160,7 @@ export class TimelineComponent implements OnInit {
     this._other.quote(quotePostID, this.quotedPostComment[index]).subscribe( (res: any) => {
     });
     console.log('Quoted!');
+    alert('Quoted success');
   }
 
   onQuoteHighLightedPost(quotePostID, index) {

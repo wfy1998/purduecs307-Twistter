@@ -381,7 +381,7 @@ router.post('/reset', checkAuth, (req, res) => {
       }
     } , (err) => {
       if (err) {console.log(err); return}
-      console.log(done);
+      console.log('done');
     })
 
   });
