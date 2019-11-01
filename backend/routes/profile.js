@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userModel = require('../models/User');
 const followModel = require('../models/Followed');
+const postModel = require('../models/Post');
 const checkAuth = require('../middleware/check-auth');
 const repeatedFollowCheck = require('../middleware/repeatedFollowCheck');
 
@@ -346,9 +347,9 @@ router.post('/reset', checkAuth, (req, res) => {
         'userTags': [],
         'userFollowed': []
       }
-    } , (err, user) => {
+    } , (err) => {
       if (err) {console.log(err)}
-      console.log(user);
+      console.log(done);
     })
 
   });
