@@ -382,7 +382,7 @@ router.post('/getFollowedUsers', checkAuth, (req, res) => {
       for (const tempUser of user.userFollowed) {
         userList.push(tempUser.followedUserName);
       }
-      res.status(200).send(userList);
+      res.status(200).send({userList});
     })
 
 });
