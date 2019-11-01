@@ -356,14 +356,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                 <div class="panel-body" >
                   <div class="input-group-btn">
                     <p class="mat-body-1" style="display: inline; margin-left: 10px;"
-                       *ngIf="getTagList.length<=0"> You didn't follow any user!</p>
+                       *ngIf="getUserList.length<=0"> You didn't follow any user!</p>
                     <p style="margin: 10px;display: inline"
-                       *ngIf="getTagList.length>0">Tags added:</p>
-                    <div *ngFor="let tag of getTagList" style="display: inline;;">
-                      <p *ngIf="getTagList.indexOf(tag)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
-                      <button style="margin: 2px;"
+                       *ngIf="getUserList.length>0">Tags added:</p>
+                    <div *ngFor="let user of getUserList" style="display: inline;;">
+                      <p *ngIf="getUserList.indexOf(user)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
+                      <button (click)="navigateToUserProfile(user)" style="margin: 2px;"
                               class="btn btn-info btn-xs">
-                        {{ tag }}</button>
+                        {{ user }}</button>
                     </div>
                   </div>
                 </div>

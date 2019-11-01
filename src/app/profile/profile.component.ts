@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
   getAddress = '';
   getTag = '';
   getTagList = [];
+  getUserList = [];
   getPostList: Array<any> = [
   ];
 
@@ -63,7 +64,10 @@ export class ProfileComponent implements OnInit {
       this.getPostList = res;
 
     });
-
+    this._other.getFollowedUsers().subscribe((res: any) => {
+      this.getUserList = res.userList;
+      console.log('the userList is:', this.getUserList);
+    });
 
     // this.getUserName = localStorage.getItem('userName');
     // this.getFirstName = localStorage.getItem('firstName');
@@ -142,6 +146,9 @@ export class ProfileComponent implements OnInit {
     localStorage.removeItem('phone');
     localStorage.removeItem('address');
     localStorage.removeItem('searchUser');
+  }
+  navigateToUserProfile(username) {
+    this._router.navigate(['/other_profile', username]);
   }
 }
 

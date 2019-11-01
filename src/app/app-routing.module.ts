@@ -8,7 +8,6 @@ import {TimelineComponent} from './timeline/timeline.component';
 import {FinduserComponent} from './finduser/finduser.component';
 import {TestComponent} from './test/test.component';
 import {OtherProfileComponent} from './other-profile/other-profile.component';
-import {SearchComponent} from './search/search.component';
 
 
 const routes: Routes = [
@@ -32,9 +31,6 @@ const routes: Routes = [
   },
   {
     path: 'other_profile/:username', component: OtherProfileComponent
-  },
-  {
-    path: 'search', component: SearchComponent
   }
 ];
 

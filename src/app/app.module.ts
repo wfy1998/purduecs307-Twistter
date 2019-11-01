@@ -19,7 +19,6 @@ import {CookieService} from 'angular2-cookie/core';
 import {AuthInterceptor} from './auth-interceptor';
 import { TestComponent } from './test/test.component';
 import {FinduserComponent} from './finduser/finduser.component';
-import { SearchComponent } from './search/search.component';
 import { OtherProfileComponent } from './other-profile/other-profile.component';
 import {DatePipe} from '@angular/common';
 
@@ -37,7 +36,6 @@ import {DatePipe} from '@angular/common';
     TimelineComponent,
     TestComponent,
     FinduserComponent,
-    SearchComponent,
     OtherProfileComponent,
     // DataComponent
   ],
