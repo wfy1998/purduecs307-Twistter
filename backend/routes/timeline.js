@@ -189,7 +189,7 @@ router.post('/quote', checkAuth, (req, res)  => {
   console.log('the data is: ', data);
   try {
     if (data.postID == null || data.postID === ''
-      || data.comment == null || data.comment === '') {
+      || data.comment == null) {
       res.status(400).send();
       return
     }

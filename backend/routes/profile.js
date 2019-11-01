@@ -329,6 +329,24 @@ router.post('/checkFollowStatus', checkAuth, (req, res) => {
 
 });
 
+router.post('/getFollowedUsers', checkAuth, (req, res) => {
+  console.log('get followed users');
+  const username = res.locals.username;
+
+  userModel.findOne({username: username})
+    .populate('userFollowed')
+    .exec( (err, user) => {
+      if (err) {console.log(err); res.status(500).send(); return}
+      if (!user) {res.status(403).send(); return}
+      let userList = [];
+      for (const tempUser of user.userFollowed) {
+        userList.push(tempUser.followedUserName);
+      }
+      res.status(200).send({userList});
+    })
+
+});
+
 router.post('/reset', checkAuth, (req, res) => {
   console.log('resetting');
   userModel.findOne({username: res.locals.username}, (err, user) => {
@@ -367,24 +385,6 @@ router.post('/reset', checkAuth, (req, res) => {
     })
 
   });
-});
-
-router.post('/getFollowedUsers', checkAuth, (req, res) => {
-  console.log('get followed users');
-  const username = res.locals.username;
-
-  userModel.findOne({username: username})
-    .populate('userFollowed')
-    .exec( (err, user) => {
-      if (err) {console.log(err); res.status(500).send(); return}
-      if (!user) {res.status(403).send(); return}
-      let userList = [];
-      for (const tempUser of user.userFollowed) {
-        userList.push(tempUser.followedUserName);
-      }
-      res.status(200).send({userList});
-    })
-
 });
 
 module.exports = router;
