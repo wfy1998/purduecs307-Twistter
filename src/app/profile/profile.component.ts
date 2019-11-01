@@ -14,7 +14,7 @@ import {error} from 'util';
 export class ProfileComponent implements OnInit {
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService, private datepipe: DatePipe) {}
-
+  newProfile = {};
   changeProfile = {
       enteredFirstName: '',
       enteredLastName: '',
@@ -112,13 +112,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onSaveProfile() {
-    this.getFirstName = this.changeProfile.enteredFirstName;
-    this.getLastName = this.changeProfile.enteredLastName;
-    this.getAge = this.changeProfile.enteredAge;
-    this.getSchool = this.changeProfile.enteredSchool;
-    this.getGender = this.changeProfile.enteredGender;
-    this.getPhone = this.changeProfile.enteredPhone;
-    this.getAddress = this.changeProfile.enteredAddress;
+    // this.getFirstName = this.changeProfile.enteredFirstName;
+    // this.getLastName = this.changeProfile.enteredLastName;
+    // this.getAge = this.changeProfile.enteredAge;
+    // this.getSchool = this.changeProfile.enteredSchool;
+    // this.getGender = this.changeProfile.enteredGender;
+    // this.getPhone = this.changeProfile.enteredPhone;
+    // this.getAddress = this.changeProfile.enteredAddress;
     this._other.changeProfile(this.changeProfile)
       .subscribe(res => {
         console.log('change profile success');
