@@ -17,16 +17,17 @@ export class TimelineComponent implements OnInit {
     tags: [],
   };
   quotedPostComment: string[] = [];
-  posts = [
-    // username: '',
-    // content: '',
-    // tags: [],
-    // likedByUser: [],
-    // numberOfLikes: Number,
-    // quoted: Boolean,
-    // comment: '',
-    // originName: ''
-  ];
+  // posts = [
+  //   // username: '',
+  //   // content: '',
+  //   // tags: [],
+  //   // likedByUser: [],
+  //   // numberOfLikes: Number,
+  //   // quoted: Boolean,
+  //   // comment: '',
+  //   // originName: ''
+  // ];
+  posts: any[] = [];
   jsonUserName = {
     username: ''
   };
@@ -36,7 +37,7 @@ export class TimelineComponent implements OnInit {
   getTagList = [];
   getTag = '';
   getAddedTagList = [];
-
+  getLikeNum: number[] = [];
   // valueOfLikes: Array<any> = [];
 
 
@@ -58,8 +59,10 @@ export class TimelineComponent implements OnInit {
       this.posts = res;
       // this.valueOfLikes.push(res.numberOfLikes);
       console.log('the posts is: ', res);
+      for (const post of this.posts) {
+        this.getLikeNum.push(post.numberOfLikes);
+      }
     });
-
   }
   logOut() {
     localStorage.removeItem('email');
@@ -95,6 +98,7 @@ export class TimelineComponent implements OnInit {
       });
     this.postData.content = '';
     this.postData.tags = [];
+    this.getAddedTagList = [];
   }
 
   onTagToPost(tagValue: string) {
@@ -117,13 +121,18 @@ export class TimelineComponent implements OnInit {
     window.location.reload();
   }
 
-  onAddLike(likedPostID) {
+  onAddLike(likedPostID, index) {
     this.jsonLikedID.postID = likedPostID;
     this._other.likePost(this.jsonLikedID).subscribe( (res: any) => {
-      console.log('Liked!');
+
+    }, error => {
+      if (error.status === 406) {
+        alert('Already Liked!');
+        window.location.reload();
+      }
     });
-    alert('Liked!');
-    window.location.reload();
+    this.getLikeNum[index] = this.posts[index].numberOfLikes + 1;
+    console.log(this.getLikeNum[index]);
   }
   onQuote(quotePostID, index) {
     console.log(quotePostID);
