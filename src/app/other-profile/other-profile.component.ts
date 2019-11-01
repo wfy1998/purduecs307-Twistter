@@ -72,6 +72,9 @@ export class OtherProfileComponent implements OnInit {
     this._other.getUserLine(this.jsonUserName).subscribe((res: any) => {
       this.posts = res;
       console.log('the posts is: ', res);
+      for (const post of this.posts) {
+        this.getLikeNum.push(post.numberOfLikes);
+      }
     });
 
 
