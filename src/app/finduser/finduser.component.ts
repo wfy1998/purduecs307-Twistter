@@ -27,9 +27,10 @@ export class FinduserComponent implements OnInit {
         this._router.navigate(['/other_profile', res.username]);
       }, err => {
         if (err.status === 400) {
-          alert('Bad request! please fill in all the blanks!');
+          alert('Bad request! please fill in the blanks!');
         } else if (err.status === 403) {
-          alert('User Not Found!');
+          alert(this.username.username + 'Is Not Found!');
+          this.username.username = '';
         } else if (err.status === 500) {
           alert('Server Error!');
         }
