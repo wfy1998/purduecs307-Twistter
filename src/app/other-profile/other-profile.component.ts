@@ -73,9 +73,9 @@ export class OtherProfileComponent implements OnInit {
       // });
 
       this._other.checkFollowStatus(this.jsonUserName).subscribe( (res: any) => {
-        // console.log('res: ', res);
+        console.log('res: ', res);
         this.checkFollow = res;
-        // console.log('check follow: ', this.checkFollow);
+        console.log('check follow: ', this.checkFollow);
       });
 
 
