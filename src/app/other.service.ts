@@ -18,6 +18,8 @@ export class OtherService {
   private _changeProfileURL = 'http://localhost:3000/api/profile/changeProfile';
   private _addNewTagURL = 'http://localhost:3000/api/profile/addTag';
   private _checkFollowStatusURL = 'http://localhost:3000/api/profile/checkFollowStatus';
+  private _getFollowedTagsURL = 'http://localhost:3000/api/profile/getFollowedTags';
+
   /* ---------- timeline ----------- */
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
   private _getHighlightedPostsURL = 'http://localhost:3000/api/timeline/getHighlight';
@@ -58,6 +60,9 @@ export class OtherService {
   }
   checkFollowStatus(username) {
     return this.http.post(this._checkFollowStatusURL, username);
+  }
+  getFollowedTags(username) {
+    return this.http.post(this._getFollowedTagsURL, username);
   }
   /* ---------- timeline ----------- */
   getMorePosts() {
