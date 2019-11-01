@@ -369,7 +369,7 @@ router.post('/reset', checkAuth, (req, res) => {
   });
 });
 
-router.post('/getFollowedUsers', (req, res) => {
+router.post('/getFollowedUsers', checkAuth, (req, res) => {
   console.log('get followed users');
   const username = res.locals.username;
 
