@@ -86,6 +86,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onAddTag() {
+    if (this.getTag === '') {
+      alert('Please enter a name for tag!');
+      return;
+    }
     for (const tag of this.getTagList) {
       if (tag === this.getTag) {
         alert('Existing Tag!');
@@ -109,6 +113,14 @@ export class ProfileComponent implements OnInit {
         }
         console.log(err);
       });
+  }
+
+  deleteAccount() {
+    this._auth.deleteAccount().subscribe((res: any ) => {
+      alert('delete')
+      console.log('delete success');
+      this._router.navigate(['/']);
+    });
   }
 
   onSaveProfile() {
