@@ -82,8 +82,7 @@ export class TimelineComponent implements OnInit {
       .subscribe(res => {
           console.log('post success');
           alert('Post success!');
-          this.postData.content = '';
-          this.postData.tags = [];
+
           }, err => {
           if (err.status === 400) {
             alert('Bad request! Please fill in content and choose tags!');
@@ -94,6 +93,8 @@ export class TimelineComponent implements OnInit {
           }
           console.log(err);
       });
+    this.postData.content = '';
+    this.postData.tags = [];
   }
 
   onTagToPost(tagValue: string) {
