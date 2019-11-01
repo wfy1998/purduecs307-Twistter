@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
   getAddress = '';
   getTag = '';
   getTagList = [];
-  getFollowStatus: boolean;
   getPostList: Array<any> = [
   ];
 
@@ -50,15 +49,15 @@ export class ProfileComponent implements OnInit {
     this.jsonUserName.username = localStorage.getItem('userName');
     this._other.getOthersProfile(this.jsonUserName)
     .subscribe( (res: any) => {
-      this.getFirstName = res.firstName;
-      this.getLastName = res.lastName;
+      this.changeProfile.enteredFirstName = res.firstName;
+      this.changeProfile.enteredLastName = res.lastName;
       this.getUserName = res.username;
       this.getTagList = res.userTags;
-      this.getAge = res.age;
-      this.getSchool = res.school;
-      this.getGender = res.gender;
-      this.getPhone = res.phone;
-      this.getAddress = res.address;
+      this.changeProfile.enteredAge = res.age;
+      this.changeProfile.enteredSchool = res.school;
+      this.changeProfile.enteredGender = res.gender;
+      this.changeProfile.enteredPhone = res.phone;
+      this.changeProfile.enteredAddress = res.address;
     });
     this._other.getUserLine(this.jsonUserName).subscribe( (res: any) => {
       this.getPostList = res;
@@ -127,15 +126,7 @@ export class ProfileComponent implements OnInit {
     window.location.reload();
   }
 
-  onFollow() {
-    this.getFollowStatus = true;
-    console.log('User Followed');
-  }
 
-  onunFollow() {
-    this.getFollowStatus = false;
-    console.log('User Unfollowed');
-  }
 
   logOut() {
     localStorage.removeItem('firstName');
