@@ -84,7 +84,7 @@ router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
             return
           }
           console.log('success');
-          return res.status(200);
+          return res.status(200).send();
         }); //end update current user follow list
 
       }); //end saving new follow model
@@ -129,7 +129,7 @@ router.post('/unfollow', checkAuth, (req, res) => {
           userModel.updateOne({username: username}, {$pull: {userFollowed: tempID}}, (err) => {
             if (err) {console.log(err); return}
             console.log('removed');
-            return res.status(200);
+            return res.status(200).send();
           });
         }
       }); //end find follow model by id
