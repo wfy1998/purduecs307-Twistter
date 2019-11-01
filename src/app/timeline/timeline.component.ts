@@ -39,6 +39,7 @@ export class TimelineComponent implements OnInit {
   //   // comment: '',
   //   // originName: ''
   // ];
+  // todo check duplicate
   // posts: any[] = [];
   jsonUserName = {
     username: ''
@@ -160,6 +161,7 @@ export class TimelineComponent implements OnInit {
     this._other.quote(quotePostID, this.quotedPostComment[index]).subscribe( (res: any) => {
     });
     console.log('Quoted!');
+    alert('Quoted success');
   }
 
   onQuoteHighLightedPost(quotePostID, index) {

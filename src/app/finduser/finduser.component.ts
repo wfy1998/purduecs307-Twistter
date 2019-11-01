@@ -34,7 +34,7 @@ export class FinduserComponent implements OnInit {
         if (err.status === 400) {
           alert('Bad request! please fill in the blanks!');
         } else if (err.status === 403) {
-          alert(this.username.username + 'Is Not Found!');
+          alert(this.username.username + ' Is Not Found!');
           this.username.username = '';
         } else if (err.status === 500) {
           alert('Server Error!');

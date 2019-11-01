@@ -253,7 +253,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                 <div class="panel panel-default widget-user-1 text-center">
                   <div class="avatar">
                     <img src="../../assets/images/people/default_user.jpg" alt="" class="img-circle" style="max-width: 50%; max-height: 50%;">
-                    <h3>{{changeProfile.enteredFirstName}} {{changeProfile.enteredLastName}}</h3>
+                    <h3>{{this.getFirstName}} {{this.getLastName}}</h3>
                   </div>
                 </div>
 
@@ -272,9 +272,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">First name</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getFirstName}}
                                                             [(ngModel)]="changeProfile.enteredFirstName">
-                        {{changeProfile.enteredFirstName}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -282,9 +281,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">Last name</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getLastName}}
                                                             [(ngModel)]="changeProfile.enteredLastName">
-                        {{getLastName}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -292,9 +290,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">Age</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getAge}}
                                                             [(ngModel)]="changeProfile.enteredAge">
-                        {{getAge}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -302,9 +299,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">School</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getAge}}
                                                             [(ngModel)]="changeProfile.enteredSchool">
-                        {{getSchool}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -312,9 +308,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">Gender</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getGender}}
                                                             [(ngModel)]="changeProfile.enteredGender">
-                        {{getGender}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -322,9 +317,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">Address</span></div>
                             <div class="col-sm-8"><textarea rows="4"
                                                             class="form-control share-text"
-                                                            placeholder={{getAddress}}
                                                             [(ngModel)]="changeProfile.enteredAddress">
-                              {{getAddress}}</textarea></div>
+                              </textarea></div>
                           </div>
                         </li>
                         <li class="padding-v-5">
@@ -332,9 +326,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                             <div class="col-sm-4"><span class="text-muted">Phone Number</span></div>
                             <div class="col-sm-8"><textarea rows="1"
                                                             class="form-control share-text"
-                                                            placeholder={{getPhone}}
                                                             [(ngModel)]="changeProfile.enteredPhone">
-                        {{getPhone}}</textarea></div>
+                        </textarea></div>
                           </div>
                         </li>
                       </ul>
