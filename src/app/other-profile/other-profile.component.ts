@@ -43,6 +43,7 @@ export class OtherProfileComponent implements OnInit {
   };
   notFollow = false;
   taglist = [];
+  tagListCurrent = [];
   unfollow = {
     username: ''
   };
@@ -148,11 +149,11 @@ export class OtherProfileComponent implements OnInit {
   // todo check duplicate tags
   addFollowTag(tag) {
     console.log('tag need to add: ', tag);
-    this.taglist.push(tag);
+    this.tagListCurrent.push(tag);
   }
   updateTag() {
     console.log('the tag list is: ', this.taglist);
-    this._other.changeFrollowedTag(this.jsonUserName.username, this.taglist)
+    this._other.changeFrollowedTag(this.jsonUserName.username, this.tagListCurrent)
       .subscribe((res: any) => {
         console.log('add tag success');
         alert('add follow tag success');
