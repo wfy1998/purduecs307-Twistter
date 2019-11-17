@@ -25,6 +25,9 @@ export class OtherService {
   private _likePostURL = 'http://localhost:3000/api/timeline/likePost';
   private _quoteURL = 'http://localhost:3000/api/timeline/quote';
   private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
+  private _getPostsWithTagsURL = 'http://localhost:3000/api/timeline/getPostsWithTags';
+  private _getPotentialPostsURL = 'http://localhost:3000/api/timeline/getPotentialPosts';
+  private _getRelevancePostURL = 'http://localhost:3000/api/timeline/getRelevencePost';
   /* ---------- post ----------- */
   private _createNewPostURL = 'http://localhost:3000/api/post/createNewPost';
   /* ---------- tag ----------- */
@@ -78,6 +81,15 @@ export class OtherService {
   }
   getUserLine(username) {
     return this.http.post(this._getUserLine, username);
+  }
+  getPostsWithTags() {
+    return this.http.post((this._getPostsWithTagsURL), {});
+  }
+  getPotentialPosts () {
+    return this.http.post(this._getPotentialPostsURL, {});
+  }
+  getRelevancePost () {
+    return this.http.post(this._getRelevancePostURL,  {});
   }
   /* ---------- post ----------- */
   createNewPost(post) {

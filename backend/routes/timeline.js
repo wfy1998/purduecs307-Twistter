@@ -269,4 +269,16 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 
 });
 
+router.post('/getPostsWithTags', checkAuth, (req, res) => {
+
+});
+
+router.post('/getPotentialPosts', checkAuth, (req, res) => {
+
+});
+
+router.post('/getRelevencePost', checkAuth, (req, res) => {
+
+});
+
 module.exports = router;
