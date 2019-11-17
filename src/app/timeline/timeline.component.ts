@@ -29,16 +29,6 @@ export class TimelineComponent implements OnInit {
     // originName: ''
   ];
   highLightedPosts = [];
-  // posts = [
-  //   // username: '',
-  //   // content: '',
-  //   // tags: [],
-  //   // likedByUser: [],
-  //   // numberOfLikes: Number,
-  //   // quoted: Boolean,
-  //   // comment: '',
-  //   // originName: ''
-  // ];
   // todo check duplicate
   // posts: any[] = [];
   jsonUserName = {
@@ -52,7 +42,6 @@ export class TimelineComponent implements OnInit {
   getAddedTagList = [];
   getLikeNum: number[] = [];
   // valueOfLikes: Array<any> = [];
-
 
 
   constructor(private _auth: AuthService, private _other: OtherService, private _router: Router) { }
@@ -171,7 +160,5 @@ export class TimelineComponent implements OnInit {
     });
     console.log('Quoted!');
   }
-
-
 
 }
