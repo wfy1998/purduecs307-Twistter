@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const locks = require('locks');
 
 const checkAuth = require("../middleware/check-auth");
 
@@ -9,16 +10,19 @@ const userModel = require('../models/User');
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
   let postsToReturn = [];
+  let mutex = locks.createMutex();
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
     .populate('userFollowed')
     .exec((err, user) => {
       if (err) {
-        res.status(500).send('no such user /or query failed');
+        res.status(500).send('query failed');
+        console.log('query failed');
         return;
       }
       if (!user) {
         console.log('query returned null');
+        res.status(403).send();
         return;
       }
 
@@ -47,7 +51,11 @@ router.get('/getMorePosts', checkAuth, (req, res)  => {
                 comment: tempPost.comment,
                 originName: tempPost.originName
               };
-              postsToReturn.push(postData);
+
+              mutex.lock(() => {
+                postsToReturn.push(postData);
+                mutex.unlock();
+              });
             }
           });
       }
@@ -270,6 +278,56 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 });
 
 router.post('/getPostsWithTags', checkAuth, (req, res) => {
+  let data = res.data;
+
+  try {
+    if (data.tags == null || data.tags === []) {
+      res.status(400).send();
+      return
+    }
+  }
+  catch (e) {
+    res.status(400).send();
+    return
+  }
+
+  console.log('getting posts with specified tags');
+  let postsToReturn = [];
+  let mutex = locks.createMutex();
+
+  postModel.find({match: { tags: { $in: Array.from(data.tags)}},
+                  options: { sort: { 'createdAt': -1 }}}, (err, doc) => {
+    if (err) {
+      res.status(500).send('query failed');
+      console.log('query failed');
+      return;
+    }
+    if (!doc) {
+      console.log('query returned null');
+      res.status(403).send();
+      return;
+    }
+
+    for (let tempPost of doc) {
+      let postData = {
+        postID: doc._id,
+        createdAt: doc.createdAt,
+        username: doc.username,
+        content: doc.content,
+        tags: doc.tags,
+        numberOfLikes: doc.numberOfLikes,
+        quoted: doc.quoted,
+        comment: doc.comment,
+        originName: doc.originName
+      };
+      mutex.lock(() => {
+        postsToReturn.push(postData);
+        mutex.unlock();
+      });
+    }
+
+    res.status(200).send(postsToReturn);
+  });
 
 });
 
@@ -277,7 +335,7 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
 
 });
 
-router.post('/getRelevencePost', checkAuth, (req, res) => {
+router.post('/getRelevancePost', checkAuth, (req, res) => {
 
 });
 

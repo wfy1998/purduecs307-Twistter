@@ -27,7 +27,7 @@ export class OtherService {
   private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
   private _getPostsWithTagsURL = 'http://localhost:3000/api/timeline/getPostsWithTags';
   private _getPotentialPostsURL = 'http://localhost:3000/api/timeline/getPotentialPosts';
-  private _getRelevancePostURL = 'http://localhost:3000/api/timeline/getRelevencePost';
+  private _getRelevancePostURL = 'http://localhost:3000/api/timeline/getRelevancePost';
   /* ---------- post ----------- */
   private _createNewPostURL = 'http://localhost:3000/api/post/createNewPost';
   /* ---------- tag ----------- */
@@ -82,8 +82,8 @@ export class OtherService {
   getUserLine(username) {
     return this.http.post(this._getUserLine, username);
   }
-  getPostsWithTags() {
-    return this.http.post((this._getPostsWithTagsURL), {});
+  getPostsWithTags(tags) {
+    return this.http.post((this._getPostsWithTagsURL), {tags});
   }
   getPotentialPosts () {
     return this.http.post(this._getPotentialPostsURL, {});
