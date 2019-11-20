@@ -334,11 +334,16 @@ router.post('/getFollowedUsers', checkAuth, (req, res) => {
   const username = res.locals.username;
 
   userModel.findOne({username: username})
-    .populate('userFollowed')
+    .populate({
+      path:'userFollowed',
+      options: { sort: { 'levelOfInteraction': 1 } }
+  })
     .exec( (err, user) => {
       if (err) {console.log(err); res.status(500).send(); return}
       if (!user) {res.status(403).send(); return}
       let userList = [];
+      console.log('The user in get FollowedUsers is: ', user);
+      console.log('The user.userFollowed is:', user.userFollowed);
       for (const tempUser of user.userFollowed) {
         userList.push(tempUser.followedUserName);
       }
