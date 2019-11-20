@@ -39,7 +39,8 @@ export class OtherProfileComponent implements OnInit {
   getTagList = [];
   getFollowStatus: boolean;
   follow = {
-    username: ''
+    username: '',
+    levelOfInteraction: 0
   };
   notFollow = false;
   taglist = [];
