@@ -41,7 +41,6 @@ router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
   const userToBeFollowed = req.body.username;
   newFollow.followedUserName = userToBeFollowed;
   newFollow.followerUserName = username;
-  newFollow.levelOfInteraction = 0;
   console.log(userToBeFollowed);
 
   userModel.findOne({username: username}, (err, user) => {
@@ -72,6 +71,9 @@ router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
       //assigning tags
       newFollow.followedUserTag = tagsOfUser;
       newFollow.initialTagsWhenFollowed = tagsOfUser;
+
+      //initialize level of interaction
+      newFollow.levelOfInteraction = tagsOfUser.length;
 
       //saving follow model
       newFollow.save((err, follow) => {
@@ -175,15 +177,28 @@ router.post('/changeFollowedTag', checkAuth, (req, res) => {
 
       for (let temp of user.userFollowed) {
         if (temp.followedUserName === followedUser) {
-          followModel.findByIdAndUpdate(temp._id, {followedUserTag: tags}, (err) => {
-            if (err) {console.log(err); res.status(500).send(); return;}
-            res.status(200).send();
-          });
-          return;
-        }
-      }
 
-    })
+          followModel.findById(temp._id, (err, doc) => {
+            if (err) {console.log(err); return res.status(500).send()}
+            if (!doc) {console.log('empty'); return res.status(403).send()}
+
+            let initialTagLength = doc.followedUserTag.length;
+            let interactionLevel = doc.levelOfInteraction - (initialTagLength - tags.length);
+
+            followModel.findByIdAndUpdate(temp._id, {$set: {followedUserTag: tags,
+                                                    levelOfInteraction: interactionLevel}},
+              (err) => {
+                if (err) {console.log(err); res.status(500).send(); return;}
+                res.status(200).send();
+              }); //end find and update follow model
+
+          }); //end find follow model
+
+          return;
+        } // end if
+      }// end for
+
+    }); //end find user model
 
 });
 
