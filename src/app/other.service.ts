@@ -28,7 +28,7 @@ export class OtherService {
   private _getUserLine = 'http://localhost:3000/api/timeline/getUserLine';
   private _getPostsWithTagsURL = 'http://localhost:3000/api/timeline/getPostsWithTags';
   private _getPotentialPostsURL = 'http://localhost:3000/api/timeline/getPotentialPosts';
-  private _getRelevancePostURL = 'http://localhost:3000/api/timeline/getRelevancePost';
+  private _getRelevancePostURL = 'http://localhost:3000/api/timeline/getRelevancePosts';
   /* ---------- post ----------- */
   private _createNewPostURL = 'http://localhost:3000/api/post/createNewPost';
   /* ---------- tag ----------- */

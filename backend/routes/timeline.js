@@ -379,11 +379,95 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
 
 });
 
-router.post('/getPotentialPosts', checkAuth, (req, res) => {
+router.post('/getRelevancePosts', checkAuth, (req, res) => {
+  console.log('getting relevant post');
+  let postsToReturn = [];
+  let mutex = locks.createMutex();
+
+  // getting all the user that are followed by current user (specified by username)
+  userModel.findOne({username: res.locals.username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send('query failed');
+        console.log('query failed');
+        return;
+      }
+      if (!user) {
+        console.log('query returned null');
+        res.status(403).send();
+        return;
+      }
+
+      for (let temp of user.userFollowed) {
+        let flusername = temp.followedUserName;
+        let followedTags = temp.followedUserTag;
+
+        userModel.findOne({username: flusername})
+          .populate({
+            path: 'userPosts',
+            match: { tags: { $in: Array.from(followedTags)}},
+            options: { sort: { 'createdAt': -1 } }
+          })
+          .exec((err, fluser) => {
+            if (err) {console.log(err); return res.status(500);}
+
+            for (let tempPost of fluser.userPosts) {
+              let postData = {
+                postID: tempPost._id,
+                createdAt: tempPost.createdAt,
+                username: tempPost.username,
+                content: tempPost.content,
+                tags: tempPost.tags,
+                numberOfLikes: tempPost.numberOfLikes,
+                quoted: tempPost.quoted,
+                comment: tempPost.comment,
+                originName: tempPost.originName,
+                relevance: 0
+              };
+
+              // calculating relevance
+              for (let tempTag of tempPost.tags) {
+                if (followedTags.includes(tempTag)) {
+                  postData.relevance++;
+                }
+              }
+
+              mutex.lock(() => {
+                postsToReturn.push(postData);
+                mutex.unlock();
+              });
+            } //end for
+
+          }); //end find user model
+
+      }//end for
+
+      //sleeping and wait for callbacks to finish
+      const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      };
+      sleep(2000).then(() => {
+        //console.log('the return post', postsToReturn);
+
+        // sort by relevance and timestamp
+        postsToReturn.sort((a, b) => {
+          if (a.relevance < b.relevance) return -1;
+          if (a.relevance > b.relevance) return 1;
+          // now a.relevance = b.relevance
+          if (a.createdAt < b.createdAt) return 1;
+          if (a.createdAt > b.createdAt) return -1;
+          return 0;
+        });
+
+        res.status(200).send(postsToReturn);
+      });
+
+    });
 
 });
 
-router.post('/getRelevancePost', checkAuth, (req, res) => {
+router.post('/getPotentialPosts', checkAuth, (req, res) => {
 
 });
 
