@@ -185,7 +185,6 @@ router.post('/likePost', checkAuth, (req, res)  => {
       console.log('now: ', numberOfLikes);
 
       //updating number of likes, and user list
-
       postModel.update({_id: data.postID}, { $set: {
             numberOfLikes: numberOfLikes,
             likedByUser: userList
@@ -204,6 +203,8 @@ router.post('/likePost', checkAuth, (req, res)  => {
             if (err) {console.log(err); res.status(500).send();}
             if (!doc) {
               //todo what to do if user follow relation does not exist (follow = false)
+              console.log('no follow relationship');
+              res.status(200).send();
               return;
             }
             let interaction = doc.levelOfInteraction;
@@ -274,6 +275,8 @@ router.post('/quote', checkAuth, (req, res)  => {
           if (err) {console.log(err); res.status(500).send();}
           if (!doc) {
             //todo what to do if user follow relation does not exist (follow = false)
+            console.log('no follow relationship');
+            res.status(200).send();
             return;
           }
           let interaction = doc.levelOfInteraction;
@@ -498,8 +501,8 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
         }
       }
 
-      postModel.find({username: {$nin: Array.from(followedUsers)},
-                      $match: { tags: { $in: Array.from(allFollowedTags)}}
+      postModel.find({username: { $nin: Array.from(followedUsers)},
+                      tags: { $in: Array.from(allFollowedTags)}
                       }, (err, doc) => {
         if (err) {console.log(err); return res.status(500);}
         if (!doc) {console.log('empty'); return res.status(403);}

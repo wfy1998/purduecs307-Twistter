@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {AuthService} from '../auth.service';
@@ -145,7 +144,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.getPhone = +this.changeProfile.enteredPhone;
-    if (this.getPhone.toString().length != 10) {
+    if (this.getPhone.toString().length !== 10) {
       alert('Please enter a valid 10 digits Phone number!');
       return;
     }
@@ -157,7 +156,6 @@ export class ProfileComponent implements OnInit {
       });
     window.location.reload();
   }
-
 
 
   logOut() {
