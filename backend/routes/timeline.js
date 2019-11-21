@@ -379,7 +379,7 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
 
 });
 
-router.post('/getRelevancePosts', checkAuth, (req, res) => {
+router.post('/getRelevantPosts', checkAuth, (req, res) => {
   console.log('getting relevant post');
   let postsToReturn = [];
   let mutex = locks.createMutex();
