@@ -468,7 +468,90 @@ router.post('/getRelevancePosts', checkAuth, (req, res) => {
 });
 
 router.post('/getPotentialPosts', checkAuth, (req, res) => {
+  console.log('getting potential posts');
+  let postsToReturn = [];
+  let mutex = locks.createMutex();
 
+  // getting all the user that are followed by current user (specified by username)
+  userModel.findOne({username: res.locals.username})
+    .populate('userFollowed')
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send('query failed');
+        console.log('query failed');
+        return;
+      }
+      if (!user) {
+        console.log('query returned null');
+        res.status(403).send();
+        return;
+      }
+
+      let followedUsers = [];
+      let allFollowedTags = [];
+      for (let tempFollow of user.userFollowed) {
+        followedUsers.push(tempFollow.followedUserName);
+        for (let tempTag of tempFollow.followedUserTag) {
+          allFollowedTags.push(tempTag);
+        }
+      }
+
+      postModel.find({username: {$nin: Array.from(followedUsers)},
+                      $match: { tags: { $in: Array.from(allFollowedTags)}}
+                      }, (err, doc) => {
+        if (err) {console.log(err); return res.status(500);}
+        if (!doc) {console.log('empty'); return res.status(500);}
+
+        for (let tempPost of doc) {
+          let postData = {
+            postID: tempPost._id,
+            createdAt: tempPost.createdAt,
+            username: tempPost.username,
+            content: tempPost.content,
+            tags: tempPost.tags,
+            numberOfLikes: tempPost.numberOfLikes,
+            quoted: tempPost.quoted,
+            comment: tempPost.comment,
+            originName: tempPost.originName,
+            potential: 0
+          };
+
+          // calculating potential
+          for (let tempTag of tempPost.tags) {
+            if (allFollowedTags.includes(tempTag)) {
+              postData.potential++;
+            }
+          }
+
+          mutex.lock(() => {
+            postsToReturn.push(postData);
+            mutex.unlock();
+          });
+        } //end for
+
+      }); // find all posts
+
+      //sleeping and wait for callbacks to finish
+      const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      };
+      sleep(3000).then(() => {
+        //console.log('the return post', postsToReturn);
+
+        // sort by relevance and timestamp
+        postsToReturn.sort((a, b) => {
+          if (a.potential < b.potential) return -1;
+          if (a.potential > b.potential) return 1;
+          // now a.relevance = b.relevance
+          if (a.createdAt < b.createdAt) return 1;
+          if (a.createdAt > b.createdAt) return -1;
+          return 0;
+        });
+
+        res.status(200).send(postsToReturn);
+      });
+
+    });
 });
 
 module.exports = router;
