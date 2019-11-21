@@ -521,7 +521,12 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
           // calculating potential
           for (let tempTag of tempPost.tags) {
             if (allFollowedTags.includes(tempTag)) {
-              postData.potential++;
+              postData.potential += 10;
+            }
+          }
+          for (let tempLike of tempPost.likedByUser) {
+            if (followedUsers.includes(tempLike)) {
+              postData.potential += 5;
             }
           }
 
