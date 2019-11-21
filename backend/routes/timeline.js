@@ -402,6 +402,7 @@ router.post('/getRelevancePosts', checkAuth, (req, res) => {
       for (let temp of user.userFollowed) {
         let flusername = temp.followedUserName;
         let followedTags = temp.followedUserTag;
+        let interaction = temp.levelOfInteraction;
 
         userModel.findOne({username: flusername})
           .populate({
@@ -411,6 +412,7 @@ router.post('/getRelevancePosts', checkAuth, (req, res) => {
           })
           .exec((err, fluser) => {
             if (err) {console.log(err); return res.status(500);}
+            if (!fluser) {console.log('empty'); return res.status(403);}
 
             for (let tempPost of fluser.userPosts) {
               let postData = {
@@ -423,13 +425,13 @@ router.post('/getRelevancePosts', checkAuth, (req, res) => {
                 quoted: tempPost.quoted,
                 comment: tempPost.comment,
                 originName: tempPost.originName,
-                relevance: 0
+                relevance: interaction
               };
 
               // calculating relevance
               for (let tempTag of tempPost.tags) {
                 if (followedTags.includes(tempTag)) {
-                  postData.relevance++;
+                  postData.relevance += 10;
                 }
               }
 
@@ -447,7 +449,7 @@ router.post('/getRelevancePosts', checkAuth, (req, res) => {
       const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
       };
-      sleep(2000).then(() => {
+      sleep(3000).then(() => {
         //console.log('the return post', postsToReturn);
 
         // sort by relevance and timestamp
@@ -500,7 +502,7 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
                       $match: { tags: { $in: Array.from(allFollowedTags)}}
                       }, (err, doc) => {
         if (err) {console.log(err); return res.status(500);}
-        if (!doc) {console.log('empty'); return res.status(500);}
+        if (!doc) {console.log('empty'); return res.status(403);}
 
         for (let tempPost of doc) {
           let postData = {
