@@ -6,6 +6,7 @@ const checkAuth = require("../middleware/check-auth");
 
 const postModel = require('../models/Post');
 const userModel = require('../models/User');
+const followModel = require('../models/Followed');
 
 router.get('/getMorePosts', checkAuth, (req, res)  => {
   console.log('getting more post');
@@ -77,6 +78,7 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
   console.log('getting highlighted posts');
 
   let postsToReturn = [];
+  let mutex = locks.createMutex();
 
   // getting all the user that are followed by current user (specified by username)
   userModel.findOne({username: res.locals.username})
@@ -116,8 +118,13 @@ router.get('/getHighlight', checkAuth, (req, res)  => {
                   comment: tempPost.comment,
                   originName: tempPost.originName
                 };
-              postsToReturn.push(postData);
-            }
+
+                mutex.lock(() => {
+                  postsToReturn.push(postData);
+                  mutex.unlock();
+                });
+
+            } //end for loop
           });
       }
 
@@ -177,18 +184,42 @@ router.post('/likePost', checkAuth, (req, res)  => {
       console.log(post._id + ' number of likes: ' + post.numberOfLikes);
       console.log('now: ', numberOfLikes);
 
+      //updating number of likes, and user list
+
       postModel.update({_id: data.postID}, { $set: {
             numberOfLikes: numberOfLikes,
             likedByUser: userList
           }
         }, (err) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send('error update number of likes');
-        }
-      })
+          if (err) {
+            console.log(err);
+            res.status(500).send('error update number of likes');
+            return;
+          }
 
-    })
+          // updating level of interactions
+
+          followModel.findOne({followedUserName: post.username,
+            followerUserName: username}, (err, doc) => {
+            if (err) {console.log(err); res.status(500).send();}
+            if (!doc) {
+              //todo what to do if user follow relation does not exist (follow = false)
+              return;
+            }
+            let interaction = doc.levelOfInteraction;
+            interaction++;
+            followModel.update({_id: doc._id}, {$set : {levelOfInteraction: interaction}},
+              (err) => {
+                if (err) {console.log(err); res.status(500).send(); return;}
+                res.status(200).send();
+              }); //end update follow model
+
+          }); //end find follow model
+
+      }); //end update post model
+
+    }); //end find post model
+
 });
 
 router.post('/quote', checkAuth, (req, res)  => {
@@ -222,24 +253,44 @@ router.post('/quote', checkAuth, (req, res)  => {
     newPost.comment = data.comment;
     newPost.originName = post.username;
 
-    newPost.save((err, post) => {
+    newPost.save((err, newPost) => {
       if (err) {
         console.log(err);
         res.status(500).send('new quote creation failed');
         return
       }
-      let postID = post._id;
+      let postID = newPost._id;
       userModel.updateOne({username: res.locals.username}, {$push: {userPosts: postID}}, (err) => {
         if (err) {
           console.log(err);
           return
         }
         console.log('quote success');
-        return res.status(200).send();
-      });
-    });
 
-  });
+        // updating level of interactions
+
+        followModel.findOne({followedUserName: newPost.originName,
+          followerUserName: res.locals.username}, (err, doc) => {
+          if (err) {console.log(err); res.status(500).send();}
+          if (!doc) {
+            //todo what to do if user follow relation does not exist (follow = false)
+            return;
+          }
+          let interaction = doc.levelOfInteraction;
+          interaction++;
+          followModel.update({_id: doc._id}, {$set : {levelOfInteraction: interaction}},
+            (err) => {
+              if (err) {console.log(err); res.status(500).send(); return;}
+              res.status(200).send();
+            }); //end update follow model
+
+        }); //end find follow model
+
+      }); //end update user posts
+
+    }); //end save new post model
+
+  }); //end find post model
 
 });
 
@@ -320,10 +371,7 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
         comment: doc.comment,
         originName: doc.originName
       };
-      mutex.lock(() => {
-        postsToReturn.push(postData);
-        mutex.unlock();
-      });
+      postsToReturn.push(postData);
     }
 
     res.status(200).send(postsToReturn);

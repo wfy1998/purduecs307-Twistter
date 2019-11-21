@@ -18,7 +18,8 @@ export class OtherService {
   private _changeProfileURL = 'http://localhost:3000/api/profile/changeProfile';
   private _addNewTagURL = 'http://localhost:3000/api/profile/addTag';
   private _checkFollowStatusURL = 'http://localhost:3000/api/profile/checkFollowStatus';
-  private _getFollowedUsers = 'http://localhost:3000/api/profile/getFollowedUsers';
+  private _getFollowedUsersURL = 'http://localhost:3000/api/profile/getFollowedUsers';
+  private _getFollowersURL = 'http://localhost:3000/api/profile/getFollowers';
   /* ---------- timeline ----------- */
   private _getMorePostsURL = 'http://localhost:3000/api/timeline/getMorePosts';
   private _getHighlightedPostsURL = 'http://localhost:3000/api/timeline/getHighlight';
@@ -64,7 +65,10 @@ export class OtherService {
     return this.http.post(this._checkFollowStatusURL, username);
   }
   getFollowedUsers() {
-    return this.http.post(this._getFollowedUsers, {});
+    return this.http.post(this._getFollowedUsersURL, {});
+  }
+  getFollowers() {
+    return this.http.post(this._getFollowersURL, {});
   }
   /* ---------- timeline ----------- */
   getMorePosts() {

@@ -40,6 +40,8 @@ router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
   const newFollow = new followModel();
   const userToBeFollowed = req.body.username;
   newFollow.followedUserName = userToBeFollowed;
+  newFollow.followerUserName = username;
+  newFollow.levelOfInteraction = 0;
   console.log(userToBeFollowed);
 
   userModel.findOne({username: username}, (err, user) => {
@@ -56,6 +58,7 @@ router.post('/follow', checkAuth, repeatedFollowCheck, (req, res) => {
     userModel.findOne({username: userToBeFollowed}, (err, BeFollowedUser) => {
       if (err) {
         console.log(err);
+        res.status(500).send();
         return;
       }
       if(!BeFollowedUser){
@@ -111,7 +114,9 @@ router.post('/unfollow', checkAuth, (req, res) => {
       res.status(403).send('cannot find the user');
       return;
     }
+
     let followList = user.userFollowed;
+    //loop through all followed FollowModel by ID
     for (let tempID of followList) {
       followModel.findById(tempID, (err, follow) => {
         if (err) {
@@ -120,8 +125,11 @@ router.post('/unfollow', checkAuth, (req, res) => {
           return;
         }
         if (!follow) {
+          res.status(403).send();
+          console.log('empty');
           return;
         }
+        //check name
         if (follow.followedUserName === userToBeUnfollowed) {
           followModel.findByIdAndRemove(tempID, (err) => {
             if (err) { console.log(err); }
@@ -337,18 +345,37 @@ router.post('/getFollowedUsers', checkAuth, (req, res) => {
     .populate({
       path:'userFollowed',
       options: { sort: { 'levelOfInteraction': 1 } }
-  })
+    })
     .exec( (err, user) => {
-      if (err) {console.log(err); res.status(500).send(); return}
+      if (err) {console.log(err); res.status(500).send(); return;}
       if (!user) {res.status(403).send(); return}
+
       let userList = [];
       console.log('The user in get FollowedUsers is: ', user);
-      console.log('The user.userFollowed is:', user.userFollowed);
       for (const tempUser of user.userFollowed) {
         userList.push(tempUser.followedUserName);
       }
       res.status(200).send({userList});
     })
+
+});
+
+router.post('/getFollowers', checkAuth, (req, res) => {
+  console.log('get followers');
+  const username = res.locals.username;
+
+  followModel.find({followedUserName: username}, (err, doc) => {
+    if (err) {console.log(err); res.status(500).send(); return;}
+    if (!doc) {console.log('empty'); res.status(403).send(); return;}
+
+    let followers = [];
+    for (let tempFollowModel of doc) {
+      followers.push(tempFollowModel);
+    }
+
+    res.status(200).send({followers});
+
+  })
 
 });
 
