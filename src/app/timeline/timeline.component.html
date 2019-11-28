@@ -168,10 +168,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--            <a href="#timeline" data-toggle="collapse" aria-expanded="true"><i class="icon-ship-wheel"></i> <span>Timeline</span></a>-->
 <!--          </li>-->
           <li class=""><a href="http://localhost:1205/timeline"><i class="icon-ship-wheel"></i> <span>Timeline</span></a></li>
-          <!--          userline 的 href 暂时是timeline-->
 
           <li class=""><a href=" http://localhost:1205/profile "><i class="icon-user-1"></i> <span>Profile</span></a></li>
-<!--          users 界面还没有做-->
           <li class=""><a href="http://localhost:1205/finduser"><i class="fa fa-group"></i> <span>Find User</span></a></li>
           <li><a (click)="logOut()" href="http://localhost:1205/"><i class="icon-lock-fill"></i> <span>Logout</span></a></li>
           <!-- Sample 2 Level Collapse -->
@@ -269,6 +267,32 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                                     {{ tag }}</button>
                                 </div>
                               </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default share clearfix-xs">
+                            <div class="panel-heading">
+                              Sort by:
+                            </div>
+                            <div class="panel-body">
+                              <div><button style="margin-bottom: 2px" type="submit" class="btn btn-primary btn-s"
+                                           (click)="newSortByTag()">Selected Tag(s)</button></div>
+                              <div style="display: inline">
+                                <textarea  rows="1" [(ngModel)]="selectedTag"></textarea>
+                                <p style="display: inline">Selected Tags: </p>
+                                <div *ngFor="let sTag of jsonSelectedTag.tags; let i=index" style="display: inline">
+                                  <a *ngIf="i == 0"> {{sTag}}</a>
+                                  <a *ngIf="i > 0">, {{sTag}}</a>
+                                </div>
+                                <button class="btn btn-primary btn-xs pull-right"
+                                        (click)="onAddSelectedTag()"><i class="fa fa-plus-circle"></i></button>
+                                <button style="margin-right: 5px" class="btn btn-primary btn-xs pull-right"
+                                        (click)="onReselectTag()"><i class="fa fa-refresh"></i></button>
+                              </div>
+                              <div><button style="margin-bottom: 2px" type="submit" class="btn btn-primary btn-s"
+                                           (click)="newSortByPotential()">Sort by potential</button></div>
+                              <div><button style="margin-bottom: 2px" type="submit" class="btn btn-primary btn-s"
+                                           (click)="newSortByRelevance()">Sort by Relevance</button></div>
+
                             </div>
                           </div>
                         </div>
@@ -498,6 +522,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
   Includes Custom Application JavaScript used for the current theme/module;
   Do not use it simultaneously with the standalone modules below. -->
 <script src="assets/js/app/app.js"></script>
+
 
 <!-- App Scripts Standalone Modules
   As a convenience, we provide the entire UI framework broke down in separate modules
