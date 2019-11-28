@@ -558,7 +558,7 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
         postsToReturn.sort((a, b) => {
           if (a.potential < b.potential) return -1;
           if (a.potential > b.potential) return 1;
-          // now a.relevance = b.relevance
+          // now a.potential = b.potential
           if (a.createdAt < b.createdAt) return 1;
           if (a.createdAt > b.createdAt) return -1;
           return 0;
