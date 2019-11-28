@@ -42,6 +42,8 @@ export class TestComponent implements OnInit {
     username: String
   };
 
+  tagToSearch = '';
+
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 
   ngOnInit() {
@@ -112,6 +114,29 @@ export class TestComponent implements OnInit {
 
   resetProfile() {
     this._other.resetAccount().subscribe(err => console.log(err));
+  }
+
+  test_getFollowers() {
+    this._other.getFollowers().subscribe(res => console.log(res),
+        err => console.log(err));
+  }
+  test_postWithTag() {
+    this._other.getPostsWithTags(this.tagToSearch).subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+  }
+  test_potential() {
+    this._other.getPotentialPosts().subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
+  }
+  test_relevant() {
+    this._other.getRelevantPost().subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
   }
 
 }

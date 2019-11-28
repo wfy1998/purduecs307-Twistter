@@ -332,7 +332,7 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 });
 
 router.post('/getPostsWithTags', checkAuth, (req, res) => {
-  let data = res.data;
+  let data = req.body;
 
   try {
     if (data.tags == null || data.tags === []) {
@@ -346,6 +346,7 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
   }
 
   console.log('getting posts with specified tags');
+  console.log(data.tags);
   let postsToReturn = [];
   let mutex = locks.createMutex();
 
