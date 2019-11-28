@@ -42,7 +42,7 @@ export class TestComponent implements OnInit {
     username: String
   };
 
-  tagToSearch = '';
+  tagToSearch = ['tag1', 'tag2'];
 
   constructor(private _auth: AuthService, private _router: Router, private _other: OtherService) { }
 

@@ -335,7 +335,7 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
   let data = req.body;
 
   try {
-    if (data.tags == null || data.tags === []) {
+    if (data.tags == null || data.tags === [] || data.tags === '') {
       res.status(400).send();
       return
     }
@@ -350,8 +350,7 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
   let postsToReturn = [];
   let mutex = locks.createMutex();
 
-  postModel.find({match: { tags: { $in: Array.from(data.tags)}},
-                  options: { sort: { 'createdAt': -1 }}}, (err, doc) => {
+  postModel.find( {tags: { $all: Array.from(data.tags) }}, (err, doc) => {
     if (err) {
       res.status(500).send('query failed');
       console.log('query failed');
@@ -365,18 +364,24 @@ router.post('/getPostsWithTags', checkAuth, (req, res) => {
 
     for (let tempPost of doc) {
       let postData = {
-        postID: doc._id,
-        createdAt: doc.createdAt,
-        username: doc.username,
-        content: doc.content,
-        tags: doc.tags,
-        numberOfLikes: doc.numberOfLikes,
-        quoted: doc.quoted,
-        comment: doc.comment,
-        originName: doc.originName
+        postID: tempPost._id,
+        createdAt: tempPost.createdAt,
+        username: tempPost.username,
+        content: tempPost.content,
+        tags: tempPost.tags,
+        numberOfLikes: tempPost.numberOfLikes,
+        quoted: tempPost.quoted,
+        comment: tempPost.comment,
+        originName: tempPost.originName
       };
       postsToReturn.push(postData);
     }
+
+    postsToReturn.sort((a, b) => {
+      if (a.createdAt < b.createdAt) return 1;
+      if (a.createdAt > b.createdAt) return -1;
+      return 0;
+    });
 
     res.status(200).send(postsToReturn);
   });
