@@ -166,6 +166,7 @@ export class TimelineComponent implements OnInit {
   newSortByTag() {
     this._other.getPostsWithTags(this.selectedTagArray).subscribe( (res: any) => {
       this.posts = res;
+      console.log(this.posts);
     });
   }
 
@@ -181,6 +182,7 @@ export class TimelineComponent implements OnInit {
 
   onReselectTag() {
     this.selectedTagArray = [];
+    this.selectedTag = '';
   }
 
   newSortByPotential() {
@@ -192,6 +194,17 @@ export class TimelineComponent implements OnInit {
   newSortByRelevance() {
     this._other.getRelevantPost().subscribe( (res: any) => {
       this.posts = res;
+    });
+  }
+
+  newUnsort() {
+    this._other.getMorePosts().subscribe((res: any) => {
+      this.posts = res;
+      // this.valueOfLikes.push(res.numberOfLikes);
+      console.log('the posts is: ', res);
+      for (const post of this.posts) {
+        this.getLikeNum.push(post.numberOfLikes);
+      }
     });
   }
 }
