@@ -279,7 +279,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                               <div style="display: inline">
                                 <textarea  rows="1" [(ngModel)]="selectedTag"></textarea>
                                 <p style="display: inline">Selected Tags: </p>
-                                <div *ngFor="let sTag of jsonSelectedTag.tags; let i=index" style="display: inline">
+                                <div *ngFor="let sTag of selectedTagArray; let i=index" style="display: inline">
                                   <a *ngIf="i == 0"> {{sTag}}</a>
                                   <a *ngIf="i > 0">, {{sTag}}</a>
                                 </div>

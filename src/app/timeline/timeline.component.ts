@@ -41,9 +41,7 @@ export class TimelineComponent implements OnInit {
   getTag = '';
   getAddedTagList = [];
   getLikeNum: number[] = [];
-  jsonSelectedTag = {
-    tags: []
-  };
+  selectedTagArray = [];
   selectedTag: '';
   // valueOfLikes: Array<any> = [];
 
@@ -166,23 +164,23 @@ export class TimelineComponent implements OnInit {
   }
 
   newSortByTag() {
-    this._other.getPostsWithTags(this.jsonSelectedTag).subscribe( (res: any) => {
+    this._other.getPostsWithTags(this.selectedTagArray).subscribe( (res: any) => {
       this.posts = res;
     });
   }
 
   onAddSelectedTag() {
-    if (this.jsonSelectedTag.tags.length >= 3) {
+    if (this.selectedTagArray.length >= 3) {
       alert('The length of the Selected tags should be less than 3');
       return;
     }
-    this.jsonSelectedTag.tags.push(this.selectedTag);
+    this.selectedTagArray.push(this.selectedTag);
     console.log(this.selectedTag + 'added');
-    console.log(this.jsonSelectedTag.tags);
+    console.log(this.selectedTagArray);
   }
 
   onReselectTag() {
-    this.jsonSelectedTag.tags = [];
+    this.selectedTagArray = [];
   }
 
   newSortByPotential() {
