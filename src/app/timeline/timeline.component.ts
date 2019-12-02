@@ -197,6 +197,7 @@ export class TimelineComponent implements OnInit {
     this._other.getRelevantPost().subscribe( (res: any) => {
       this.posts = res;
     });
+    console.log('the potential post is: ', this.posts);
   }
 
   newUnsort() {
