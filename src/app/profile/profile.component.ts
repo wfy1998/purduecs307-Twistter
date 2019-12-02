@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
   getTag = '';
   getTagList = [];
   getUserList = [];
+  getFollowersList = [];
   getPostList: Array<any> = [
   ];
 
@@ -68,6 +69,11 @@ export class ProfileComponent implements OnInit {
     this._other.getFollowedUsers().subscribe((res: any) => {
       this.getUserList = res.userList;
       console.log('the userList is:', this.getUserList);
+    });
+
+    this._other.getFollowers().subscribe((res: any) => {
+      this.getFollowersList = res.followers;
+      console.log('the getFollowersList is:', this.getFollowersList);
     });
 
     // this.getUserName = localStorage.getItem('userName');

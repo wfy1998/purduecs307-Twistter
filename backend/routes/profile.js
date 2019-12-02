@@ -366,7 +366,6 @@ router.post('/getFollowedUsers', checkAuth, (req, res) => {
       if (!user) {res.status(403).send(); return}
 
       let userList = [];
-      console.log('The user in get FollowedUsers is: ', user);
       for (const tempUser of user.userFollowed) {
         userList.push(tempUser.followedUserName);
       }
@@ -385,7 +384,8 @@ router.post('/getFollowers', checkAuth, (req, res) => {
 
     let followers = [];
     for (let tempFollowModel of doc) {
-      followers.push(tempFollowModel);
+      console.log('the tem follow model:', tempFollowModel.followerUserName);
+      followers.push(tempFollowModel.followerUserName);
     }
     res.status(200).send({followers});
 
