@@ -333,7 +333,7 @@ router.post('/getUserLine', checkAuth, (req, res) => {
 
 router.post('/getPostsWithTags', checkAuth, (req, res) => {
   let data = req.body;
-
+  console.log('the tag is:',req.body);
   try {
     if (data.tags == null || data.tags === [] || data.tags === '') {
       res.status(400).send();
@@ -507,12 +507,11 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
         }
       }
 
-      postModel.find({username: { $nin: Array.from(followedUsers)},
+      postModel.find({username: { $in: Array.from(followedUsers)},
                       tags: { $in: Array.from(allFollowedTags)}
                       }, (err, doc) => {
         if (err) {console.log(err); return res.status(500);}
         if (!doc) {console.log('empty'); return res.status(403);}
-
         for (let tempPost of doc) {
           let postData = {
             postID: tempPost._id,
@@ -563,7 +562,7 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
           if (a.createdAt > b.createdAt) return -1;
           return 0;
         });
-
+        console.log('the post to return is:', postsToReturn);
         res.status(200).send(postsToReturn);
       });
 

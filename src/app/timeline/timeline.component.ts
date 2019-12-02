@@ -164,6 +164,7 @@ export class TimelineComponent implements OnInit {
   }
 
   newSortByTag() {
+    console.log('the tag is:', this.selectedTagArray);
     this._other.getPostsWithTags(this.selectedTagArray).subscribe( (res: any) => {
       this.posts = res;
       console.log(this.posts);
@@ -189,6 +190,7 @@ export class TimelineComponent implements OnInit {
     this._other.getPotentialPosts().subscribe( (res: any) => {
       this.posts = res;
     });
+    console.log('the potential post is: ', this.posts);
   }
 
   newSortByRelevance() {
