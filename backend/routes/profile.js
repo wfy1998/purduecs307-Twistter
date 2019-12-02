@@ -359,7 +359,7 @@ router.post('/getFollowedUsers', checkAuth, (req, res) => {
   userModel.findOne({username: username})
     .populate({
       path:'userFollowed',
-      options: { sort: { 'levelOfInteraction': 1 } }
+      options: { sort: { 'levelOfInteraction': -1 } }
     })
     .exec( (err, user) => {
       if (err) {console.log(err); res.status(500).send(); return;}
@@ -387,7 +387,6 @@ router.post('/getFollowers', checkAuth, (req, res) => {
     for (let tempFollowModel of doc) {
       followers.push(tempFollowModel);
     }
-
     res.status(200).send({followers});
 
   })

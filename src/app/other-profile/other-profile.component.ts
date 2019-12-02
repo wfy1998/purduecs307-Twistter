@@ -121,6 +121,7 @@ export class OtherProfileComponent implements OnInit {
 
   onFollow() {
     this.follow.username = this._activateroute.snapshot.params.username;
+    this.follow.levelOfInteraction = 0;
     this._other.followUser(this.follow).subscribe(res => {
       // console.log('follow success');
       alert('follow success');
