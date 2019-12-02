@@ -507,8 +507,7 @@ router.post('/getPotentialPosts', checkAuth, (req, res) => {
         }
       }
 
-
-      postModel.find({username: { $in: Array.from(followedUsers)},
+      postModel.find({username: { $nin: Array.from(followedUsers)},
                       tags: { $in: Array.from(allFollowedTags)}
                       }, (err, doc) => {
         if (err) {console.log(err); return res.status(500);}
