@@ -440,7 +440,7 @@ router.post('/getRelevantPosts', checkAuth, (req, res) => {
               // calculating relevance
               for (let tempTag of tempPost.tags) {
                 if (followedTags.includes(tempTag)) {
-                  postData.relevance -= 10;
+                  postData.relevance += 10;
                 }
               }
 
@@ -463,11 +463,11 @@ router.post('/getRelevantPosts', checkAuth, (req, res) => {
 
         // sort by relevance and timestamp
         postsToReturn.sort((a, b) => {
-          if (a.relevance < b.relevance) return -1;
-          if (a.relevance > b.relevance) return 1;
+          if (a.relevance < b.relevance) return 1;
+          if (a.relevance > b.relevance) return -1;
           // now a.relevance = b.relevance
-          if (a.createdAt < b.createdAt) return 1;
-          if (a.createdAt > b.createdAt) return -1;
+          if (a.createdAt < b.createdAt) return -1;
+          if (a.createdAt > b.createdAt) return 1;
           return 0;
         });
         for(let temPost of postsToReturn){
