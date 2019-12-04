@@ -368,6 +368,29 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
               </div>
             </div>
 
+            <div class="col-md-10" >
+              <div class="panel panel-default" >
+                <div class="panel-heading panel-heading-gray" >
+                  <!--<a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>-->
+                  <i class="fa fa-fw fa-tags"></i> People who follows me...
+                </div>
+                <div class="panel-body" >
+                  <div class="input-group-btn">
+                    <p class="mat-body-1" style="display: inline; margin-left: 10px;"
+                       *ngIf="getFollowersList.length<=0"> You don't have any follower!</p>
+                    <p style="margin: 10px;display: inline"
+                       *ngIf="getFollowersList.length>0"></p>
+                    <div *ngFor="let follower of getFollowersList" style="display: inline;">
+                      <p *ngIf="getFollowersList.indexOf(follower)%10 == 0" style="line-height: 50%;margin: 2px"><br></p>
+                      <button (click)="navigateToUserProfile(follower)" style="margin: 2px;"
+                              class="btn btn-info btn-xs">
+                        {{ follower }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
 
               <div class="col-md-10" >
